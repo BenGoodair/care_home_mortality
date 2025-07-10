@@ -15,7 +15,54 @@ outsourced <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/adults
                 outsourced_activity = External)%>%
   dplyr::mutate(total_activity = outsourced_activity+inhouse_activity,
                 percent_inhouse_activity = inhouse_activity/total_activity*100)%>%
-  dplyr::select(-`99`)
+  dplyr::select(-`99`)%>%
+  dplyr::mutate(DH_GEOGRAPHY_NAME = DH_GEOGRAPHY_NAME %>%
+                  gsub( "BATH AND SOMERSET", "BATH AND NORTH EAST SOMERSET",.)%>%
+                  gsub("ISLE OF WIGHT COUNCIL", "ISLE OF WIGHT", .)%>%
+                  gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                  gsub("MEDWAY TOWNS", "MEDWAY", .)
+  )%>%
+  dplyr::filter(DH_GEOGRAPHY_NAME!="EAST",
+                DH_GEOGRAPHY_NAME!="EAST MIDLANDS",
+                DH_GEOGRAPHY_NAME!="NORTH EAST",
+                DH_GEOGRAPHY_NAME!="NORTH WEST",
+                DH_GEOGRAPHY_NAME!="SOUTH WEST",
+                DH_GEOGRAPHY_NAME!="SOUTH EAST",
+                DH_GEOGRAPHY_NAME!="YORKSHIRE AND HUMBER",
+                DH_GEOGRAPHY_NAME!="WEST MIDLANDS"
+                
+  )
+
+# Count number of years per geography
+geo_year_counts <- outsourced %>%
+  count(DH_GEOGRAPHY_NAME, name = "n_years") %>%
+  arrange(n_years)
+
+
+all_years <- sort(unique(outsourced$year))
+
+la_missing_middle <- outsourced %>%
+  complete(DH_GEOGRAPHY_NAME, year = all_years) %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  arrange(year) %>%
+  mutate(missing = is.na(percent_inhouse_activity)) %>%
+  # Store first and last non-missing years
+  mutate(
+    first_year = min(year[!missing], na.rm = TRUE),
+    last_year = max(year[!missing], na.rm = TRUE),
+    is_gap = missing & year > first_year & year < last_year
+  ) %>%
+  summarise(
+    has_internal_gap = any(is_gap),
+    missing_years = list(year[is_gap]),
+    n_years = sum(!missing),
+    .groups = "drop"
+  ) %>%
+  filter(has_internal_gap)
+
+print(la_missing_middle)
+
+
 
 
 outsourced_spend <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/GitHub/GitHub_new/adults_social_care_data/Final_data/expenditure.csv")%>%
@@ -37,7 +84,10 @@ outsourced_spend <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents
                      dplyr::filter(Sector == "External",
                                    SupportSetting == "Total over 65")%>%
                      dplyr::select(DH_GEOGRAPHY_NAME, year,percent_sector )%>%
-                     dplyr::rename(outsourced_old_care = percent_sector))
+                     dplyr::rename(outsourced_old_care = percent_sector))%>%
+  dplyr::filter(DH_GEOGRAPHY_NAME!="ALL DATA RELATING TO NUMBERS OF PEOPLE ARE ROUNDED TO NEAREST",
+                DH_GEOGRAPHY_NAME!="ALL REMAINING UNIT COSTS WHICH ARE REPORTED BY COUNCILS AS A SAMPLE WEEK OR WEEKLY VALUE HAVE BEEN EXPRESSED IN DENOMINATORS AS AN ANNL FIGURE TO AID USER INTERPRETATION",
+                DH_GEOGRAPHY_NAME!="COPYRIGHT  HEALTH AND SOCIAL CARE INFORMATION CENTRE ALL RIGHTS RESERVED")
 
 all_spend <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/GitHub/GitHub_new/adults_social_care_data/Final_data/expenditure.csv")%>%
   dplyr::mutate(DH_GEOGRAPHY_NAME = str_trim(gsub("[0-9]", "", DH_GEOGRAPHY_NAME)))%>%
@@ -58,13 +108,16 @@ all_spend <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/GitHub
                      dplyr::filter(Sector == "Total",
                                    SupportSetting == "Total over 65")%>%
                      dplyr::select(DH_GEOGRAPHY_NAME, year,Expenditure )%>%
-                     dplyr::rename(spend_old_care = Expenditure))
+                     dplyr::rename(spend_old_care = Expenditure))%>%
+  dplyr::filter(DH_GEOGRAPHY_NAME!="ALL DATA RELATING TO NUMBERS OF PEOPLE ARE ROUNDED TO NEAREST",
+                DH_GEOGRAPHY_NAME!="ALL REMAINING UNIT COSTS WHICH ARE REPORTED BY COUNCILS AS A SAMPLE WEEK OR WEEKLY VALUE HAVE BEEN EXPRESSED IN DENOMINATORS AS AN ANNL FIGURE TO AID USER INTERPRETATION",
+                DH_GEOGRAPHY_NAME!="COPYRIGHT  HEALTH AND SOCIAL CARE INFORMATION CENTRE ALL RIGHTS RESERVED")
 
 
 
 
 
-lifeexpectancy <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/lifeexpectancylocalareas.csv"), skip=5)%>%
+lifeexpectancy <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/lifeexpectancylocalareas_23.csv"), skip=5)%>%
   dplyr::filter(Area.type == "County"|
                   Area.type == "Local Areas",
                 Age.band == 19)%>%
@@ -88,7 +141,7 @@ lifeexpectancy <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/ca
                   gsub("NE SOM", "NORTH EAST SOM", .)%>%
                   gsub("N E SOM", "NORTH EAST SOM", .)%>%
                   str_trim())%>%
-  dplyr::select(DH_GEOGRAPHY_NAME, year,Life.expectancy..years., Sex)
+  dplyr::select(DH_GEOGRAPHY_NAME, year,Life.expectancy, Sex)
 
 deaths <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/lanonladeaths20141021.csv"), skip=4)%>%
   dplyr::rename(year = Year,
@@ -118,8 +171,8 @@ deaths <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_
 ### removed care home deaths for now - needs aggregating to upper tier la###
 
 data = dplyr::full_join(outsourced , lifeexpectancy, by=c("DH_GEOGRAPHY_NAME", "year"))%>%
-  tidyr::drop_na(Life.expectancy..years., percent_inhouse_activity)%>%
-  tidyr::pivot_wider(names_from = "Sex", values_from = c("Life.expectancy..years."), names_prefix = "life_expectancy_")%>%
+  tidyr::drop_na(Life.expectancy, percent_inhouse_activity)%>%
+  tidyr::pivot_wider(names_from = "Sex", values_from = c("Life.expectancy"), names_prefix = "life_expectancy_")%>%
  # dplyr::full_join(., deaths)%>%
   dplyr::group_by(DH_GEOGRAPHY_NAME)%>%
   arrange(year) %>%
@@ -243,45 +296,133 @@ data <- data %>%
 # 
 
 # 
-# data = data %>%
-#   dplyr::group_by(DH_GEOGRAPHY_NAME)%>%
-#   arrange(year) %>%
-#   dplyr::mutate(lagged_home_out = dplyr::lag(outsourced_home_care, 1),
-#                 lagged_home_spend = dplyr::lag(spend_home_care, 1),
-#                 lagged_res_out = dplyr::lag(outsourced_res_care, 1),
-#                 lagged_res_spend = dplyr::lag(spend_res_care, 1),
-#                 lagged_old_out = dplyr::lag(outsourced_old_care, 1),
-#                 lagged_old_spend = dplyr::lag(spend_old_care, 1))
+ data = data %>%
+   dplyr::group_by(DH_GEOGRAPHY_NAME)%>%
+   arrange(year) %>%
+   dplyr::mutate(lagged_home_out = dplyr::lag(outsourced_home_care, 1),
+                 lagged_home_spend = dplyr::lag(spend_home_care, 1),
+                 lagged_res_out = dplyr::lag(outsourced_res_care, 1),
+                 lagged_res_spend = dplyr::lag(spend_res_care, 1),
+                 lagged_old_out = dplyr::lag(outsourced_old_care, 1),
+                 lagged_old_spend = dplyr::lag(spend_old_care, 1),
+                 lagged_activity_insourced =dplyr::lag(percent_inhouse_activity, 1),
+                 lagged_activity_insourced_2 =dplyr::lag(percent_inhouse_activity, 2),
+                 lagged_activity_total =dplyr::lag(total_activity, 1),
+                 lagged_winter =dplyr::lag(`Winter mortality index (age 85 plus)`, 1),
+                 lagged_hips =dplyr::lag(`Hip fractures in people aged 80 and over`, 1),
+                 lagged_falls =dplyr::lag(`Emergency hospital admissions due to falls in people aged 80 plus`, 1),
+   )
 
 
 
 
-nomisd <- read.csv(curl("https://www.nomisweb.co.uk/api/v01/dataset/NM_161_1.data.csv?geography=1774190593...1774190597,1774190637,1774190646,1774190675...1774190678,1774190691,1774190598...1774190601,1774190638,1774190639,1774190652,1774190653,1774190656...1774190670,1774190734,1774190602...1774190606,1774190654,1774190671...1774190674,1774190686...1774190690,1774190607...1774190610,1774190650,1774190651,1774190726,1774190735,1774190736,1774190738,1774190611...1774190613,1774190640,1774190679...1774190685,1774190740,1774190743,1774190745,1774190621...1774190624,1774190644,1774190645,1774190725,1774190729,1774190732,1774190737,1774190741,1774190692...1774190724,1774190625...1774190636,1774190649,1774190728,1774190731,1774190733,1774190739,1774190742,1774190744,1774190614...1774190620,1774190641...1774190643,1774190647,1774190648,1774190655,1774190727,1774190730,1774190746...1774190767&cause_of_death=114390,2420&gender=0&age=17...20&measure=7&measures=20100"))
+#nomisd <- read.csv(curl("https://www.nomisweb.co.uk/api/v01/dataset/NM_161_1.data.csv?geography=1774190593...1774190597,1774190637,1774190646,1774190675...1774190678,1774190691,1774190598...1774190601,1774190638,1774190639,1774190652,1774190653,1774190656...1774190670,1774190734,1774190602...1774190606,1774190654,1774190671...1774190674,1774190686...1774190690,1774190607...1774190610,1774190650,1774190651,1774190726,1774190735,1774190736,1774190738,1774190611...1774190613,1774190640,1774190679...1774190685,1774190740,1774190743,1774190745,1774190621...1774190624,1774190644,1774190645,1774190725,1774190729,1774190732,1774190737,1774190741,1774190692...1774190724,1774190625...1774190636,1774190649,1774190728,1774190731,1774190733,1774190739,1774190742,1774190744,1774190614...1774190620,1774190641...1774190643,1774190647,1774190648,1774190655,1774190727,1774190730,1774190746...1774190767&cause_of_death=114390,2420&gender=0&age=17...20&measure=7&measures=20100"))
 
 
+ 
+####controls####
+ 
+#Population total and aged over x
+ 
+#Pension credit
+ 
+#Unemployment 
+ 
+#Central LA grants (maybe reserves better...)
+
+#  
+
+ 
+ 
 
 library(plm)
 library(dplyr)
 
+head(pdata)
+
+pdata <- pdata.frame(data%>%dplyr::filter(year>2002, year<2011), index = c("DH_GEOGRAPHY_NAME","year"))
 
 
-pdata <- pdata.frame(data, index = c("DH_GEOGRAPHY_NAME","year"))
+#summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+#summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+
+#summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
+#summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
+summary(plm(log(life_expectancy_Female)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
+summary(plm(log(life_expectancy_Male)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
+
+
+pdata <- pdata.frame(data%>%dplyr::filter(year>2010, year<2020), index = c("DH_GEOGRAPHY_NAME","year"))
+
+summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+
+summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
+summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
+summary(plm(log(life_expectancy_Female)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
+summary(plm(log(life_expectancy_Male)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
 
 
 
+# Keep only geographies with at least 8 time periods
+sufficient_data <- pdata %>%
+  dplyr::filter(!DH_GEOGRAPHY_NAME %in% c("CUMBERLAND", "WESTMORLAND AND FURNESS",
+                                          "WEST NORTHAMPTONSHIRE", "NORTH NORTHAMPTONSHIRE",
+                                          "BOURNEMOUTH CHRISTCHURCH AND POOLE", 
+                                          "BEDFORDSHIRE", "CHESHIRE")) %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  filter(n() >= 8) %>%
+  ungroup()
 
-summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~percent_inhouse_activity+total_activity, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~percent_inhouse_activity+total_activity, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(Winter.mortality.index..age.85.plus.+1)~percent_inhouse_activity+total_activity, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Female)~percent_inhouse_activity+total_activity, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Male)~percent_inhouse_activity+total_activity, data=pdata, method = "within", effect = "twoways"))
+# Make data consecutive by filling gaps or removing incomplete panels
+library(tidyr)
+
+complete_panels <- sufficient_data %>%
+  # Complete the time series for each geography
+  complete(DH_GEOGRAPHY_NAME, year) %>%
+  # Keep only geographies with complete data
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  filter(!any(is.na(life_expectancy_Female)) & 
+           !any(is.na(percent_inhouse_activity))) %>%
+  ungroup()
+
+
+
+variable_data <- complete_panels %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  filter(length(unique(life_expectancy_Female)) > 1 & 
+           length(unique(percent_inhouse_activity)) > 1) %>%
+  ungroup()
+
+# Convert to panel data
+pdata_variable <- pdata.frame(variable_data, 
+                              index = c("DH_GEOGRAPHY_NAME", "year"))
+
+# Try the test again
+plm::pgrangertest(life_expectancy_Female ~ percent_inhouse_activity, 
+                  data = pdata_variable)
+
+# Test if life expectancy Granger-causes social care changes
+plm::pgrangertest(percent_inhouse_activity ~ life_expectancy_Female, 
+                  data = pdata_variable)
+
+
+summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm((Winter.mortality.index..age.85.plus.)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_insourced_2+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
 
 
 summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~outsourced_res_care+spend_res_care, data=pdata, method = "within", effect = "twoways"))
 summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~outsourced_res_care+spend_res_care, data=pdata, method = "within", effect = "twoways"))
 summary(plm(log(Winter.mortality.index..age.85.plus.+1)~outsourced_res_care+spend_res_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Female)~outsourced_res_care+spend_res_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Male)~outsourced_res_care+spend_res_care, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Female)~outsourced_res_care+spend_res_care+lagged_le_1_Female, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Male)~outsourced_res_care+spend_res_care+lagged_le_1_Male, data=pdata, method = "within", effect = "twoways"))
 
 
 summary(plm(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus~outsourced_home_care+spend_home_care, data=pdata, method = "within", effect = "twoways"))
@@ -301,6 +442,179 @@ summary(plm(life_expectancy_Female~outsourced_old_care+spend_old_care, data=pdat
 
 
 
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(ggridges)
+library(viridis)
+
+# Assuming your data is called 'outsourced'
+# Remove NAs for cleaner visualizations
+clean_data <- outsourced %>% 
+  filter(!is.na(percent_inhouse_activity))
+
+# Calculate summary statistics for enhanced visualizations
+summary_stats <- clean_data %>%
+  group_by(year) %>%
+  summarise(
+    mean_pct = mean(percent_inhouse_activity, na.rm = TRUE),
+    median_pct = median(percent_inhouse_activity, na.rm = TRUE),
+    q25 = quantile(percent_inhouse_activity, 0.25, na.rm = TRUE),
+    q75 = quantile(percent_inhouse_activity, 0.75, na.rm = TRUE),
+    .groups = 'drop'
+  )
+
+# ==== VISUALIZATION 1: RIDGELINE PLOT ====
+# Shows distribution evolution over time - excellent for seeing spread changes
+viz1_ridgeline <- ggplot(clean_data, aes(x = percent_inhouse_activity, y = factor(year))) +
+  geom_density_ridges(aes(fill = factor(year)), 
+                      alpha = 0.7, 
+                      scale = 2.5,
+                      rel_min_height = 0.01) +
+  geom_point(data = summary_stats, 
+             aes(x = mean_pct, y = factor(year)), 
+             color = "red", size = 3, shape = 18) +
+  scale_fill_viridis_d(name = "Year") +
+  labs(title = "Distribution Evolution: Percent In-house Activity by Year",
+       subtitle = "Red diamonds show yearly averages",
+       x = "Percent In-house Activity",
+       y = "Year") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# ==== VISUALIZATION 2: HEATMAP WITH TRAJECTORY CLUSTERING ====
+# Groups similar LAs and shows patterns as color intensity
+# First, create trajectory clusters
+la_trajectories <- clean_data %>%
+  dplyr::select(DH_GEOGRAPHY_NAME, year, percent_inhouse_activity) %>%
+  pivot_wider(names_from = year, values_from = percent_inhouse_activity) %>%
+  column_to_rownames("DH_GEOGRAPHY_NAME")
+
+# Simple clustering based on starting and ending values
+la_summary <- clean_data %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  summarise(
+    start_val = first(percent_inhouse_activity, order_by = year),
+    end_val = last(percent_inhouse_activity, order_by = year),
+    change = end_val - start_val,
+    .groups = 'drop'
+  ) %>%
+  mutate(
+    trajectory_type = case_when(
+      change > 5 ~ "Strong Increase",
+      change > 0 ~ "Slight Increase", 
+      change > -5 ~ "Slight Decrease",
+      TRUE ~ "Strong Decrease"
+    )
+  )
+
+viz2_heatmap <- clean_data %>%
+  left_join(la_summary, by = "DH_GEOGRAPHY_NAME") %>%
+  ggplot(aes(x = year, y = reorder(DH_GEOGRAPHY_NAME, start_val))) +
+  geom_tile(aes(fill = percent_inhouse_activity), color = "white", size = 0.1) +
+  scale_fill_viridis_c(name = "% In-house") +
+  labs(title = "LA Heatmap: Individual Trajectories vs Average",
+       subtitle = "LAs ordered by starting values, red line shows average",
+       x = "Year", y = "Local Authority") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+
+# ==== VISUALIZATION 3: SLOPE GRAPH WITH CONFIDENCE BANDS ====
+# Shows start-to-end changes with uncertainty bands
+start_end_data <- clean_data %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  filter(year %in% c(min(year), max(year))) %>%
+  mutate(time_point = ifelse(year == min(year), "Start", "End")) %>%
+  ungroup()%>%
+  dplyr::mutate(time_point = factor(time_point, levels = c("Start", "End")))
+
+
+viz3_slope <- ggplot(start_end_data, aes(x = time_point, y = percent_inhouse_activity)) +
+  geom_line(aes(group = DH_GEOGRAPHY_NAME), 
+            alpha = 0.3, color = "gray60") +
+  scale_x_discrete(breaks=c("Start", "End"))+
+  geom_point(alpha = 0.4, color = "gray60", size = 1) +
+  # Add confidence ribbon for average
+  stat_summary(aes(group = 1), fun = mean, geom = "line", 
+               color = "red", linewidth = 2) +
+  stat_summary(aes(group = 1), fun.data = mean_se, geom = "ribbon", 
+               alpha = 0.3, fill = "red") +
+  stat_summary(aes(group = 1), fun = mean, geom = "point", 
+               color = "red", size = 4) +
+  labs(title = "Slope Graph: Start vs End Values",
+       subtitle = "Individual LAs in gray, average with confidence bands in red",
+       x = "Time Period", 
+       y = "Percent In-house Activity") +
+  theme_minimal()
+
+# ==== VISUALIZATION 4: SMALL MULTIPLES WITH QUARTILE BACKGROUNDS ====
+# Panel of selected LAs with quartile shading
+# Select representative LAs (top/bottom quartiles + some middle)
+representative_las <- clean_data %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  summarise(mean_pct = mean(percent_inhouse_activity), .groups = 'drop') %>%
+  mutate(quartile = ntile(mean_pct, 4)) %>%
+  group_by(quartile) %>%
+  slice_sample(n = 2) %>%  # 2 from each quartile
+  pull(DH_GEOGRAPHY_NAME)
+
+viz4_small_multiples <- clean_data %>%
+  filter(DH_GEOGRAPHY_NAME %in% representative_las) %>%
+  ggplot(aes(x = year, y = percent_inhouse_activity)) +
+  # Add quartile background ribbons
+  geom_ribbon(data = summary_stats, 
+              aes(x = year, ymin = q25, ymax = q75), 
+              fill = "lightblue", alpha = 0.3, inherit.aes = FALSE) +
+  # Individual LA line
+  geom_line(color = "navy", linewidth = 1) +
+  geom_point(color = "navy", size = 2) +
+  # Average line
+  geom_line(data = summary_stats, 
+            aes(x = year, y = median_pct), 
+            color = "red", linewidth = 1.5, inherit.aes = FALSE) +
+  facet_wrap(~DH_GEOGRAPHY_NAME, scales = "free_y", ncol = 4) +
+  labs(title = "Representative LAs: Individual vs Average Trends",
+       subtitle = "Blue ribbon = interquartile range, Red line = average",
+       x = "Year", y = "% In-house") +
+  theme_minimal() +
+  theme(strip.text = element_text(size = 8))
+
+# Display all visualizations
+# print(viz1_ridgeline)
+# print(viz2_heatmap)
+# print(viz3_slope)
+# print(viz4_small_multiples)
+
+# ==== BONUS: Your original approach but enhanced ====
+viz_enhanced_original <- ggplot(clean_data, aes(x = year, y = percent_inhouse_activity)) +
+  # Individual LA lines - very transparent
+  geom_line(aes(group = DH_GEOGRAPHY_NAME), 
+            alpha = 0.1, color = "gray70", linewidth = 0.3) +
+  # Confidence ribbon for average
+  geom_ribbon(data = summary_stats, 
+              aes(x = year, ymin = q25, ymax = q75), 
+              fill = "blue", alpha = 0.2, inherit.aes = FALSE) +
+  # Average line - bold
+  geom_line(data = summary_stats, 
+            aes(x = year, y = median_pct), 
+            color = "red", linewidth = 2, inherit.aes = FALSE) +
+  labs(title = "Enhanced Original: All LAs with Average Trend",
+       subtitle = "Faint gray = individual LAs, Blue ribbon = IQR, Bold red = average",
+       x = "Year", y = "Percent In-house Activity") +
+  theme_minimal()
+
+# print(viz_enhanced_original)
+
+
+
+cowplot::plot_grid(viz1_ridgeline,
+                   viz2_heatmap,
+                   viz3_slope,
+                   viz4_small_multiples,
+                   viz_enhanced_original,
+                   ncol=3)
 
 
 
