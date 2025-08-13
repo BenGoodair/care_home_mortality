@@ -64,6 +64,17 @@ print(la_missing_middle)
 
 
 
+# working_age <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/GitHub/GitHub_new/adults_social_care_data/Final_data/expenditure.csv")%>%
+#   dplyr::mutate(DH_GEOGRAPHY_NAME = str_trim(gsub("[0-9]", "", DH_GEOGRAPHY_NAME)))%>%
+#   dplyr::filter(Sector == "External"|Sector=="Total",
+#                 SupportSetting == "U65 PHYSICAL DISABILITY"|SupportSetting == "U65 LEARNING DISABILITY"|SupportSetting == "U65 MENTAL HEALTH")%>%
+#   dplyr::select(DH_GEOGRAPHY_NAME, year,percent_sector, Sector, SupportSetting, Expenditure )%>%
+#   dplyr::filter(DH_GEOGRAPHY_NAME!="ALL DATA RELATING TO NUMBERS OF PEOPLE ARE ROUNDED TO NEAREST",
+#                 DH_GEOGRAPHY_NAME!="ALL REMAINING UNIT COSTS WHICH ARE REPORTED BY COUNCILS AS A SAMPLE WEEK OR WEEKLY VALUE HAVE BEEN EXPRESSED IN DENOMINATORS AS AN ANNL FIGURE TO AID USER INTERPRETATION",
+#                 DH_GEOGRAPHY_NAME!="COPYRIGHT  HEALTH AND SOCIAL CARE INFORMATION CENTRE ALL RIGHTS RESERVED")%>%
+#   tidyr::pivot_wider(id_cols = c("DH_GEOGRAPHY_NAME", "year"), names_from = c("SupportSetting", "Sector"), values_from = c("Expenditure", "percent_sector") )
+# 
+
 
 outsourced_spend <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/GitHub/GitHub_new/adults_social_care_data/Final_data/expenditure.csv")%>%
   dplyr::mutate(DH_GEOGRAPHY_NAME = str_trim(gsub("[0-9]", "", DH_GEOGRAPHY_NAME)))%>%
@@ -170,22 +181,6 @@ deaths <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_
 
 ### removed care home deaths for now - needs aggregating to upper tier la###
 
-data = dplyr::full_join(outsourced , lifeexpectancy, by=c("DH_GEOGRAPHY_NAME", "year"))%>%
-  tidyr::drop_na(Life.expectancy, percent_inhouse_activity)%>%
-  tidyr::pivot_wider(names_from = "Sex", values_from = c("Life.expectancy"), names_prefix = "life_expectancy_")%>%
- # dplyr::full_join(., deaths)%>%
-  dplyr::group_by(DH_GEOGRAPHY_NAME)%>%
-  arrange(year) %>%
-  dplyr::mutate(lagged_sector_1 = dplyr::lag(percent_inhouse_activity, 1),
-                lagged_sector_2 = dplyr::lag(percent_inhouse_activity, 2),
-                lagged_le_1_Male = dplyr::lag(life_expectancy_Male, 1),
-                lagged_le_1_Female = dplyr::lag(life_expectancy_Female, 1))
-  
-
-
-duplicated_rows <- data %>% 
-  dplyr::group_by(DH_GEOGRAPHY_NAME, year) %>%
-  dplyr::filter(n() > 1)
 
 
 library(fingertipsR)
@@ -254,13 +249,7 @@ phdata_clean <- phdata %>%
                   
   
 
-data = dplyr::full_join(data , phdata_clean, by=c("DH_GEOGRAPHY_NAME", "year"))
-  
-data <- data %>% 
-  dplyr::full_join(., outsourced_spend)
 
-data <- data %>% 
-  dplyr::full_join(., all_spend)
 
 
 
@@ -296,22 +285,6 @@ data <- data %>%
 # 
 
 # 
- data = data %>%
-   dplyr::group_by(DH_GEOGRAPHY_NAME)%>%
-   arrange(year) %>%
-   dplyr::mutate(lagged_home_out = dplyr::lag(outsourced_home_care, 1),
-                 lagged_home_spend = dplyr::lag(spend_home_care, 1),
-                 lagged_res_out = dplyr::lag(outsourced_res_care, 1),
-                 lagged_res_spend = dplyr::lag(spend_res_care, 1),
-                 lagged_old_out = dplyr::lag(outsourced_old_care, 1),
-                 lagged_old_spend = dplyr::lag(spend_old_care, 1),
-                 lagged_activity_insourced =dplyr::lag(percent_inhouse_activity, 1),
-                 lagged_activity_insourced_2 =dplyr::lag(percent_inhouse_activity, 2),
-                 lagged_activity_total =dplyr::lag(total_activity, 1),
-                 lagged_winter =dplyr::lag(`Winter mortality index (age 85 plus)`, 1),
-                 lagged_hips =dplyr::lag(`Hip fractures in people aged 80 and over`, 1),
-                 lagged_falls =dplyr::lag(`Emergency hospital admissions due to falls in people aged 80 plus`, 1),
-   )
 
 
 
@@ -324,120 +297,298 @@ data <- data %>%
  
 #Population total and aged over x
  
+library(dplyr)
+library(tidyr)
+library(readr)
+library(janitor)
+
+# 1) Read and clean the 2001–2011 file
+pop1 <- read_csv(
+  curl::curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/myebtablesewsn20012011.csv"),
+  skip = 1,        # drop the first metadata row
+  col_types = cols(.default = "c")
+) %>%
+  clean_names() %>%
+  rename(
+    lad_code  = ladcode18,
+    geography = laname18
+  ) %>%
+  # pick off only age & the "population_YYYY" cols
+  pivot_longer(
+    cols = starts_with("population_"),
+    names_to  = "year",
+    names_prefix = "population_",
+    values_to = "pop"
+  ) %>%
+  mutate(
+    year = as.integer(year),
+    age  = as.integer(age),
+    pop  = as.integer(pop)
+  )
+
+# 2) Read and clean the 2011–2023 file
+pop2 <- read_csv(
+  curl::curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/myebtablesenglandwales20112023%20(3).csv"),
+  skip = 1,
+  col_types = cols(.default = "c")
+) %>%
+  clean_names() %>%
+  rename(
+    lad_code  = ladcode23,
+    geography = laname23
+  ) %>%
+  pivot_longer(
+    cols = starts_with("population_"),
+    names_to  = "year",
+    names_prefix = "population_",
+    values_to = "pop"
+  ) %>%
+  mutate(
+    year = as.integer(year),
+    age  = as.integer(age),
+    pop  = as.integer(pop)
+  )
+
+# 3) Bind, aggregate, and compute totals + 80+ counts
+pop <- bind_rows(pop1, pop2) %>%
+  group_by(geography, year) %>%
+  summarise(
+    total_population   = sum(pop, na.rm = TRUE),
+    population_over_80 = sum(pop[age >= 80], na.rm = TRUE),
+    .groups = "drop"
+  )%>%
+  mutate(percent_80 = population_over_80/total_population*100,
+         DH_GEOGRAPHY_NAME  = geography %>%
+           gsub('&', 'and', .) %>%
+           gsub('[[:punct:] ]+', ' ', .) %>%
+           gsub('[0-9]', '', .)%>%
+           toupper() %>%
+           gsub("CITY OF", "",.)%>%
+           gsub("UA", "",.)%>%
+           gsub("COUNTY OF", "",.)%>%
+           gsub("ROYAL BOROUGH OF", "",.)%>%
+           gsub("LEICESTER CITY", "LEICESTER",.)%>%
+           gsub("UA", "",.)%>%
+           gsub("DARWIN", "DARWEN", .)%>%
+           gsub("COUNTY DURHAM", "DURHAM", .)%>%
+           gsub("AND DARWEN", "WITH DARWEN", .)%>%
+           gsub("NE SOM", "NORTH EAST SOM", .)%>%
+           gsub("N E SOM", "NORTH EAST SOM", .)%>%
+           str_trim())%>%
+  dplyr::select(-geography)
+
+
+ 
 #Pension credit
  
-#Unemployment 
+ library(dplyr)
+ library(tidyr)
+ library(curl)
+ 
+ pen <- rbind(
+   read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/pension_post_18.csv"), skip = 6),
+   read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/pension_pre_18%203.csv"), skip = 6) %>%
+     select(-X)
+ ) %>%
+   mutate(
+     Counting = gsub(" - 2011 Geographies", "", Counting),
+     Counting = ifelse(Counting == "", NA, Counting),
+     year = paste0("20", substr(Quarter, nchar(Quarter) - 1, nchar(Quarter)))  # Extract 2-digit year and make 4-digit
+   ) %>%
+   filter(!is.na(Counting)) %>%
+   pivot_wider(names_from = "Counting", values_from = "Count") %>%
+   group_by(year, National...Regional...LA...OAs) %>%
+   summarise(across(where(is.numeric), sum, na.rm = TRUE), .groups = "drop")%>%
+   dplyr::ungroup()%>%
+   dplyr::mutate(DH_GEOGRAPHY_NAME  = National...Regional...LA...OAs %>%
+                   gsub('&', 'and', .) %>%
+                   gsub('[[:punct:] ]+', ' ', .) %>%
+                   gsub('[0-9]', '', .)%>%
+                   toupper() %>%
+                   gsub("CITY OF", "",.)%>%
+                   gsub("UA", "",.)%>%
+                   gsub("COUNTY OF", "",.)%>%
+                   gsub("ROYAL BOROUGH OF", "",.)%>%
+                   gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                   gsub("UA", "",.)%>%
+                   gsub("DARWIN", "DARWEN", .)%>%
+                   gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                   gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                   gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                   gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                   str_trim(),
+                 year = as.numeric(year),
+                 total_pension_credits = `Pension Credit Caseload`*`Mean of Weekly Award Amount`)%>%
+   dplyr::select(-National...Regional...LA...OAs)
+ 
+ 
+
+#Unemployment and disability
+ 
+unemp <- read.csv(curl("https://www.nomisweb.co.uk/api/v01/dataset/NM_17_5.data.csv?geography=1774190593...1774190597,1774190637,1774190646,1774190675...1774190678,1774190691,1774190598...1774190601,1774190638,1774190639,1774190652,1774190653,1774190656...1774190670,1774190734,1774190602...1774190606,1774190654,1774190671...1774190674,1774190686...1774190690,1774190607...1774190610,1774190650,1774190651,1774190726,1774190735,1774190736,1774190738,1774190611...1774190613,1774190640,1774190679...1774190685,1774190740,1774190743,1774190745,1774190621...1774190624,1774190644,1774190645,1774190725,1774190729,1774190732,1774190737,1774190741,1774190692...1774190724,1774190625...1774190636,1774190649,1774190728,1774190731,1774190733,1774190739,1774190742,1774190744,1774190614...1774190620,1774190641...1774190643,1774190647,1774190648,1774190655,1774190727,1774190730,1774190746...1774190799&date=latestMINUS80,latestMINUS76,latestMINUS72,latestMINUS68,latestMINUS64,latestMINUS60,latestMINUS56,latestMINUS52,latestMINUS48,latestMINUS44,latestMINUS40,latestMINUS36,latestMINUS32,latestMINUS28,latestMINUS24,latestMINUS20,latestMINUS16,latestMINUS12,latestMINUS8,latestMINUS4,latest&variable=84&measures=20599,21001,21002,21003"))%>%
+  dplyr::filter(MEASURES_NAME=="Variable")%>%
+  dplyr::select(GEOGRAPHY_NAME, DATE, OBS_VALUE)%>%
+  dplyr::mutate(DH_GEOGRAPHY_NAME  = GEOGRAPHY_NAME %>%
+                  gsub('&', 'and', .) %>%
+                  gsub('[[:punct:] ]+', ' ', .) %>%
+                  gsub('[0-9]', '', .)%>%
+                  toupper() %>%
+                  gsub("CITY OF", "",.)%>%
+                  gsub("UA", "",.)%>%
+                  gsub("COUNTY OF", "",.)%>%
+                  gsub("ROYAL BOROUGH OF", "",.)%>%
+                  gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                  gsub("UA", "",.)%>%
+                  gsub("DARWIN", "DARWEN", .)%>%
+                  gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                  gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                  gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                  gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                  str_trim(),
+                year = as.numeric(substr(DATE, 1, 4)))%>%
+  dplyr::select(-GEOGRAPHY_NAME, -DATE)%>%
+  dplyr::rename(unemployed = OBS_VALUE)
+
+
+disab <- read.csv(curl("https://www.nomisweb.co.uk/api/v01/dataset/NM_17_5.data.csv?geography=1774190593...1774190597,1774190637,1774190646,1774190675...1774190678,1774190691,1774190598...1774190601,1774190638,1774190639,1774190652,1774190653,1774190656...1774190670,1774190734,1774190602...1774190606,1774190654,1774190671...1774190674,1774190686...1774190690,1774190607...1774190610,1774190650,1774190651,1774190726,1774190735,1774190736,1774190738,1774190611...1774190613,1774190640,1774190679...1774190685,1774190740,1774190743,1774190745,1774190621...1774190624,1774190644,1774190645,1774190725,1774190729,1774190732,1774190737,1774190741,1774190692...1774190724,1774190625...1774190636,1774190649,1774190728,1774190731,1774190733,1774190739,1774190742,1774190744,1774190614...1774190620,1774190641...1774190643,1774190647,1774190648,1774190655,1774190727,1774190730,1774190746...1774190799&date=latestMINUS80,latestMINUS76,latestMINUS72,latestMINUS68,latestMINUS64,latestMINUS60,latestMINUS56,latestMINUS52,latestMINUS48,latestMINUS44,latestMINUS40,latestMINUS36,latestMINUS32,latestMINUS28,latestMINUS24,latestMINUS20,latestMINUS16,latestMINUS12,latestMINUS8,latestMINUS4,latest&variable=146&measures=20599,21001,21002,21003"))
+  
  
 #Central LA grants (maybe reserves better...)
 
+grant <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/FIN_07_50U.csv"))%>%
+  dplyr::rename(year=Year)%>%
+  dplyr::select(year, UTLA18NM, Central_Gov_Funding_Total, Central_Gov_Funding_Total_PerCap)%>%
+  dplyr::mutate(DH_GEOGRAPHY_NAME  = UTLA18NM %>%
+                  gsub('&', 'and', .) %>%
+                  gsub('[[:punct:] ]+', ' ', .) %>%
+                  gsub('[0-9]', '', .)%>%
+                  toupper() %>%
+                  gsub("CITY OF", "",.)%>%
+                  gsub("UA", "",.)%>%
+                  gsub("COUNTY OF", "",.)%>%
+                  gsub("ROYAL BOROUGH OF", "",.)%>%
+                  gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                  gsub("UA", "",.)%>%
+                  gsub("DARWIN", "DARWEN", .)%>%
+                  gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                  gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                  gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                  gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                  str_trim(),
+                year = as.numeric(year))%>%
+  dplyr::select(-UTLA18NM)
+
 #  
 
- 
- 
+
+data = dplyr::full_join(outsourced , lifeexpectancy, by=c("DH_GEOGRAPHY_NAME", "year"))%>%
+  tidyr::drop_na(Life.expectancy, percent_inhouse_activity)%>%
+  tidyr::pivot_wider(names_from = "Sex", values_from = c("Life.expectancy"), names_prefix = "life_expectancy_")%>%
+  # dplyr::full_join(., deaths)%>%
+  dplyr::group_by(DH_GEOGRAPHY_NAME)%>%
+  arrange(year) %>%
+  dplyr::mutate(lagged_sector_1 = dplyr::lag(percent_inhouse_activity, 1),
+                lagged_sector_2 = dplyr::lag(percent_inhouse_activity, 2),
+                lagged_le_1_Male = dplyr::lag(life_expectancy_Male, 1),
+                lagged_le_1_Female = dplyr::lag(life_expectancy_Female, 1))
+
+
+
+duplicated_rows <- data %>% 
+  dplyr::group_by(DH_GEOGRAPHY_NAME, year) %>%
+  dplyr::filter(n() > 1)
+
+
+data = dplyr::full_join(data , phdata_clean, by=c("DH_GEOGRAPHY_NAME", "year"))
+
+data <- data %>% 
+  dplyr::full_join(., outsourced_spend)
+
+data <- data %>% 
+  dplyr::full_join(., all_spend)
+
+data <- data %>% 
+  dplyr::full_join(., pen)
+
+data <- data %>% 
+  dplyr::full_join(., pop)
+
+data <- data %>% 
+  dplyr::full_join(., grant)
+
+data <- data %>% 
+  dplyr::full_join(., unemp)
+
+
+data = data %>%
+  dplyr::group_by(DH_GEOGRAPHY_NAME)%>%
+  arrange(year) %>%
+  dplyr::mutate(lagged_home_out = dplyr::lag(outsourced_home_care, 1),
+                lagged_home_spend = dplyr::lag(spend_home_care, 1),
+                lagged_res_out = dplyr::lag(outsourced_res_care, 1),
+                lagged_res_spend = dplyr::lag(spend_res_care, 1),
+                lagged_old_out = dplyr::lag(outsourced_old_care, 1),
+                lagged_old_spend = dplyr::lag(spend_old_care, 1),
+                lagged_activity_insourced =dplyr::lag(percent_inhouse_activity, 1),
+                lagged_activity_insourced_2 =dplyr::lag(percent_inhouse_activity, 1),
+                lagged_activity_total =dplyr::lag(total_activity, 1),
+                lagged_winter =dplyr::lag(`Winter mortality index (age 85 plus)`, 1),
+                lagged_hips =dplyr::lag(`Hip fractures in people aged 80 and over`, 1),
+                lagged_falls =dplyr::lag(`Emergency hospital admissions due to falls in people aged 80 plus`, 1),
+                lagged_pension_credits =dplyr::lag(total_pension_credits, 1),
+                lagged_total_pop =dplyr::lag(total_population, 1),
+                lagged_per_80 =dplyr::lag(percent_80, 1),
+                lagged_gov_grant =dplyr::lag(Central_Gov_Funding_Total, 1),
+                lagged_unemp =dplyr::lag(unemployed, 1),
+  )
+
+
+
+####Analysis####
 
 library(plm)
 library(dplyr)
 
-head(pdata)
 
 pdata <- pdata.frame(data%>%dplyr::filter(year>2002, year<2011), index = c("DH_GEOGRAPHY_NAME","year"))
+head(pdata)
 
+#summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80, data=pdata, method = "within", effect = "twoways"))
+#summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
 
-#summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-#summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-
-#summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
-#summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
-summary(plm(log(life_expectancy_Female)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
-summary(plm(log(life_expectancy_Male)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
+# #summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80, data=pdata, method = "fd"))
+# #summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80, data=pdata, method = "fd"))
+# summary(plm(log(life_expectancy_Female)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata, method = "fd"))
+# summary(plm(log(life_expectancy_Male)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata, method = "fd"))
 
 
 pdata <- pdata.frame(data%>%dplyr::filter(year>2010, year<2020), index = c("DH_GEOGRAPHY_NAME","year"))
 
-summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
 
-summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
-summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
-summary(plm(log(life_expectancy_Female)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
-summary(plm(log(life_expectancy_Male)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "fd"))
-
-
-
-# Keep only geographies with at least 8 time periods
-sufficient_data <- pdata %>%
-  dplyr::filter(!DH_GEOGRAPHY_NAME %in% c("CUMBERLAND", "WESTMORLAND AND FURNESS",
-                                          "WEST NORTHAMPTONSHIRE", "NORTH NORTHAMPTONSHIRE",
-                                          "BOURNEMOUTH CHRISTCHURCH AND POOLE", 
-                                          "BEDFORDSHIRE", "CHESHIRE")) %>%
-  group_by(DH_GEOGRAPHY_NAME) %>%
-  filter(n() >= 8) %>%
-  ungroup()
-
-# Make data consecutive by filling gaps or removing incomplete panels
-library(tidyr)
-
-complete_panels <- sufficient_data %>%
-  # Complete the time series for each geography
-  complete(DH_GEOGRAPHY_NAME, year) %>%
-  # Keep only geographies with complete data
-  group_by(DH_GEOGRAPHY_NAME) %>%
-  filter(!any(is.na(life_expectancy_Female)) & 
-           !any(is.na(percent_inhouse_activity))) %>%
-  ungroup()
+# summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata, method = "fd"))
+# summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata, method = "fd"))
+# summary(plm(log(life_expectancy_Female)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata, method = "fd"))
+# summary(plm(log(life_expectancy_Male)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata, method = "fd"))
 
 
 
-variable_data <- complete_panels %>%
-  group_by(DH_GEOGRAPHY_NAME) %>%
-  filter(length(unique(life_expectancy_Female)) > 1 & 
-           length(unique(percent_inhouse_activity)) > 1) %>%
-  ungroup()
+pdata <- pdata.frame(data%>%dplyr::filter( year<2020, lagged_activity_insourced!=0), index = c("DH_GEOGRAPHY_NAME","year"))
 
-# Convert to panel data
-pdata_variable <- pdata.frame(variable_data, 
-                              index = c("DH_GEOGRAPHY_NAME", "year"))
+summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
+summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
 
-# Try the test again
-plm::pgrangertest(life_expectancy_Female ~ percent_inhouse_activity, 
-                  data = pdata_variable)
-
-# Test if life expectancy Granger-causes social care changes
-plm::pgrangertest(percent_inhouse_activity ~ life_expectancy_Female, 
-                  data = pdata_variable)
-
-
-summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-summary(plm((Winter.mortality.index..age.85.plus.)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_insourced_2+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend, data=pdata, method = "within", effect = "twoways"))
-
-
-summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~outsourced_res_care+spend_res_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~outsourced_res_care+spend_res_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(Winter.mortality.index..age.85.plus.+1)~outsourced_res_care+spend_res_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Female)~outsourced_res_care+spend_res_care+lagged_le_1_Female, data=pdata, method = "within", effect = "twoways"))
-summary(plm(log(life_expectancy_Male)~outsourced_res_care+spend_res_care+lagged_le_1_Male, data=pdata, method = "within", effect = "twoways"))
-
-
-summary(plm(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus~outsourced_home_care+spend_home_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(Hip.fractures.in.people.aged.80.and.over~outsourced_home_care+spend_home_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(Winter.mortality.index..age.85.plus.~outsourced_home_care+spend_home_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(life_expectancy_Female~outsourced_home_care+spend_home_care, data=pdata, method = "within", effect = "twoways"))
-
-
-summary(plm(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus~outsourced_old_care+spend_old_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(Hip.fractures.in.people.aged.80.and.over~outsourced_old_care+spend_old_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(Winter.mortality.index..age.85.plus.~outsourced_old_care+spend_old_care, data=pdata, method = "within", effect = "twoways"))
-summary(plm(life_expectancy_Female~outsourced_old_care+spend_old_care, data=pdata, method = "within", effect = "twoways"))
-
-
-
+# summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata, method = "fd"))
+# summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata, method = "fd"))
+# summary(plm(log(life_expectancy_Female)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata%>%dplyr::filter(lagged_activity_insourced!=0), method = "fd"))
+# summary(plm(log(life_expectancy_Male)~percent_inhouse_activity+lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_gov_grant, data=pdata, method = "fd"))
 
 
 
@@ -645,9 +796,9 @@ closures <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/Childre
   mutate(
     closure_date = as.Date(location_end_2025, origin = "1960-01-01"),
     year = isoyear(closure_date),
-    week = isoweek(closure_date)
+    month = month(closure_date)
   ) %>%
-  group_by(ladnm, year, week) %>%
+  group_by(ladnm, year, month) %>%
   summarise(n_closures = n(), .groups = "drop") %>%
   mutate(
     ladnm = str_to_upper(ladnm)  # Uppercase for match
@@ -657,11 +808,11 @@ closures <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/Childre
 all_combos <- expand_grid(
   ladnm = unique(closures$ladnm),
   year = min(closures$year):max(closures$year),
-  week = 1:53
+  month = 1:12
 )
 
 closures_full <- all_combos %>%
-  left_join(closures, by = c("ladnm", "year", "week")) %>%
+  left_join(closures, by = c("ladnm", "year", "month")) %>%
   mutate(n_closures = replace_na(n_closures, 0))%>%
   dplyr::mutate(DH_GEOGRAPHY_NAME  = ladnm %>%
                   gsub('&', 'and', .) %>%
@@ -683,845 +834,206 @@ closures_full <- all_combos %>%
   dplyr::select(-ladnm)
 
 
-chdeaths <- rbind(read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2020-v21.csv"))%>%
-                    dplyr::filter(registration.or.occurrence == "occurrences",
-                                  cause.of.death == "all-causes",
-                                  place.of.death=="care-home")%>%
-                    dplyr::select(v4_0, Geography, Time, week.number)%>%
-                    dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
-                                    gsub('&', 'and', .) %>%
-                                    gsub('[[:punct:] ]+', ' ', .) %>%
-                                    gsub('[0-9]', '', .)%>%
-                                    toupper() %>%
-                                    gsub("CITY OF", "",.)%>%
-                                    gsub("UA", "",.)%>%
-                                    gsub("COUNTY OF", "",.)%>%
-                                    gsub("ROYAL BOROUGH OF", "",.)%>%
-                                    gsub("LEICESTER CITY", "LEICESTER",.)%>%
-                                    gsub("UA", "",.)%>%
-                                    gsub("DARWIN", "DARWEN", .)%>%
-                                    gsub("COUNTY DURHAM", "DURHAM", .)%>%
-                                    gsub("AND DARWEN", "WITH DARWEN", .)%>%
-                                    gsub("NE SOM", "NORTH EAST SOM", .)%>%
-                                    gsub("N E SOM", "NORTH EAST SOM", .)%>%
-                                    str_trim())%>%
-                    dplyr::select(-Geography),
-                  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2021-v79.csv"))%>%
-                    dplyr::filter(registration.or.occurrence == "occurrences",
-                                  cause.of.death == "all-causes",
-                                  place.of.death=="care-home")%>%
-                    dplyr::select(v4_0, Geography, Time, week.number)%>%
-                    dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
-                                    gsub('&', 'and', .) %>%
-                                    gsub('[[:punct:] ]+', ' ', .) %>%
-                                    gsub('[0-9]', '', .)%>%
-                                    toupper() %>%
-                                    gsub("CITY OF", "",.)%>%
-                                    gsub("UA", "",.)%>%
-                                    gsub("COUNTY OF", "",.)%>%
-                                    gsub("ROYAL BOROUGH OF", "",.)%>%
-                                    gsub("LEICESTER CITY", "LEICESTER",.)%>%
-                                    gsub("UA", "",.)%>%
-                                    gsub("DARWIN", "DARWEN", .)%>%
-                                    gsub("COUNTY DURHAM", "DURHAM", .)%>%
-                                    gsub("AND DARWEN", "WITH DARWEN", .)%>%
-                                    gsub("NE SOM", "NORTH EAST SOM", .)%>%
-                                    gsub("N E SOM", "NORTH EAST SOM", .)%>%
-                                    str_trim())%>%
-                    dplyr::select(-Geography),
-                  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2022-v86.csv"))%>%
-                    dplyr::filter(registration.or.occurrence == "occurrences",
-                                  cause.of.death == "all-causes",
-                                  place.of.death=="care-home")%>%
-                    dplyr::select(v4_0, Geography, Time, week.number)%>%
-                    dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
-                                    gsub('&', 'and', .) %>%
-                                    gsub('[[:punct:] ]+', ' ', .) %>%
-                                    gsub('[0-9]', '', .)%>%
-                                    toupper() %>%
-                                    gsub("CITY OF", "",.)%>%
-                                    gsub("UA", "",.)%>%
-                                    gsub("COUNTY OF", "",.)%>%
-                                    gsub("ROYAL BOROUGH OF", "",.)%>%
-                                    gsub("LEICESTER CITY", "LEICESTER",.)%>%
-                                    gsub("UA", "",.)%>%
-                                    gsub("DARWIN", "DARWEN", .)%>%
-                                    gsub("COUNTY DURHAM", "DURHAM", .)%>%
-                                    gsub("AND DARWEN", "WITH DARWEN", .)%>%
-                                    gsub("NE SOM", "NORTH EAST SOM", .)%>%
-                                    gsub("N E SOM", "NORTH EAST SOM", .)%>%
-                                    str_trim())%>%
-                    dplyr::select(-Geography),
-                  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2023-v50%20(1).csv"))%>%
-                    dplyr::filter(registration.or.occurrence == "occurrences",
-                                  cause.of.death == "all-causes",
-                                  place.of.death=="care-home")%>%
-                    dplyr::select(v4_0, Geography, Time, week.number)%>%
-                    dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
-                                    gsub('&', 'and', .) %>%
-                                    gsub('[[:punct:] ]+', ' ', .) %>%
-                                    gsub('[0-9]', '', .)%>%
-                                    toupper() %>%
-                                    gsub("CITY OF", "",.)%>%
-                                    gsub("UA", "",.)%>%
-                                    gsub("COUNTY OF", "",.)%>%
-                                    gsub("ROYAL BOROUGH OF", "",.)%>%
-                                    gsub("LEICESTER CITY", "LEICESTER",.)%>%
-                                    gsub("UA", "",.)%>%
-                                    gsub("DARWIN", "DARWEN", .)%>%
-                                    gsub("COUNTY DURHAM", "DURHAM", .)%>%
-                                    gsub("AND DARWEN", "WITH DARWEN", .)%>%
-                                    gsub("NE SOM", "NORTH EAST SOM", .)%>%
-                                    gsub("N E SOM", "NORTH EAST SOM", .)%>%
-                                    str_trim())%>%
-                    dplyr::select(-Geography)
-                  
-                  
-)#%>%
-# dplyr::rename(LTLA16NM = DH_GEOGRAPHY_NAME)
 
 
-covid <- rbind(read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2020-v21.csv"))%>%
-                 dplyr::filter(registration.or.occurrence == "occurrences",
-                               cause.of.death == "covid-19",
-                               place.of.death=="care-home")%>%
-                 dplyr::select(v4_0, Geography, Time, week.number)%>%
-                 dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
-                                 gsub('&', 'and', .) %>%
-                                 gsub('[[:punct:] ]+', ' ', .) %>%
-                                 gsub('[0-9]', '', .)%>%
-                                 toupper() %>%
-                                 gsub("CITY OF", "",.)%>%
-                                 gsub("UA", "",.)%>%
-                                 gsub("COUNTY OF", "",.)%>%
-                                 gsub("ROYAL BOROUGH OF", "",.)%>%
-                                 gsub("LEICESTER CITY", "LEICESTER",.)%>%
-                                 gsub("UA", "",.)%>%
-                                 gsub("DARWIN", "DARWEN", .)%>%
-                                 gsub("COUNTY DURHAM", "DURHAM", .)%>%
-                                 gsub("AND DARWEN", "WITH DARWEN", .)%>%
-                                 gsub("NE SOM", "NORTH EAST SOM", .)%>%
-                                 gsub("N E SOM", "NORTH EAST SOM", .)%>%
-                                 str_trim())%>%
-                 dplyr::select(-Geography),
-               read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2021-v79.csv"))%>%
-                 dplyr::filter(registration.or.occurrence == "occurrences",
-                               cause.of.death == "covid-19",
-                               place.of.death=="care-home")%>%
-                 dplyr::select(v4_0, Geography, Time, week.number)%>%
-                 dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
-                                 gsub('&', 'and', .) %>%
-                                 gsub('[[:punct:] ]+', ' ', .) %>%
-                                 gsub('[0-9]', '', .)%>%
-                                 toupper() %>%
-                                 gsub("CITY OF", "",.)%>%
-                                 gsub("UA", "",.)%>%
-                                 gsub("COUNTY OF", "",.)%>%
-                                 gsub("ROYAL BOROUGH OF", "",.)%>%
-                                 gsub("LEICESTER CITY", "LEICESTER",.)%>%
-                                 gsub("UA", "",.)%>%
-                                 gsub("DARWIN", "DARWEN", .)%>%
-                                 gsub("COUNTY DURHAM", "DURHAM", .)%>%
-                                 gsub("AND DARWEN", "WITH DARWEN", .)%>%
-                                 gsub("NE SOM", "NORTH EAST SOM", .)%>%
-                                 gsub("N E SOM", "NORTH EAST SOM", .)%>%
-                                 str_trim())%>%
-                 dplyr::select(-Geography),
-               read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2022-v86.csv"))%>%
-                 dplyr::filter(registration.or.occurrence == "occurrences",
-                               cause.of.death == "covid-19",
-                               place.of.death=="care-home")%>%
-                 dplyr::select(v4_0, Geography, Time, week.number)%>%
-                 dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
-                                 gsub('&', 'and', .) %>%
-                                 gsub('[[:punct:] ]+', ' ', .) %>%
-                                 gsub('[0-9]', '', .)%>%
-                                 toupper() %>%
-                                 gsub("CITY OF", "",.)%>%
-                                 gsub("UA", "",.)%>%
-                                 gsub("COUNTY OF", "",.)%>%
-                                 gsub("ROYAL BOROUGH OF", "",.)%>%
-                                 gsub("LEICESTER CITY", "LEICESTER",.)%>%
-                                 gsub("UA", "",.)%>%
-                                 gsub("DARWIN", "DARWEN", .)%>%
-                                 gsub("COUNTY DURHAM", "DURHAM", .)%>%
-                                 gsub("AND DARWEN", "WITH DARWEN", .)%>%
-                                 gsub("NE SOM", "NORTH EAST SOM", .)%>%
-                                 gsub("N E SOM", "NORTH EAST SOM", .)%>%
-                                 str_trim())%>%
-                 dplyr::select(-Geography),
-               read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2023-v50%20(1).csv"))%>%
-                 dplyr::filter(registration.or.occurrence == "occurrences",
-                               cause.of.death == "covid-19",
-                               place.of.death=="care-home")%>%
-                 dplyr::select(v4_0, Geography, Time, week.number)%>%
-                 dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
-                                 gsub('&', 'and', .) %>%
-                                 gsub('[[:punct:] ]+', ' ', .) %>%
-                                 gsub('[0-9]', '', .)%>%
-                                 toupper() %>%
-                                 gsub("CITY OF", "",.)%>%
-                                 gsub("UA", "",.)%>%
-                                 gsub("COUNTY OF", "",.)%>%
-                                 gsub("ROYAL BOROUGH OF", "",.)%>%
-                                 gsub("LEICESTER CITY", "LEICESTER",.)%>%
-                                 gsub("UA", "",.)%>%
-                                 gsub("DARWIN", "DARWEN", .)%>%
-                                 gsub("COUNTY DURHAM", "DURHAM", .)%>%
-                                 gsub("AND DARWEN", "WITH DARWEN", .)%>%
-                                 gsub("NE SOM", "NORTH EAST SOM", .)%>%
-                                 gsub("N E SOM", "NORTH EAST SOM", .)%>%
-                                 str_trim())%>%
-                 dplyr::select(-Geography))%>%
-  dplyr::rename(covid = v4_0)
 
-chdeaths <- merge(chdeaths, covid, by=c("DH_GEOGRAPHY_NAME", "Time", "week.number"), all=T)%>%
-  dplyr::mutate(v4_0 = v4_0-covid)%>%
-  dplyr::select(-covid)
 
 
 
 
-# STEP 2: Process chdeaths data
-chdeaths <- chdeaths %>%
-  mutate(
-    week = as.integer(str_remove(week.number, "week-")),
-    year = Time,
-    DH_GEOGRAPHY_NAME = str_to_upper(DH_GEOGRAPHY_NAME)
-  )
 
-# STEP 3: Join the datasets
-matched_data <- chdeaths %>%
-  full_join(.,closures_full, by = c("DH_GEOGRAPHY_NAME", "year", "week"))%>%
-  tidyr::drop_na(n_closures)%>%
-  dplyr::filter(year==2022|
-                  year==2023)%>%
-  dplyr::mutate(locationlocalauthority = DH_GEOGRAPHY_NAME)
 
+####ANALYSIS THREE DID ####
 
+head(data%>%
+       dplyr::select(year, DH_GEOGRAPHY_NAME, percent_inhouse_activity, life_expectancy_Female, population_over_80, total_population, total_activity))
 
-
-
-
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-
-# Step 1: Identify closure weeks
-closures_only <- matched_data %>%
-  filter(n_closures > 0) %>%
-  select(locationlocalauthority, year, week) %>%
-  distinct()
-
-# Step 2: For each closure, check if it's isolated
-isolated_closures <- closures_only %>%
-  rowwise() %>%
-  filter({
-    # Define time window
-    this_la <- locationlocalauthority
-    this_year <- year
-    this_week <- week
-    
-    # Build a data.frame of all LA-year-week in +/- 4 window
-    weeks_window <- matched_data %>%
-      filter(locationlocalauthority == this_la) %>%
-      filter((year == this_year & abs(week - this_week) <= 24) |
-               (year == this_year - 1 & week > (52 - 24)) |
-               (year == this_year + 1 & week <= 24))
-    
-    # Must have exactly 1 closure (the focal week) in this window
-    sum(weeks_window$n_closures > 0) == 1
-  }) %>%
-  ungroup()
-
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-
-# assume `matched_data` and `isolated_closures` already exist
-
-# Step 3: Build the ±4-week windows and join
-death_windows <- isolated_closures %>%
-  mutate(week_offset = list(-24:24)) %>%
-  unnest(week_offset) %>%
-  mutate(
-    raw_target = week + week_offset,
-    # Roll underflow/overflow into adjacent years
-    target_year = case_when(
-      raw_target < 1   ~ year - 1,
-      raw_target > 52  ~ year + 1,
-      TRUE             ~ year
-    ),
-    target_week = ((raw_target - 1) %% 52) + 1
-  ) %>%
-  left_join(
-    matched_data,
-    by = c(
-      "locationlocalauthority",
-      "target_year" = "year",
-      "target_week"  = "week"
-    )
-  ) %>%
-  replace_na(list(v4_0 = 0, n_closures = 0))
-
-# Step 4: Compute mean, standard error, and 95% CI
-avg_deaths_by_offset <- death_windows %>%
-  group_by(week_offset) %>%
-  summarise(
-    avg_deaths = mean(v4_0, na.rm = TRUE),
-    sd_deaths  = sd(v4_0,   na.rm = TRUE),
-    n_obs      = n(),
-    se         = sd_deaths / sqrt(n_obs),
-    # 95% t-based CI
-    ci_lower   = avg_deaths - qt(0.975, df = n_obs - 1) * se,
-    ci_upper   = avg_deaths + qt(0.975, df = n_obs - 1) * se,
-    .groups     = "drop"
-  )
-
-# Step 5: Plot with ribbon for 95% CI
-ggplot(avg_deaths_by_offset, aes(x = week_offset, y = avg_deaths)) +
-  geom_ribbon(aes(ymin = ci_lower, ymax = ci_upper), alpha = 0.2) +
-  geom_line(size = 1.2) +
-  geom_point(size = 2) +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
-  labs(
-    title    = "Average care home deaths around isolated closures",
-    x        = "Weeks relative to closure",
-    y        = "Average number of deaths"
-  ) +
-  theme_minimal()
-
-
-
-
-
-
-
-# Method 4b: Population-adjusted version (if you have population data)
-calculate_excess_rate_adjusted <- function(data, population_data = NULL) {
-  if (!is.null(population_data)) {
-    # Join with population data and calculate rates first
-    data <- data %>%
-      left_join(population_data, by = "DH_GEOGRAPHY_NAME") %>%
-      mutate(death_rate = v4_0 / population * 100000)  # Deaths per 100k
-    
-    rate_var <- "death_rate"
-  } else {
-    # Use raw counts but flag the limitation
-    message("Using raw counts - consider getting population data for rate adjustment")
-    rate_var <- "v4_0"
-  }
-  
-  # Calculate percentiles on the rate/count variable
-  percentiles <- data %>%
-    group_by(DH_GEOGRAPHY_NAME, week) %>%
-    summarise(
-      p25 = quantile(.data[[rate_var]], 0.25, na.rm = TRUE),
-      p50 = quantile(.data[[rate_var]], 0.50, na.rm = TRUE),
-      p75 = quantile(.data[[rate_var]], 0.75, na.rm = TRUE),
-      .groups = "drop"
-    )
-  
-  excess_data <- data %>%
-    left_join(percentiles, by = c("DH_GEOGRAPHY_NAME", "week")) %>%
-    mutate(
-      baseline = p50,
-      excess_absolute = .data[[rate_var]] - p50,
-      excess_category = case_when(
-        .data[[rate_var]] > p75 ~ "High",
-        .data[[rate_var]] < p25 ~ "Low",
-        TRUE ~ "Normal"
-      )
-    )
-  
-  return(excess_data)
-}
-
-
-
-
-try <- calculate_excess_rate_adjusted(matched_data)
-
-
-# Step 1: Identify closure weeks
-closures_only <- matched_data %>%
-  filter(n_closures > 0) %>%
-  select(locationlocalauthority, year, week) %>%
-  distinct()
-
-# Step 2: For each closure, check if it's isolated
-isolated_closures <- closures_only %>%
-  rowwise() %>%
-  filter({
-    # Define time window
-    this_la <- locationlocalauthority
-    this_year <- year
-    this_week <- week
-    
-    # Build a data.frame of all LA-year-week in +/- 4 window
-    weeks_window <- matched_data %>%
-      filter(locationlocalauthority == this_la) %>%
-      filter((year == this_year & abs(week - this_week) <= 12) |
-               (year == this_year - 1 & week > (52 - 12)) |
-               (year == this_year + 1 & week <= 12))
-    
-    # Must have exactly 1 closure (the focal week) in this window
-    sum(weeks_window$n_closures > 0) == 1
-  }) %>%
-  ungroup()
-
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-
-# assume `matched_data` and `isolated_closures` already exist
-
-# Step 3: Build the ±4-week windows and join
-death_windows <- isolated_closures %>%
-  mutate(week_offset = list(-12:12)) %>%
-  unnest(week_offset) %>%
-  mutate(
-    raw_target = week + week_offset,
-    # Roll underflow/overflow into adjacent years
-    target_year = case_when(
-      raw_target < 1   ~ year - 1,
-      raw_target > 52  ~ year + 1,
-      TRUE             ~ year
-    ),
-    target_week = ((raw_target - 1) %% 52) + 1
-  ) %>%
-  left_join(
-    try,
-    by = c(
-      "locationlocalauthority",
-      "target_year" = "year",
-      "target_week"  = "week"
-    )
-  ) %>%
-  replace_na(list(excess_absolute = 0, n_closures = 0))
-
-# Step 4: Compute mean, standard error, and 95% CI
-avg_deaths_by_offset <- death_windows %>%
-  group_by(week_offset) %>%
-  summarise(
-    avg_deaths = mean(excess_absolute, na.rm = TRUE),
-    sd_deaths  = sd(excess_absolute,   na.rm = TRUE),
-    n_obs      = n(),
-    se         = sd_deaths / sqrt(n_obs),
-    # 95% t-based CI
-    ci_lower   = avg_deaths - qt(0.975, df = n_obs - 1) * se,
-    ci_upper   = avg_deaths + qt(0.975, df = n_obs - 1) * se,
-    .groups     = "drop"
-  )
-
-# Step 5: Plot with ribbon for 95% CI
-ggplot(avg_deaths_by_offset, aes(x = week_offset, y = avg_deaths)) +
-  geom_ribbon(aes(ymin = ci_lower, ymax = ci_upper), alpha = 0.2) +
-  geom_line(size = 1.2) +
-  geom_point(size = 2) +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
-  labs(
-    title    = "Average care home deaths around isolated closures",
-    x        = "Weeks relative to closure",
-    y        = "Average number of deaths"
-  ) +
-  theme_minimal()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Create event time variables for ALL closures
-event_data <- panel_data %>%
-  # Identify all closure events
-  dplyr::filter(n_closures > 0) %>%
-  dplyr::select(locationlocalauthority, year, week) %>%
-  dplyr::rename(closure_year = year, closure_week = week, la_closure = locationlocalauthority) %>%
-  # Cross join with full panel to create event time
-  crossing(panel_data %>% dplyr::select(locationlocalauthority, year, week, v4_0)) %>%
-  dplyr::filter(la_closure == locationlocalauthority) %>%
-  mutate(
-    event_time = (year - closure_year) * 52 + (week - closure_week),
-    # Keep reasonable window
-    event_time = ifelse(abs(event_time) > 26, NA, event_time)
-  ) %>%
-  filter(!is.na(event_time)) %>%
-  # Average if multiple closures affect same LA-week
-  group_by(locationlocalauthority, year, week) %>%
-  summarise(
-    v4_0 = first(v4_0),
-    event_time = round(mean(event_time)),
-    .groups = "drop"
-  )
-
-
-# Event study regression
-summary(feols(v4_0 ~ i(event_time, ref = -1) + 
-                       factor(week) + factor(year) |
-                       locationlocalauthority,
-                     data = event_data,
-                     cluster = ~locationlocalauthority))
-
-
-
-
-
-
-
-
-
-
-
-
-
-library(dplyr)
-library(lubridate)
-
-# Create a date column from year and week
-matched_data <- matched_data %>%
-  mutate(date = as.Date(paste0(year, "-W", sprintf("%02d", week), "-1"), format="%Y-W%U-%u"))
-
-# Extract year-month
-matched_data <- matched_data %>%
-  mutate(month = floor_date(date, unit = "month"),
-         week = floor_date(date, unit = "week")
-  )
-
-# Group by LA and month, then summarize
-monthly_summary <- matched_data %>%
-  group_by(DH_GEOGRAPHY_NAME, month) %>%
-  summarise(
-    total_closures = sum(n_closures, na.rm = TRUE),
-    total_deaths = sum(v4_0, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-# View the result
-print(monthly_summary)
-
-summary(lm(total_deaths~total_closures+DH_GEOGRAPHY_NAME+factor(month), data=monthly_summary))
-
-
-weekly <- matched_data %>%
-  dplyr::select(week, DH_GEOGRAPHY_NAME, v4_0, n_closures, year)%>%
-  dplyr::group_by(DH_GEOGRAPHY_NAME, year)%>%
-  dplyr::arrange(week)%>%
-  dplyr::mutate(lagged_closure = dplyr::lag(n_closures, 1),
-                lead_closure = dplyr::lead(n_closures, 1),
-                closure_3week = lagged_closure + n_closures + lead_closure
-  )
-
-summary(lm(v4_0~closure_3week+ DH_GEOGRAPHY_NAME+ as.factor(week), data=weekly%>%dplyr::filter(year==2022|year==2023)))
-
-
-
-
-
-
-
-
-# Flag your treated windows
-death_windows <- death_windows %>%
-  mutate(treated = n_closures > 0)
-
-# Then fit a simple DiD
-library(fixest)
-feols(v4_0 ~ treated*factor(week_offset) | locationlocalauthority + target_year, data=death_windows)
-
-death_windows <- death_windows %>%
-  mutate(week_offset_f = factor(week_offset, levels = -4:4)) %>%
-  mutate(week_offset_f = relevel(week_offset_f, ref = "-1"))
-
-feols(v4_0 ~ i(week_offset_f, treated, ref = -1) 
-      | locationlocalauthority + target_year,
-      data = death_windows, cluster = "locationlocalauthority")
-
-
-#––– Libraries
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(fixest)   # for feols if you want to check the regression later
-
-#––– ASSUMPTION:
-# matched_data: a data.frame/tibble with columns
-#   locationlocalauthority, year, week, v4_0 (deaths), n_closures
-
-#––– 1. Identify isolated closures (±4 weeks with no other closures)
-closures_only <- matched_data %>%
-  filter(n_closures > 0) %>%
-  select(locationlocalauthority, year, week) %>%
-  distinct()
-
-isolated_closures <- closures_only %>%
-  rowwise() %>%
-  filter({
-    la   <- locationlocalauthority
-    yr   <- year
-    wk   <- week
-    window <- matched_data %>%
-      filter(locationlocalauthority == la) %>%
-      filter(
-        (year == yr   & abs(week - wk) <= 4) |
-          (year == yr-1 & week > 48)       |
-          (year == yr+1 & week <= 4)
-      )
-    sum(window$n_closures > 0) == 1
-  }) %>%
-  ungroup()
-
-#––– 2. Build ±4-week windows and join raw deaths & closures
-death_windows <- isolated_closures %>%
-  mutate(week_offset = list(-4:4)) %>%
-  unnest(week_offset) %>%
-  mutate(
-    raw_target   = week + week_offset,
-    target_year  = case_when(
-      raw_target < 1   ~ year - 1,
-      raw_target > 52  ~ year + 1,
-      TRUE             ~ year
-    ),
-    target_week  = ((raw_target - 1) %% 52) + 1
-  ) %>%
-  left_join(
-    matched_data,
-    by = c(
-      "locationlocalauthority",
-      "target_year" = "year",
-      "target_week"  = "week"
-    )
-  ) %>%
-  replace_na(list(v4_0 = 0, n_closures = 0))
-
-#––– 3. Compute calendar-week baseline of average deaths
-baseline <- matched_data %>%
-  group_by(week) %>%
-  summarise(bg = mean(v4_0, na.rm = TRUE), .groups = "drop")
-
-#––– 4. Merge baseline and compute adjusted deaths
-death_windows <- death_windows %>%
-  left_join(baseline, by = c("target_week" = "week")) %>%
-  mutate(
-    v4_adj = v4_0 - bg
-  )
-
-#––– 5. Aggregate adjusted deaths by week_offset, compute 95% CIs
-avg_adj_by_offset <- death_windows %>%
-  group_by(week_offset) %>%
-  summarise(
-    mean_adj = mean(v4_adj, na.rm = TRUE),
-    sd_adj   = sd(v4_adj,   na.rm = TRUE),
-    n_obs    = n(),
-    se       = sd_adj / sqrt(n_obs),
-    ci_lo    = mean_adj - qt(0.975, df = n_obs - 1) * se,
-    ci_hi    = mean_adj + qt(0.975, df = n_obs - 1) * se,
-    .groups  = "drop"
-  )
-
-#––– 6. Plot the adjusted event‐study with ribbon
-ggplot(avg_adj_by_offset, aes(x = week_offset, y = mean_adj)) +
-  geom_ribbon(aes(ymin = ci_lo, ymax = ci_hi), fill = "steelblue", alpha = 0.2) +
-  geom_line(size = 1.2) +
-  geom_point(size = 2) +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
-  labs(
-    title    = "Anomalies in children home deaths around isolated carehome closures",
-    x        = "Weeks relative to closure (0 = closure week)",
-    y        = "Avg. adjusted deaths (v4_adj)"
-  ) +
-  theme_minimal()
-
-
-
-
-
-
-
-library(dplyr)
-library(tidyr)
-library(zoo)
-library(purrr)
-library(MatchIt)
-library(fixest)
-library(ggplot2)
-library(ISOweek)
-
-library(dplyr)
-library(tidyr)
-library(zoo)
-library(purrr)
-library(MatchIt)
-library(fixest)
-library(ggplot2)
-library(ISOweek)
-
-# 0) Prepare your full panel with a 4-week lagged rolling mean
-matched_data_dates <- matched_data %>%
-  mutate(
-    iso_w = paste0(year, "-W", sprintf("%02d", week), "-1"),
-    date  = ISOweek2date(iso_w)
-  ) %>%
-  arrange(locationlocalauthority, date) %>%
-  group_by(locationlocalauthority) %>%
-  mutate(
-    pre_mean = rollmean(lag(v4_0), k = 4, align = "right", fill = NA)
-  ) %>%
-  ungroup()
-
-# 1) Build treated observations (week_offset == 0)
-treated <- death_windows %>%
-  filter(week_offset == 0) %>%
-  transmute(
-    event_id,
-    locationlocalauthority,
-    year    = target_year,
-    week    = target_week,
-    v4_0,
-    treated = 1
-  ) %>%
-  left_join(
-    matched_data_dates %>% select(locationlocalauthority, year, week, pre_mean),
-    by = c("locationlocalauthority","year","week")
-  ) %>%
-  filter(!is.na(pre_mean))  # drop any treated rows missing pre_mean
-
-# 2) Build forbidden LA-weeks (±4w of any closure)
-forbidden <- isolated_closures %>%
-  select(locationlocalauthority, year, base_week = week) %>%
-  mutate(
-    window = map(base_week, ~ ((.x + (-4:4) - 1) %% 52) + 1)
-  ) %>%
-  unnest(window) %>%
-  transmute(
-    locationlocalauthority,
-    year,
-    week = window
-  )
-
-# 3) Build controls: same calendar weeks, zero closures, outside forbidden, non-NA pre_mean
-controls <- matched_data_dates %>%
-  filter(
-    n_closures == 0,
-    week %in% treated$week   # same calendar weeks as treated
-  ) %>%
-  anti_join(forbidden, by = c("locationlocalauthority","year","week")) %>%
-  filter(!is.na(pre_mean)) %>%  # drop any with missing pre_mean
-  transmute(
-    event_id    = NA_integer_,
-    locationlocalauthority,
-    year, week,
-    v4_0,
-    treated     = 0,
-    pre_mean
-  )
-
-# 4) Combine and match 1:1 on pre_mean + calendar week
-match_data <- bind_rows(treated, controls) %>%
-  filter(!is.na(pre_mean))  # just in case
-
-m.out <- matchit(
-  treated ~ pre_mean + factor(week),
-  data   = match_data,
-  method = "nearest",
-  ratio  = 1
-)
-matched_data_did <- match.data(m.out)
-
-# 5) Estimate the DiD/event‐study
-#    (If you want to plot leads/lags, you’ll need to add week_offset for controls.)
-did_fit <- feols(
-  v4_0 ~ treated | locationlocalauthority + year,
-  data    = matched_data_did,
-  cluster = "locationlocalauthority"
-)
-summary(did_fit)
-
-# 6) (Optional) Plot simple ATT
-ggplot(matched_data_did, aes(x = factor(treated), y = v4_0)) +
-  stat_summary(fun = mean, geom = "bar") +
-  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = .2) +
-  labs(x = "Treated (1=closure week)", y = "Average child deaths") +
-  theme_minimal()
-
-
-
-
-
-
-
-library(dplyr)
-library(fixest)
-library(ggplot2)
-
-# ── Assume `matched_data_did` is the output of match.data(m.out),
-#     and contains at least: locationlocalauthority, year, week, v4_0, treated, subclass
-
-matched_es <- matched_data_did %>%
-  group_by(subclass) %>%
-  mutate(
-    event_year = if (any(treated == 1)) year[treated == 1][1] else NA_integer_,
-    event_week = if (any(treated == 1)) week[treated == 1][1] else NA_integer_
-  ) %>%
-  ungroup() %>%
-  mutate(
-    panel_week      = year * 52 + week,
-    panel_eventweek = event_year * 52 + event_week,
-    week_offset     = panel_week - panel_eventweek
-  ) %>%
-  filter(!is.na(week_offset)) %>%
-  filter(between(week_offset, -8, 8))
-
-# 4) Estimate the TWFE event‐study
-es_fit <- feols(
-  v4_0 ~ i(week_offset, treated, ref = -1) 
-  | locationlocalauthority + year,
-  data    = matched_es,
-  cluster = "locationlocalauthority"
-)
-
-# 5) Extract the lead/lag coefficients
-es_coefs <- etable(es_fit, keep = "treated::week_offset") %>% as.data.frame()
-
-# Or with broom:
+# ---- Required packages ----
+# install.packages(c("tidyverse","lubridate","fixest","did","broom","ggplot2"))
+library(tidyverse)
+library(fixest)    # feols + sunab
+library(did)       # Callaway & Sant'Anna DiD
 library(broom)
-es_tidy <- tidy(es_fit, conf.int = TRUE) %>%
-  filter(grepl("^treated::week_offset::", term)) %>%
+library(ggplot2)
+
+# ---- 0. assumptions & input ----
+# - data: dataframe available as `data` with columns:
+#     year, DH_GEOGRAPHY_NAME, percent_inhouse_activity,
+#     life_expectancy_Female, population_over_80, total_population, total_activity
+# - Treatment defined as first year percent_inhouse_activity == 0, 
+#   provided percent_inhouse_activity stays == 0 for all subsequent years.
+# - We keep only LAs with complete non-missing panel for years 2002:2024
+yrs_needed <- 2002:2022
+n_years_needed <- length(yrs_needed)
+
+# ---- 1. Filter to years 2002-2024 and check basic types ----
+df <- data %>%
+  dplyr::select(year, DH_GEOGRAPHY_NAME, percent_inhouse_activity, life_expectancy_Female, population_over_80, total_population, total_activity)%>%
+  filter(year %in% yrs_needed) %>%
   mutate(
-    offset = as.integer(gsub(".*week_offset::(-?\\d+).*", "\\1", term))
+    year = as.integer(year),
+    DH_GEOGRAPHY_NAME = as.character(DH_GEOGRAPHY_NAME),
+    percent_inhouse_activity = as.numeric(percent_inhouse_activity),
+    life_expectancy_Female = as.numeric(life_expectancy_Female),
+    population_over_80 = as.numeric(population_over_80),
+    total_population = as.numeric(total_population)
   )
 
-# 6) Plot the event‐study curve
-ggplot(es_tidy, aes(x = offset, y = estimate)) +
-  geom_point() +
-  geom_line() +
-  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.2) +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
+# ---- 2. Keep only LAs with a complete panel & no missing key vars ----
+panel_summary <- df %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  summarise(
+    n_years = n_distinct(year),
+    missing_pct_inhouse = sum(is.na(percent_inhouse_activity)),
+    missing_le_f = sum(is.na(life_expectancy_Female)),
+    .groups = "drop"
+  )
+
+complete_LAs <- panel_summary %>%
+  filter(n_years == n_years_needed,
+         missing_pct_inhouse == 0,
+         missing_le_f == 0) %>%
+  pull(DH_GEOGRAPHY_NAME)
+
+df_clean <- df %>% filter(DH_GEOGRAPHY_NAME %in% complete_LAs)
+
+message("Kept ", length(complete_LAs), " LAs with complete panels (2002-2024).")
+
+# ---- 3. Identify treatment year (first persistent 0 of percent_inhouse_activity) ----
+treatment_df <- df_clean %>%
+  arrange(DH_GEOGRAPHY_NAME, year) %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  summarise(
+    first_zero = ifelse(any(percent_inhouse_activity == 0), min(year[percent_inhouse_activity == 0]), NA_real_),
+    persistent_zero = ifelse(is.na(first_zero), FALSE,
+                             all(percent_inhouse_activity[year >= first_zero] == 0)),
+    treatment_year = ifelse(persistent_zero, first_zero, NA_real_),
+    .groups = "drop"
+  )
+
+# Quick table
+table(treatment_df %>% mutate(treated_flag = !is.na(treatment_year)) %>% pull(treated_flag))
+
+# Merge back
+df_panel <- df_clean %>%
+  left_join(treatment_df %>% select(DH_GEOGRAPHY_NAME, treatment_year), by = "DH_GEOGRAPHY_NAME") %>%
+  mutate(
+    # g for did package: 0 = never-treated, otherwise first treat year
+    g = ifelse(is.na(treatment_year), 0L, as.integer(treatment_year)),
+    # individual treated indicator per observation (post)
+    treated = ifelse(g > 0 & year >= g, 1L, 0L),
+    post = treated,
+    # relative time (for event study); NA for never-treated to avoid confusion
+    rel_year = ifelse(g > 0, year - g, NA_real_)
+  )
+
+# How many ever treated vs never treated
+df_panel %>% distinct(DH_GEOGRAPHY_NAME, g) %>% count(g == 0)
+
+
+
+# ---- 5a. Simple TWFE DiD (not robust to staggered-adoption bias) ----
+# Create model data: include covariates you want to control for
+model_data <- df_panel %>%
+  mutate(
+    population_over_80 = as.numeric(population_over_80),
+    total_population = as.numeric(total_population)
+  )
+
+twfe <- feols(
+  life_expectancy_Female ~ treated + population_over_80 + total_population
+  | DH_GEOGRAPHY_NAME + year,
+  data = model_data,
+  cluster = "DH_GEOGRAPHY_NAME"
+)
+
+summary(twfe)
+
+# ---- 5b. Staggered-adoption DiD: Callaway & Sant'Anna (att_gt + aggte) ----
+# NOTE: did::att_gt expects a column (gname) that is 0 for never treated and >0 for first treat year.
+# We already have `g` prepared.
+# Keep only observations up to 2024 (we already filtered)
+# Control formula for covariates:
+xform <- ~ population_over_80 + total_population
+
+model_data$DH_GEOGRAPHY_ID <- as.numeric(factor(model_data$DH_GEOGRAPHY_NAME))
+
+model_data$DH_GEOGRAPHY_ID
+
+att <- att_gt(
+  yname = "life_expectancy_Female",
+  tname = "year",
+  idname = "DH_GEOGRAPHY_ID",
+  gname = "g",
+  data = model_data,
+  xformla = xform,
+  est_method = "dr",           # double-robust estimation
+  control_group = "nevertreated"  # use never-treated as control
+)
+
+# Aggregate to event-study (dynamic effects)
+agg_dyn <- aggte(att, type = "dynamic", na.rm=T)
+
+#summary(agg_dyn)
+# plot dynamic effects (event study)
+library(ggplot2)
+
+dfpl <- data.frame(
+  event_time = agg_dyn$egt,
+  att = agg_dyn$att.egt,
+  se = agg_dyn$se.egt
+) |>
+  mutate(
+    ci_low = att - 1.96 * se,
+    ci_high = att + 1.96 * se
+  )
+
+ggplot(dfpl, aes(x = event_time, y = att)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
+  geom_ribbon(aes(ymin = ci_low, ymax = ci_high), alpha = 0.2, fill = "steelblue") +
+  geom_line(color = "steelblue") +
+  geom_point(color = "steelblue") +
+  theme_minimal() +
   labs(
-    title = "Event‐Study: Child Deaths Around Care‐Home Closure",
-    subtitle = "Matched DiD, weeks relative to closure",
-    x = "Weeks from closure (0 = closure week)",
-    y = "Difference in deaths"
-  ) +
-  theme_minimal()
+    title = "Event study: ATT by years since treatment",
+    x = "Years since treatment",
+    y = "ATT"
+  )
+
+# Aggregate to overall ATT (simple average)
+agg_overall <- aggte(att, type = "simple", na.rm=T)
+summary(agg_overall)
+
+# ---- 5c. Event study using fixest::sunab (alternative) ----
+# Note: sunab expects the first-treated variable (we pass g), and time var year.
+# This produces coefficients for each relative period (omitting an omitted base).
+es_fe <- feols(
+  life_expectancy_Female ~ sunab(g, year) + population_over_80 + total_population
+  | DH_GEOGRAPHY_NAME + year,
+  data = model_data,
+  cluster = "DH_GEOGRAPHY_NAME"
+)
+
+summary(es_fe)
+iplot(es_fe, xlab = "Years since treatment", main = "Event study (fixest::sunab)")
+
+# ---- 6. Pre-trend check (simple) ----
+# Using the Callaway & Sant'Anna dynamic results:
+# Pre-period coefficients are for negative rel_years; we can check joint significance of pre-trends.
+# agg_dyn$att.egt is the vector of event-time ATT; agg_dyn$egt are the event-time lags.
+evt_df <- data.frame(event_time = agg_dyn$egt, att = agg_dyn$att.egt, se = agg_dyn$se.egt)
+evt_df %>% filter(event_time < 0) %>%
+  arrange(event_time) %>%
+  print(n = 20)
+
+# You could run a Wald test for pre-trend = 0 using the fixest event-study coefficients,
+# but the exact code depends on which model you prefer. Example (approx):
+coefs <- coef(es_fe)
+pre_coefs <- coefs[grepl("^sunab::", names(coefs)) & grepl("^-", names(coefs))]
+# (Above lines are helper; you can compute joint test with linearHypothesis from car package)
 
 
-
-
+summary(lm(life_expectancy_Female,data=model_data))
 
 
 
@@ -2564,3 +2076,364 @@ run_complete_analysis <- function(chdeaths, closures_full, closure_details = NUL
  
  # Check model assumptions
  diagnostics <- model_diagnostics(enhanced_results$main_model, enhanced_results$data)
+
+ 
+ 
+ 
+ ####OLDDDDD.  ANALYSIS TWO: deaths and closures####
+ 
+ lookuppost <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/Children's Care Homes Project/Data/PCD_OA21_LSOA21_MSOA21_LAD_AUG23_UK_LU.csv")
+ 
+ # STEP 1: Process care home closure data
+ closures <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/Children's Care Homes Project/CQC_API_Materials/Data/complete inspection and location data_ben_feb2025v2.csv") %>%
+   dplyr::filter(serviceuserbandolderpeople=="Y")%>%
+   select(closed_complete, locationpostalcode, location_end_2025) %>%
+   dplyr::rename(pcds = locationpostalcode)%>%
+   left_join(., lookuppost)%>%
+   dplyr::select(closed_complete, location_end_2025, ladnm )%>%
+   
+   
+   filter(closed_complete == 1) %>%
+   mutate(
+     closure_date = as.Date(location_end_2025, origin = "1960-01-01"),
+     year = isoyear(closure_date),
+     week = isoweek(closure_date)
+   ) %>%
+   group_by(ladnm, year, week) %>%
+   summarise(n_closures = n(), .groups = "drop") %>%
+   mutate(
+     ladnm = str_to_upper(ladnm)  # Uppercase for match
+   )
+ 
+ # Fill missing combinations
+ all_combos <- expand_grid(
+   ladnm = unique(closures$ladnm),
+   year = min(closures$year):max(closures$year),
+   week = 1:53
+ )
+ 
+ closures_full <- all_combos %>%
+   left_join(closures, by = c("ladnm", "year", "week")) %>%
+   mutate(n_closures = replace_na(n_closures, 0))%>%
+   dplyr::mutate(DH_GEOGRAPHY_NAME  = ladnm %>%
+                   gsub('&', 'and', .) %>%
+                   gsub('[[:punct:] ]+', ' ', .) %>%
+                   gsub('[0-9]', '', .)%>%
+                   toupper() %>%
+                   gsub("CITY OF", "",.)%>%
+                   gsub("UA", "",.)%>%
+                   gsub("COUNTY OF", "",.)%>%
+                   gsub("ROYAL BOROUGH OF", "",.)%>%
+                   gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                   gsub("UA", "",.)%>%
+                   gsub("DARWIN", "DARWEN", .)%>%
+                   gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                   gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                   gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                   gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                   str_trim())%>%
+   dplyr::select(-ladnm)
+ 
+ 
+ chdeaths <- rbind(read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2020-v21.csv"))%>%
+                     dplyr::filter(registration.or.occurrence == "occurrences",
+                                   cause.of.death == "all-causes",
+                                   place.of.death=="care-home")%>%
+                     dplyr::select(v4_0, Geography, Time, week.number)%>%
+                     dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
+                                     gsub('&', 'and', .) %>%
+                                     gsub('[[:punct:] ]+', ' ', .) %>%
+                                     gsub('[0-9]', '', .)%>%
+                                     toupper() %>%
+                                     gsub("CITY OF", "",.)%>%
+                                     gsub("UA", "",.)%>%
+                                     gsub("COUNTY OF", "",.)%>%
+                                     gsub("ROYAL BOROUGH OF", "",.)%>%
+                                     gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                                     gsub("UA", "",.)%>%
+                                     gsub("DARWIN", "DARWEN", .)%>%
+                                     gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                                     gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                                     gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                                     gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                                     str_trim())%>%
+                     dplyr::select(-Geography),
+                   read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2021-v79.csv"))%>%
+                     dplyr::filter(registration.or.occurrence == "occurrences",
+                                   cause.of.death == "all-causes",
+                                   place.of.death=="care-home")%>%
+                     dplyr::select(v4_0, Geography, Time, week.number)%>%
+                     dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
+                                     gsub('&', 'and', .) %>%
+                                     gsub('[[:punct:] ]+', ' ', .) %>%
+                                     gsub('[0-9]', '', .)%>%
+                                     toupper() %>%
+                                     gsub("CITY OF", "",.)%>%
+                                     gsub("UA", "",.)%>%
+                                     gsub("COUNTY OF", "",.)%>%
+                                     gsub("ROYAL BOROUGH OF", "",.)%>%
+                                     gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                                     gsub("UA", "",.)%>%
+                                     gsub("DARWIN", "DARWEN", .)%>%
+                                     gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                                     gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                                     gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                                     gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                                     str_trim())%>%
+                     dplyr::select(-Geography),
+                   read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2022-v86.csv"))%>%
+                     dplyr::filter(registration.or.occurrence == "occurrences",
+                                   cause.of.death == "all-causes",
+                                   place.of.death=="care-home")%>%
+                     dplyr::select(v4_0, Geography, Time, week.number)%>%
+                     dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
+                                     gsub('&', 'and', .) %>%
+                                     gsub('[[:punct:] ]+', ' ', .) %>%
+                                     gsub('[0-9]', '', .)%>%
+                                     toupper() %>%
+                                     gsub("CITY OF", "",.)%>%
+                                     gsub("UA", "",.)%>%
+                                     gsub("COUNTY OF", "",.)%>%
+                                     gsub("ROYAL BOROUGH OF", "",.)%>%
+                                     gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                                     gsub("UA", "",.)%>%
+                                     gsub("DARWIN", "DARWEN", .)%>%
+                                     gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                                     gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                                     gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                                     gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                                     str_trim())%>%
+                     dplyr::select(-Geography),
+                   read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2023-v50%20(1).csv"))%>%
+                     dplyr::filter(registration.or.occurrence == "occurrences",
+                                   cause.of.death == "all-causes",
+                                   place.of.death=="care-home")%>%
+                     dplyr::select(v4_0, Geography, Time, week.number)%>%
+                     dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
+                                     gsub('&', 'and', .) %>%
+                                     gsub('[[:punct:] ]+', ' ', .) %>%
+                                     gsub('[0-9]', '', .)%>%
+                                     toupper() %>%
+                                     gsub("CITY OF", "",.)%>%
+                                     gsub("UA", "",.)%>%
+                                     gsub("COUNTY OF", "",.)%>%
+                                     gsub("ROYAL BOROUGH OF", "",.)%>%
+                                     gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                                     gsub("UA", "",.)%>%
+                                     gsub("DARWIN", "DARWEN", .)%>%
+                                     gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                                     gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                                     gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                                     gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                                     str_trim())%>%
+                     dplyr::select(-Geography)
+                   
+                   
+ )#%>%
+ # dplyr::rename(LTLA16NM = DH_GEOGRAPHY_NAME)
+ 
+ 
+ covid <- rbind(read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2020-v21.csv"))%>%
+                  dplyr::filter(registration.or.occurrence == "occurrences",
+                                cause.of.death == "covid-19",
+                                place.of.death=="care-home")%>%
+                  dplyr::select(v4_0, Geography, Time, week.number)%>%
+                  dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
+                                  gsub('&', 'and', .) %>%
+                                  gsub('[[:punct:] ]+', ' ', .) %>%
+                                  gsub('[0-9]', '', .)%>%
+                                  toupper() %>%
+                                  gsub("CITY OF", "",.)%>%
+                                  gsub("UA", "",.)%>%
+                                  gsub("COUNTY OF", "",.)%>%
+                                  gsub("ROYAL BOROUGH OF", "",.)%>%
+                                  gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                                  gsub("UA", "",.)%>%
+                                  gsub("DARWIN", "DARWEN", .)%>%
+                                  gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                                  gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                                  gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                                  gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                                  str_trim())%>%
+                  dplyr::select(-Geography),
+                read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2021-v79.csv"))%>%
+                  dplyr::filter(registration.or.occurrence == "occurrences",
+                                cause.of.death == "covid-19",
+                                place.of.death=="care-home")%>%
+                  dplyr::select(v4_0, Geography, Time, week.number)%>%
+                  dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
+                                  gsub('&', 'and', .) %>%
+                                  gsub('[[:punct:] ]+', ' ', .) %>%
+                                  gsub('[0-9]', '', .)%>%
+                                  toupper() %>%
+                                  gsub("CITY OF", "",.)%>%
+                                  gsub("UA", "",.)%>%
+                                  gsub("COUNTY OF", "",.)%>%
+                                  gsub("ROYAL BOROUGH OF", "",.)%>%
+                                  gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                                  gsub("UA", "",.)%>%
+                                  gsub("DARWIN", "DARWEN", .)%>%
+                                  gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                                  gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                                  gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                                  gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                                  str_trim())%>%
+                  dplyr::select(-Geography),
+                read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2022-v86.csv"))%>%
+                  dplyr::filter(registration.or.occurrence == "occurrences",
+                                cause.of.death == "covid-19",
+                                place.of.death=="care-home")%>%
+                  dplyr::select(v4_0, Geography, Time, week.number)%>%
+                  dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
+                                  gsub('&', 'and', .) %>%
+                                  gsub('[[:punct:] ]+', ' ', .) %>%
+                                  gsub('[0-9]', '', .)%>%
+                                  toupper() %>%
+                                  gsub("CITY OF", "",.)%>%
+                                  gsub("UA", "",.)%>%
+                                  gsub("COUNTY OF", "",.)%>%
+                                  gsub("ROYAL BOROUGH OF", "",.)%>%
+                                  gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                                  gsub("UA", "",.)%>%
+                                  gsub("DARWIN", "DARWEN", .)%>%
+                                  gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                                  gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                                  gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                                  gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                                  str_trim())%>%
+                  dplyr::select(-Geography),
+                read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/weekly-deaths-local-authority-2023-v50%20(1).csv"))%>%
+                  dplyr::filter(registration.or.occurrence == "occurrences",
+                                cause.of.death == "covid-19",
+                                place.of.death=="care-home")%>%
+                  dplyr::select(v4_0, Geography, Time, week.number)%>%
+                  dplyr::mutate(DH_GEOGRAPHY_NAME  = Geography %>%
+                                  gsub('&', 'and', .) %>%
+                                  gsub('[[:punct:] ]+', ' ', .) %>%
+                                  gsub('[0-9]', '', .)%>%
+                                  toupper() %>%
+                                  gsub("CITY OF", "",.)%>%
+                                  gsub("UA", "",.)%>%
+                                  gsub("COUNTY OF", "",.)%>%
+                                  gsub("ROYAL BOROUGH OF", "",.)%>%
+                                  gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                                  gsub("UA", "",.)%>%
+                                  gsub("DARWIN", "DARWEN", .)%>%
+                                  gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                                  gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                                  gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                                  gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                                  str_trim())%>%
+                  dplyr::select(-Geography))%>%
+   dplyr::rename(covid = v4_0)
+ 
+ chdeaths <- merge(chdeaths, covid, by=c("DH_GEOGRAPHY_NAME", "Time", "week.number"), all=T)%>%
+   dplyr::mutate(v4_0 = v4_0-covid)%>%
+   dplyr::select(-covid)
+ 
+ 
+ 
+ 
+ # STEP 2: Process chdeaths data
+ chdeaths <- chdeaths %>%
+   mutate(
+     week = as.integer(str_remove(week.number, "week-")),
+     year = Time,
+     DH_GEOGRAPHY_NAME = str_to_upper(DH_GEOGRAPHY_NAME)
+   )
+ 
+ # STEP 3: Join the datasets
+ matched_data <- chdeaths %>%
+   full_join(.,closures_full, by = c("DH_GEOGRAPHY_NAME", "year", "week"))%>%
+   tidyr::drop_na(n_closures)%>%
+   dplyr::filter(year==2022|
+                   year==2023)%>%
+   dplyr::mutate(locationlocalauthority = DH_GEOGRAPHY_NAME)
+ 
+ 
+ 
+ 
+ 
+ # Step 1: Identify closure weeks
+ closures_only <- matched_data %>%
+   filter(n_closures > 0) %>%
+   select(locationlocalauthority, year, week) %>%
+   distinct()
+ 
+ # Step 2: For each closure, check if it's isolated
+ isolated_closures <- closures_only %>%
+   rowwise() %>%
+   filter({
+     # Define time window
+     this_la <- locationlocalauthority
+     this_year <- year
+     this_week <- week
+     
+     # Build a data.frame of all LA-year-week in +/- 4 window
+     weeks_window <- matched_data %>%
+       filter(locationlocalauthority == this_la) %>%
+       filter((year == this_year & abs(week - this_week) <= 10) |
+                (year == this_year - 1 & week > (52 - 10)) |
+                (year == this_year + 1 & week <= 10))
+     
+     # Must have exactly 1 closure (the focal week) in this window
+     sum(weeks_window$n_closures > 0) == 1
+   }) %>%
+   ungroup()
+ 
+ 
+ 
+ # assume `matched_data` and `isolated_closures` already exist
+ 
+ # Step 3: Build the ±4-week windows and join
+ death_windows <- isolated_closures %>%
+   mutate(week_offset = list(-10:10)) %>%
+   unnest(week_offset) %>%
+   mutate(
+     raw_target = week + week_offset,
+     # Roll underflow/overflow into adjacent years
+     target_year = case_when(
+       raw_target < 1   ~ year - 1,
+       raw_target > 52  ~ year + 1,
+       TRUE             ~ year
+     ),
+     target_week = ((raw_target - 1) %% 52) + 1
+   ) %>%
+   left_join(
+     matched_data,
+     by = c(
+       "locationlocalauthority",
+       "target_year" = "year",
+       "target_week"  = "week"
+     )
+   ) 
+ 
+ # Step 4: Compute mean, standard error, and 95% CI
+ avg_deaths_by_offset <- death_windows %>%
+   group_by(week_offset) %>%
+   summarise(
+     avg_deaths = mean(v4_0, na.rm = TRUE),
+     sd_deaths  = sd(v4_0,   na.rm = TRUE),
+     n_obs      = n(),
+     se         = sd_deaths / sqrt(n_obs),
+     # 95% t-based CI
+     ci_lower   = avg_deaths - qt(0.975, df = n_obs - 1) * se,
+     ci_upper   = avg_deaths + qt(0.975, df = n_obs - 1) * se,
+     .groups     = "drop"
+   )
+ 
+ # Step 5: Plot with ribbon for 95% CI
+ ggplot(avg_deaths_by_offset, aes(x = week_offset, y = avg_deaths)) +
+   geom_ribbon(aes(ymin = ci_lower, ymax = ci_upper), alpha = 0.2) +
+   geom_line(size = 1.2) +
+   geom_point(size = 2) +
+   geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
+   labs(
+     title    = "Average care home deaths around isolated closures",
+     x        = "Weeks relative to closure",
+     y        = "Average number of deaths"
+   ) +
+   theme_minimal()
+ 
+ 
+ 

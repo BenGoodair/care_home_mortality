@@ -1,0 +1,2453 @@
+﻿"Monthly provisional number of deaths, by area of usual residence and health board, deaths registered 2025, England and Wales",,,,
+This worksheet contains one table,,,,
+[note 1][note 2][note 3][note 4][note 5][note 6][note 7][note 8],,,,
+Some cells refer to notes which can be found on the notes worksheet,,,,
+Month,Code,Geography type,Geography,Number of deaths
+January,K04000001,Country,"ENGLAND, WALES AND NON-RESIDENTS","62,508"
+January,E92000001,Country,ENGLAND,"58,591"
+January,E12000001,Region,NORTH EAST,"3,233"
+January,E06000047,Local Authority,County Durham,648
+January,E06000005,Local Authority,Darlington,157
+January,E06000001,Local Authority,Hartlepool,104
+January,E06000002,Local Authority,Middlesbrough,170
+January,E06000057,Local Authority,Northumberland,460
+January,E06000003,Local Authority,Redcar and Cleveland,170
+January,E06000004,Local Authority,Stockton-on-Tees,216
+January,E11000007,Metropolitan County,Tyne and Wear (Met County),"1,308"
+January,E08000037,Local Authority,Gateshead,253
+January,E08000021,Local Authority,Newcastle upon Tyne,300
+January,E08000022,Local Authority,North Tyneside,249
+January,E08000023,Local Authority,South Tyneside,172
+January,E08000024,Local Authority,Sunderland,334
+January,E12000002,Region,NORTH WEST,"8,240"
+January,E06000008,Local Authority,Blackburn with Darwen,155
+January,E06000009,Local Authority,Blackpool,212
+January,E06000049,Local Authority,Cheshire East,517
+January,E06000050,Local Authority,Cheshire West and Chester,412
+January,E06000006,Local Authority,Halton,144
+January,E06000007,Local Authority,Warrington,210
+January,E06000063,Local Authority,Cumberland,356
+January,E06000064,Local Authority,Westmorland and Furness,269
+January,E11000001,Metropolitan County,Greater Manchester (Met County),"2,724"
+January,E08000001,Local Authority,Bolton,275
+January,E08000002,Local Authority,Bury,215
+January,E08000003,Local Authority,Manchester,357
+January,E08000004,Local Authority,Oldham,238
+January,E08000005,Local Authority,Rochdale,248
+January,E08000006,Local Authority,Salford,265
+January,E08000007,Local Authority,Stockport,302
+January,E08000008,Local Authority,Tameside,262
+January,E08000009,Local Authority,Trafford,210
+January,E08000010,Local Authority,Wigan,352
+January,E10000017,County,Lancashire,"1,524"
+January,E07000117,Local Authority,Burnley,109
+January,E07000118,Local Authority,Chorley,133
+January,E07000119,Local Authority,Fylde,151
+January,E07000120,Local Authority,Hyndburn,116
+January,E07000121,Local Authority,Lancaster,159
+January,E07000122,Local Authority,Pendle,98
+January,E07000123,Local Authority,Preston,147
+January,E07000124,Local Authority,Ribble Valley,87
+January,E07000125,Local Authority,Rossendale,77
+January,E07000126,Local Authority,South Ribble,113
+January,E07000127,Local Authority,West Lancashire,149
+January,E07000128,Local Authority,Wyre,185
+January,E11000002,Metropolitan County,Merseyside (Met County),"1,717"
+January,E08000011,Local Authority,Knowsley,171
+January,E08000012,Local Authority,Liverpool,521
+January,E08000014,Local Authority,Sefton,384
+January,E08000013,Local Authority,St. Helens,247
+January,E08000015,Local Authority,Wirral,394
+January,E12000003,Region,YORKSHIRE AND THE HUMBER,"6,283"
+January,E06000011,Local Authority,East Riding of Yorkshire,516
+January,E06000010,Local Authority,"Kingston upon Hull, City of",295
+January,E06000012,Local Authority,North East Lincolnshire,231
+January,E06000013,Local Authority,North Lincolnshire,241
+January,E06000014,Local Authority,York,197
+January,E06000065,Local Authority,North Yorkshire,823
+January,E11000003,Metropolitan County,South Yorkshire (Met County),"1,577"
+January,E08000016,Local Authority,Barnsley,282
+January,E08000017,Local Authority,Doncaster,402
+January,E08000018,Local Authority,Rotherham,316
+January,E08000019,Local Authority,Sheffield,577
+January,E11000006,Metropolitan County,West Yorkshire (Met County),"2,403"
+January,E08000032,Local Authority,Bradford,543
+January,E08000033,Local Authority,Calderdale,226
+January,E08000034,Local Authority,Kirklees,436
+January,E08000035,Local Authority,Leeds,781
+January,E08000036,Local Authority,Wakefield,417
+January,E12000004,Region,EAST MIDLANDS,"5,253"
+January,E06000015,Local Authority,Derby,267
+January,E06000016,Local Authority,Leicester,272
+January,E06000061,Local Authority,North Northamptonshire,360
+January,E06000018,Local Authority,Nottingham,258
+January,E06000017,Local Authority,Rutland,55
+January,E06000062,Local Authority,West Northamptonshire,406
+January,E10000007,County,Derbyshire,"1,003"
+January,E07000032,Local Authority,Amber Valley,152
+January,E07000033,Local Authority,Bolsover,109
+January,E07000034,Local Authority,Chesterfield,157
+January,E07000035,Local Authority,Derbyshire Dales,88
+January,E07000036,Local Authority,Erewash,118
+January,E07000037,Local Authority,High Peak,108
+January,E07000038,Local Authority,North East Derbyshire,160
+January,E07000039,Local Authority,South Derbyshire,111
+January,E10000018,County,Leicestershire,735
+January,E07000129,Local Authority,Blaby,121
+January,E07000130,Local Authority,Charnwood,177
+January,E07000131,Local Authority,Harborough,89
+January,E07000132,Local Authority,Hinckley and Bosworth,118
+January,E07000133,Local Authority,Melton,46
+January,E07000134,Local Authority,North West Leicestershire,102
+January,E07000135,Local Authority,Oadby and Wigston,82
+January,E10000019,County,Lincolnshire,962
+January,E07000136,Local Authority,Boston,82
+January,E07000137,Local Authority,East Lindsey,232
+January,E07000138,Local Authority,Lincoln,104
+January,E07000139,Local Authority,North Kesteven,137
+January,E07000140,Local Authority,South Holland,135
+January,E07000141,Local Authority,South Kesteven,138
+January,E07000142,Local Authority,West Lindsey,134
+January,E10000024,County,Nottinghamshire,935
+January,E07000170,Local Authority,Ashfield,138
+January,E07000171,Local Authority,Bassetlaw,174
+January,E07000172,Local Authority,Broxtowe,139
+January,E07000173,Local Authority,Gedling,110
+January,E07000174,Local Authority,Mansfield,137
+January,E07000175,Local Authority,Newark and Sherwood,116
+January,E07000176,Local Authority,Rushcliffe,121
+January,E12000005,Region,WEST MIDLANDS,"6,759"
+January,E06000019,Local Authority,"Herefordshire, County of",257
+January,E06000051,Local Authority,Shropshire,424
+January,E06000021,Local Authority,Stoke-on-Trent,314
+January,E06000020,Local Authority,Telford and Wrekin,195
+January,E10000028,County,Staffordshire,"1,074"
+January,E07000192,Local Authority,Cannock Chase,111
+January,E07000193,Local Authority,East Staffordshire,156
+January,E07000194,Local Authority,Lichfield,140
+January,E07000195,Local Authority,Newcastle-under-Lyme,145
+January,E07000196,Local Authority,South Staffordshire,156
+January,E07000197,Local Authority,Stafford,153
+January,E07000198,Local Authority,Staffordshire Moorlands,137
+January,E07000199,Local Authority,Tamworth,76
+January,E10000031,County,Warwickshire,721
+January,E07000218,Local Authority,North Warwickshire,88
+January,E07000219,Local Authority,Nuneaton and Bedworth,151
+January,E07000220,Local Authority,Rugby,119
+January,E07000221,Local Authority,Stratford-on-Avon,199
+January,E07000222,Local Authority,Warwick,164
+January,E11000005,Metropolitan County,West Midlands (Met County),"2,987"
+January,E08000025,Local Authority,Birmingham,947
+January,E08000026,Local Authority,Coventry,346
+January,E08000027,Local Authority,Dudley,392
+January,E08000028,Local Authority,Sandwell,327
+January,E08000029,Local Authority,Solihull,253
+January,E08000030,Local Authority,Walsall,360
+January,E08000031,Local Authority,Wolverhampton,362
+January,E10000034,County,Worcestershire,787
+January,E07000234,Local Authority,Bromsgrove,130
+January,E07000235,Local Authority,Malvern Hills,137
+January,E07000236,Local Authority,Redditch,82
+January,E07000237,Local Authority,Worcester,108
+January,E07000238,Local Authority,Wychavon,172
+January,E07000239,Local Authority,Wyre Forest,158
+January,E12000006,Region,EAST,"6,965"
+January,E06000055,Local Authority,Bedford,209
+January,E06000056,Local Authority,Central Bedfordshire,261
+January,E06000032,Local Authority,Luton,180
+January,E06000031,Local Authority,Peterborough,159
+January,E06000033,Local Authority,Southend-on-Sea,203
+January,E06000034,Local Authority,Thurrock,170
+January,E10000003,County,Cambridgeshire,649
+January,E07000008,Local Authority,Cambridge,94
+January,E07000009,Local Authority,East Cambridgeshire,107
+January,E07000010,Local Authority,Fenland,141
+January,E07000011,Local Authority,Huntingdonshire,157
+January,E07000012,Local Authority,South Cambridgeshire,150
+January,E10000012,County,Essex,"1,783"
+January,E07000066,Local Authority,Basildon,191
+January,E07000067,Local Authority,Braintree,165
+January,E07000068,Local Authority,Brentwood,92
+January,E07000069,Local Authority,Castle Point,111
+January,E07000070,Local Authority,Chelmsford,167
+January,E07000071,Local Authority,Colchester,221
+January,E07000072,Local Authority,Epping Forest,153
+January,E07000073,Local Authority,Harlow,75
+January,E07000074,Local Authority,Maldon,87
+January,E07000075,Local Authority,Rochford,121
+January,E07000076,Local Authority,Tendring,290
+January,E07000077,Local Authority,Uttlesford,110
+January,E10000015,County,Hertfordshire,"1,177"
+January,E07000095,Local Authority,Broxbourne,111
+January,E07000096,Local Authority,Dacorum,163
+January,E07000242,Local Authority,East Hertfordshire,142
+January,E07000098,Local Authority,Hertsmere,103
+January,E07000099,Local Authority,North Hertfordshire,152
+January,E07000240,Local Authority,St Albans,136
+January,E07000243,Local Authority,Stevenage,103
+January,E07000102,Local Authority,Three Rivers,83
+January,E07000103,Local Authority,Watford,72
+January,E07000241,Local Authority,Welwyn Hatfield,112
+January,E10000020,County,Norfolk,"1,245"
+January,E07000143,Local Authority,Breckland,208
+January,E07000144,Local Authority,Broadland,206
+January,E07000145,Local Authority,Great Yarmouth,145
+January,E07000146,Local Authority,King�s Lynn and West Norfolk,234
+January,E07000147,Local Authority,North Norfolk,169
+January,E07000148,Local Authority,Norwich,115
+January,E07000149,Local Authority,South Norfolk,168
+January,E10000029,County,Suffolk,929
+January,E07000200,Local Authority,Babergh,125
+January,E07000244,Local Authority,East Suffolk,392
+January,E07000202,Local Authority,Ipswich,109
+January,E07000203,Local Authority,Mid Suffolk,118
+January,E07000245,Local Authority,West Suffolk,185
+January,E12000007,Region,LONDON,"5,515"
+January,E13000001,Inner London,Inner London,"1,736"
+January,E09000007,Local Authority,Camden,143
+January,E09000001,Local Authority,City of London,6
+January,E09000012,Local Authority,Hackney,110
+January,E09000013,Local Authority,Hammersmith and Fulham,110
+January,E09000014,Local Authority,Haringey,154
+January,E09000019,Local Authority,Islington,95
+January,E09000020,Local Authority,Kensington and Chelsea,86
+January,E09000022,Local Authority,Lambeth,151
+January,E09000023,Local Authority,Lewisham,184
+January,E09000025,Local Authority,Newham,135
+January,E09000028,Local Authority,Southwark,142
+January,E09000030,Local Authority,Tower Hamlets,111
+January,E09000032,Local Authority,Wandsworth,202
+January,E09000033,Local Authority,Westminster,107
+January,E13000002,Outer London,Outer London,"3,779"
+January,E09000002,Local Authority,Barking and Dagenham,133
+January,E09000003,Local Authority,Barnet,264
+January,E09000004,Local Authority,Bexley,218
+January,E09000005,Local Authority,Brent,231
+January,E09000006,Local Authority,Bromley,299
+January,E09000008,Local Authority,Croydon,278
+January,E09000009,Local Authority,Ealing,205
+January,E09000010,Local Authority,Enfield,246
+January,E09000011,Local Authority,Greenwich,194
+January,E09000015,Local Authority,Harrow,163
+January,E09000016,Local Authority,Havering,263
+January,E09000017,Local Authority,Hillingdon,244
+January,E09000018,Local Authority,Hounslow,169
+January,E09000021,Local Authority,Kingston upon Thames,106
+January,E09000024,Local Authority,Merton,132
+January,E09000026,Local Authority,Redbridge,173
+January,E09000027,Local Authority,Richmond upon Thames,155
+January,E09000029,Local Authority,Sutton,151
+January,E09000031,Local Authority,Waltham Forest,155
+January,E12000008,Region,SOUTH EAST,"9,622"
+January,E06000036,Local Authority,Bracknell Forest,92
+January,E06000043,Local Authority,Brighton and Hove,224
+January,E06000046,Local Authority,Isle of Wight,206
+January,E06000035,Local Authority,Medway,292
+January,E06000042,Local Authority,Milton Keynes,227
+January,E06000044,Local Authority,Portsmouth,185
+January,E06000038,Local Authority,Reading,127
+January,E06000039,Local Authority,Slough,90
+January,E06000045,Local Authority,Southampton,205
+January,E06000037,Local Authority,West Berkshire,149
+January,E06000040,Local Authority,Windsor and Maidenhead,142
+January,E06000041,Local Authority,Wokingham,156
+January,E06000060,Local Authority,Buckinghamshire,545
+January,E10000011,County,East Sussex,789
+January,E07000061,Local Authority,Eastbourne,166
+January,E07000062,Local Authority,Hastings,96
+January,E07000063,Local Authority,Lewes,142
+January,E07000064,Local Authority,Rother,154
+January,E07000065,Local Authority,Wealden,231
+January,E10000014,County,Hampshire,"1,490"
+January,E07000084,Local Authority,Basingstoke and Deane,152
+January,E07000085,Local Authority,East Hampshire,168
+January,E07000086,Local Authority,Eastleigh,129
+January,E07000087,Local Authority,Fareham,142
+January,E07000088,Local Authority,Gosport,107
+January,E07000089,Local Authority,Hart,96
+January,E07000090,Local Authority,Havant,138
+January,E07000091,Local Authority,New Forest,224
+January,E07000092,Local Authority,Rushmoor,82
+January,E07000093,Local Authority,Test Valley,118
+January,E07000094,Local Authority,Winchester,134
+January,E10000016,County,Kent,"1,848"
+January,E07000105,Local Authority,Ashford,175
+January,E07000106,Local Authority,Canterbury,184
+January,E07000107,Local Authority,Dartford,114
+January,E07000108,Local Authority,Dover,163
+January,E07000109,Local Authority,Gravesham,104
+January,E07000110,Local Authority,Maidstone,194
+January,E07000111,Local Authority,Sevenoaks,146
+January,E07000112,Local Authority,Folkestone and Hythe,153
+January,E07000113,Local Authority,Swale,186
+January,E07000114,Local Authority,Thanet,184
+January,E07000115,Local Authority,Tonbridge and Malling,114
+January,E07000116,Local Authority,Tunbridge Wells,131
+January,E10000025,County,Oxfordshire,639
+January,E07000177,Local Authority,Cherwell,122
+January,E07000178,Local Authority,Oxford,98
+January,E07000179,Local Authority,South Oxfordshire,160
+January,E07000180,Local Authority,Vale of White Horse,147
+January,E07000181,Local Authority,West Oxfordshire,112
+January,E10000030,County,Surrey,"1,138"
+January,E07000207,Local Authority,Elmbridge,112
+January,E07000208,Local Authority,Epsom and Ewell,64
+January,E07000209,Local Authority,Guildford,107
+January,E07000210,Local Authority,Mole Valley,94
+January,E07000211,Local Authority,Reigate and Banstead,148
+January,E07000212,Local Authority,Runnymede,85
+January,E07000213,Local Authority,Spelthorne,98
+January,E07000214,Local Authority,Surrey Heath,93
+January,E07000215,Local Authority,Tandridge,103
+January,E07000216,Local Authority,Waverley,158
+January,E07000217,Local Authority,Woking,76
+January,E10000032,County,West Sussex,"1,078"
+January,E07000223,Local Authority,Adur,79
+January,E07000224,Local Authority,Arun,294
+January,E07000225,Local Authority,Chichester,190
+January,E07000226,Local Authority,Crawley,83
+January,E07000227,Local Authority,Horsham,147
+January,E07000228,Local Authority,Mid Sussex,124
+January,E07000229,Local Authority,Worthing,161
+January,E12000009,Region,SOUTH WEST,"6,721"
+January,E06000022,Local Authority,Bath and North East Somerset,180
+January,E06000058,Local Authority,"Bournemouth, Christchurch and Poole",427
+January,E06000023,Local Authority,"Bristol, City of",358
+January,E06000052,Local Authority,Cornwall,777
+January,E06000053,Local Authority,Isles of Scilly,1
+January,E06000059,Local Authority,Dorset,567
+January,E06000024,Local Authority,North Somerset,259
+January,E06000026,Local Authority,Plymouth,306
+January,E06000025,Local Authority,South Gloucestershire,280
+January,E06000030,Local Authority,Swindon,225
+January,E06000027,Local Authority,Torbay,229
+January,E06000054,Local Authority,Wiltshire,554
+January,E10000008,County,Devon,"1,078"
+January,E07000040,Local Authority,East Devon,203
+January,E07000041,Local Authority,Exeter,129
+January,E07000042,Local Authority,Mid Devon,110
+January,E07000043,Local Authority,North Devon,149
+January,E07000044,Local Authority,South Hams,115
+January,E07000045,Local Authority,Teignbridge,187
+January,E07000046,Local Authority,Torridge,102
+January,E07000047,Local Authority,West Devon,83
+January,E10000013,County,Gloucestershire,730
+January,E07000078,Local Authority,Cheltenham,136
+January,E07000079,Local Authority,Cotswold,108
+January,E07000080,Local Authority,Forest of Dean,111
+January,E07000081,Local Authority,Gloucester,153
+January,E07000082,Local Authority,Stroud,126
+January,E07000083,Local Authority,Tewkesbury,96
+January,E06000066,Local Authority,Somerset,750
+January,E54000040,Integrated Care Board (ICB),"NHS Bath and North East Somerset, Swindon and Wiltshire Integrated Care Board",961
+January,E54000024,Integrated Care Board (ICB),"NHS Bedfordshire, Luton and Milton Keynes Integrated Care Board",882
+January,E54000055,Integrated Care Board (ICB),NHS Birmingham and Solihull Integrated Care Board,"1,200"
+January,E54000062,Integrated Care Board (ICB),NHS Black Country Integrated Care Board,"1,441"
+January,E54000039,Integrated Care Board (ICB),"NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board",897
+January,E54000044,Integrated Care Board (ICB),"NHS Buckinghamshire, Oxfordshire and Berkshire West Integrated Care Board","1,609"
+January,E54000056,Integrated Care Board (ICB),NHS Cambridgeshire and Peterborough Integrated Care Board,831
+January,E54000008,Integrated Care Board (ICB),NHS Cheshire and Merseyside Integrated Care Board,"3,000"
+January,E54000036,Integrated Care Board (ICB),NHS Cornwall and the Isles of Scilly Integrated Care Board,778
+January,E54000018,Integrated Care Board (ICB),NHS Coventry and Warwickshire Integrated Care Board,"1,067"
+January,E54000058,Integrated Care Board (ICB),NHS Derby and Derbyshire Integrated Care Board,"1,270"
+January,E54000037,Integrated Care Board (ICB),NHS Devon Integrated Care Board,"1,613"
+January,E54000041,Integrated Care Board (ICB),NHS Dorset Integrated Care Board,994
+January,E54000034,Integrated Care Board (ICB),NHS Frimley Integrated Care Board,651
+January,E54000043,Integrated Care Board (ICB),NHS Gloucestershire Integrated Care Board,730
+January,E54000057,Integrated Care Board (ICB),NHS Greater Manchester Integrated Care Board,"2,724"
+January,E54000042,Integrated Care Board (ICB),NHS Hampshire and Isle of Wight Integrated Care Board,"1,933"
+January,E54000019,Integrated Care Board (ICB),NHS Herefordshire and Worcestershire Integrated Care Board,"1,044"
+January,E54000025,Integrated Care Board (ICB),NHS Hertfordshire and West Essex Integrated Care Board,"1,492"
+January,E54000051,Integrated Care Board (ICB),NHS Humber and North Yorkshire Integrated Care Board,"2,205"
+January,E54000032,Integrated Care Board (ICB),NHS Kent and Medway Integrated Care Board,"2,140"
+January,E54000048,Integrated Care Board (ICB),NHS Lancashire and South Cumbria Integrated Care Board,"2,129"
+January,E54000015,Integrated Care Board (ICB),"NHS Leicester, Leicestershire and Rutland Integrated Care Board","1,062"
+January,E54000013,Integrated Care Board (ICB),NHS Lincolnshire Integrated Care Board,962
+January,E54000026,Integrated Care Board (ICB),NHS Mid and South Essex Integrated Care Board,"1,307"
+January,E54000022,Integrated Care Board (ICB),NHS Norfolk and Waveney Integrated Care Board,"1,446"
+January,E54000028,Integrated Care Board (ICB),NHS North Central London Integrated Care Board,902
+January,E54000029,Integrated Care Board (ICB),NHS North East London Integrated Care Board,"1,086"
+January,E54000050,Integrated Care Board (ICB),NHS North East and North Cumbria Integrated Care Board,"3,629"
+January,E54000027,Integrated Care Board (ICB),NHS North West London Integrated Care Board,"1,315"
+January,E54000059,Integrated Care Board (ICB),NHS Northamptonshire Integrated Care Board,766
+January,E54000060,Integrated Care Board (ICB),NHS Nottingham and Nottinghamshire Integrated Care Board,"1,193"
+January,E54000011,Integrated Care Board (ICB),"NHS Shropshire, Telford and Wrekin Integrated Care Board",619
+January,E54000038,Integrated Care Board (ICB),NHS Somerset Integrated Care Board,750
+January,E54000030,Integrated Care Board (ICB),NHS South East London Integrated Care Board,"1,188"
+January,E54000031,Integrated Care Board (ICB),NHS South West London Integrated Care Board,"1,024"
+January,E54000061,Integrated Care Board (ICB),NHS South Yorkshire Integrated Care Board,"1,577"
+January,E54000010,Integrated Care Board (ICB),NHS Staffordshire and Stoke-on-Trent Integrated Care Board,"1,388"
+January,E54000023,Integrated Care Board (ICB),NHS Suffolk and North East Essex Integrated Care Board,"1,239"
+January,E54000063,Integrated Care Board (ICB),NHS Surrey Heartlands Integrated Care Board,964
+January,E54000064,Integrated Care Board (ICB),NHS Sussex Integrated Care Board,"2,091"
+January,E54000054,Integrated Care Board (ICB),NHS West Yorkshire Integrated Care Board,"2,492"
+January,W92000004,Country,WALES,"3,785"
+January,W06000001,Local Authority,Isle of Anglesey,103
+January,W06000002,Local Authority,Gwynedd,146
+January,W06000003,Local Authority,Conwy,169
+January,W06000004,Local Authority,Denbighshire,130
+January,W06000005,Local Authority,Flintshire,152
+January,W06000006,Local Authority,Wrexham,171
+January,W06000023,Local Authority,Powys,175
+January,W06000008,Local Authority,Ceredigion,94
+January,W06000009,Local Authority,Pembrokeshire,192
+January,W06000010,Local Authority,Carmarthenshire,266
+January,W06000011,Local Authority,Swansea,299
+January,W06000012,Local Authority,Neath Port Talbot,163
+January,W06000013,Local Authority,Bridgend,174
+January,W06000014,Local Authority,Vale of Glamorgan,160
+January,W06000015,Local Authority,Cardiff,300
+January,W06000016,Local Authority,Rhondda Cynon Taf,329
+January,W06000024,Local Authority,Merthyr Tydfil,72
+January,W06000018,Local Authority,Caerphilly,217
+January,W06000019,Local Authority,Blaenau Gwent,87
+January,W06000020,Local Authority,Torfaen,119
+January,W06000021,Local Authority,Monmouthshire,104
+January,W06000022,Local Authority,Newport,163
+January,W11000028,Local Health Board (LHB),Aneurin Bevan University Health Board,690
+January,W11000023,Local Health Board (LHB),Betsi Cadwaladr University Health Board,871
+January,W11000029,Local Health Board (LHB),Cardiff and Vale University Health Board,460
+January,W11000030,Local Health Board (LHB),Cwm Taf Morgannwg University Health Board,575
+January,W11000025,Local Health Board (LHB),Hywel Dda University Health Board,552
+January,W11000024,Local Health Board (LHB),Powys Teaching Health Board,175
+January,W11000031,Local Health Board (LHB),Swansea Bay University Health Board,462
+February,K04000001,Country,"ENGLAND, WALES AND NON-RESIDENTS","48,901"
+February,E92000001,Country,ENGLAND,"45,666"
+February,E12000001,Region,NORTH EAST,"2,595"
+February,E06000047,Local Authority,County Durham,528
+February,E06000005,Local Authority,Darlington,108
+February,E06000001,Local Authority,Hartlepool,76
+February,E06000002,Local Authority,Middlesbrough,129
+February,E06000057,Local Authority,Northumberland,342
+February,E06000003,Local Authority,Redcar and Cleveland,131
+February,E06000004,Local Authority,Stockton-on-Tees,165
+February,E11000007,Metropolitan County,Tyne and Wear (Met County),"1,116"
+February,E08000037,Local Authority,Gateshead,199
+February,E08000021,Local Authority,Newcastle upon Tyne,241
+February,E08000022,Local Authority,North Tyneside,215
+February,E08000023,Local Authority,South Tyneside,162
+February,E08000024,Local Authority,Sunderland,299
+February,E12000002,Region,NORTH WEST,"6,514"
+February,E06000008,Local Authority,Blackburn with Darwen,128
+February,E06000009,Local Authority,Blackpool,178
+February,E06000049,Local Authority,Cheshire East,390
+February,E06000050,Local Authority,Cheshire West and Chester,322
+February,E06000006,Local Authority,Halton,125
+February,E06000007,Local Authority,Warrington,154
+February,E06000063,Local Authority,Cumberland,306
+February,E06000064,Local Authority,Westmorland and Furness,198
+February,E11000001,Metropolitan County,Greater Manchester (Met County),"2,151"
+February,E08000001,Local Authority,Bolton,240
+February,E08000002,Local Authority,Bury,147
+February,E08000003,Local Authority,Manchester,306
+February,E08000004,Local Authority,Oldham,172
+February,E08000005,Local Authority,Rochdale,174
+February,E08000006,Local Authority,Salford,181
+February,E08000007,Local Authority,Stockport,249
+February,E08000008,Local Authority,Tameside,197
+February,E08000009,Local Authority,Trafford,172
+February,E08000010,Local Authority,Wigan,313
+February,E10000017,County,Lancashire,"1,207"
+February,E07000117,Local Authority,Burnley,79
+February,E07000118,Local Authority,Chorley,106
+February,E07000119,Local Authority,Fylde,115
+February,E07000120,Local Authority,Hyndburn,86
+February,E07000121,Local Authority,Lancaster,148
+February,E07000122,Local Authority,Pendle,72
+February,E07000123,Local Authority,Preston,122
+February,E07000124,Local Authority,Ribble Valley,62
+February,E07000125,Local Authority,Rossendale,68
+February,E07000126,Local Authority,South Ribble,82
+February,E07000127,Local Authority,West Lancashire,116
+February,E07000128,Local Authority,Wyre,151
+February,E11000002,Metropolitan County,Merseyside (Met County),"1,355"
+February,E08000011,Local Authority,Knowsley,143
+February,E08000012,Local Authority,Liverpool,361
+February,E08000014,Local Authority,Sefton,298
+February,E08000013,Local Authority,St. Helens,208
+February,E08000015,Local Authority,Wirral,345
+February,E12000003,Region,YORKSHIRE AND THE HUMBER,"4,737"
+February,E06000011,Local Authority,East Riding of Yorkshire,378
+February,E06000010,Local Authority,"Kingston upon Hull, City of",217
+February,E06000012,Local Authority,North East Lincolnshire,167
+February,E06000013,Local Authority,North Lincolnshire,153
+February,E06000014,Local Authority,York,172
+February,E06000065,Local Authority,North Yorkshire,587
+February,E11000003,Metropolitan County,South Yorkshire (Met County),"1,157"
+February,E08000016,Local Authority,Barnsley,232
+February,E08000017,Local Authority,Doncaster,260
+February,E08000018,Local Authority,Rotherham,220
+February,E08000019,Local Authority,Sheffield,445
+February,E11000006,Metropolitan County,West Yorkshire (Met County),"1,906"
+February,E08000032,Local Authority,Bradford,429
+February,E08000033,Local Authority,Calderdale,185
+February,E08000034,Local Authority,Kirklees,356
+February,E08000035,Local Authority,Leeds,560
+February,E08000036,Local Authority,Wakefield,376
+February,E12000004,Region,EAST MIDLANDS,"4,169"
+February,E06000015,Local Authority,Derby,212
+February,E06000016,Local Authority,Leicester,223
+February,E06000061,Local Authority,North Northamptonshire,278
+February,E06000018,Local Authority,Nottingham,211
+February,E06000017,Local Authority,Rutland,37
+February,E06000062,Local Authority,West Northamptonshire,297
+February,E10000007,County,Derbyshire,754
+February,E07000032,Local Authority,Amber Valley,133
+February,E07000033,Local Authority,Bolsover,69
+February,E07000034,Local Authority,Chesterfield,119
+February,E07000035,Local Authority,Derbyshire Dales,74
+February,E07000036,Local Authority,Erewash,109
+February,E07000037,Local Authority,High Peak,71
+February,E07000038,Local Authority,North East Derbyshire,93
+February,E07000039,Local Authority,South Derbyshire,86
+February,E10000018,County,Leicestershire,622
+February,E07000129,Local Authority,Blaby,94
+February,E07000130,Local Authority,Charnwood,133
+February,E07000131,Local Authority,Harborough,104
+February,E07000132,Local Authority,Hinckley and Bosworth,113
+February,E07000133,Local Authority,Melton,38
+February,E07000134,Local Authority,North West Leicestershire,85
+February,E07000135,Local Authority,Oadby and Wigston,55
+February,E10000019,County,Lincolnshire,783
+February,E07000136,Local Authority,Boston,72
+February,E07000137,Local Authority,East Lindsey,181
+February,E07000138,Local Authority,Lincoln,87
+February,E07000139,Local Authority,North Kesteven,122
+February,E07000140,Local Authority,South Holland,94
+February,E07000141,Local Authority,South Kesteven,127
+February,E07000142,Local Authority,West Lindsey,100
+February,E10000024,County,Nottinghamshire,752
+February,E07000170,Local Authority,Ashfield,121
+February,E07000171,Local Authority,Bassetlaw,102
+February,E07000172,Local Authority,Broxtowe,105
+February,E07000173,Local Authority,Gedling,104
+February,E07000174,Local Authority,Mansfield,105
+February,E07000175,Local Authority,Newark and Sherwood,108
+February,E07000176,Local Authority,Rushcliffe,107
+February,E12000005,Region,WEST MIDLANDS,"5,019"
+February,E06000019,Local Authority,"Herefordshire, County of",208
+February,E06000051,Local Authority,Shropshire,364
+February,E06000021,Local Authority,Stoke-on-Trent,196
+February,E06000020,Local Authority,Telford and Wrekin,128
+February,E10000028,County,Staffordshire,771
+February,E07000192,Local Authority,Cannock Chase,96
+February,E07000193,Local Authority,East Staffordshire,97
+February,E07000194,Local Authority,Lichfield,93
+February,E07000195,Local Authority,Newcastle-under-Lyme,110
+February,E07000196,Local Authority,South Staffordshire,105
+February,E07000197,Local Authority,Stafford,104
+February,E07000198,Local Authority,Staffordshire Moorlands,99
+February,E07000199,Local Authority,Tamworth,67
+February,E10000031,County,Warwickshire,569
+February,E07000218,Local Authority,North Warwickshire,74
+February,E07000219,Local Authority,Nuneaton and Bedworth,125
+February,E07000220,Local Authority,Rugby,87
+February,E07000221,Local Authority,Stratford-on-Avon,136
+February,E07000222,Local Authority,Warwick,147
+February,E11000005,Metropolitan County,West Midlands (Met County),"2,234"
+February,E08000025,Local Authority,Birmingham,775
+February,E08000026,Local Authority,Coventry,242
+February,E08000027,Local Authority,Dudley,300
+February,E08000028,Local Authority,Sandwell,261
+February,E08000029,Local Authority,Solihull,188
+February,E08000030,Local Authority,Walsall,246
+February,E08000031,Local Authority,Wolverhampton,222
+February,E10000034,County,Worcestershire,549
+February,E07000234,Local Authority,Bromsgrove,90
+February,E07000235,Local Authority,Malvern Hills,75
+February,E07000236,Local Authority,Redditch,68
+February,E07000237,Local Authority,Worcester,82
+February,E07000238,Local Authority,Wychavon,122
+February,E07000239,Local Authority,Wyre Forest,112
+February,E12000006,Region,EAST,"5,257"
+February,E06000055,Local Authority,Bedford,177
+February,E06000056,Local Authority,Central Bedfordshire,219
+February,E06000032,Local Authority,Luton,142
+February,E06000031,Local Authority,Peterborough,162
+February,E06000033,Local Authority,Southend-on-Sea,189
+February,E06000034,Local Authority,Thurrock,107
+February,E10000003,County,Cambridgeshire,536
+February,E07000008,Local Authority,Cambridge,66
+February,E07000009,Local Authority,East Cambridgeshire,76
+February,E07000010,Local Authority,Fenland,110
+February,E07000011,Local Authority,Huntingdonshire,160
+February,E07000012,Local Authority,South Cambridgeshire,124
+February,E10000012,County,Essex,"1,280"
+February,E07000066,Local Authority,Basildon,140
+February,E07000067,Local Authority,Braintree,133
+February,E07000068,Local Authority,Brentwood,74
+February,E07000069,Local Authority,Castle Point,83
+February,E07000070,Local Authority,Chelmsford,139
+February,E07000071,Local Authority,Colchester,163
+February,E07000072,Local Authority,Epping Forest,96
+February,E07000073,Local Authority,Harlow,68
+February,E07000074,Local Authority,Maldon,48
+February,E07000075,Local Authority,Rochford,72
+February,E07000076,Local Authority,Tendring,195
+February,E07000077,Local Authority,Uttlesford,69
+February,E10000015,County,Hertfordshire,909
+February,E07000095,Local Authority,Broxbourne,75
+February,E07000096,Local Authority,Dacorum,125
+February,E07000242,Local Authority,East Hertfordshire,116
+February,E07000098,Local Authority,Hertsmere,77
+February,E07000099,Local Authority,North Hertfordshire,113
+February,E07000240,Local Authority,St Albans,101
+February,E07000243,Local Authority,Stevenage,74
+February,E07000102,Local Authority,Three Rivers,71
+February,E07000103,Local Authority,Watford,59
+February,E07000241,Local Authority,Welwyn Hatfield,98
+February,E10000020,County,Norfolk,824
+February,E07000143,Local Authority,Breckland,142
+February,E07000144,Local Authority,Broadland,117
+February,E07000145,Local Authority,Great Yarmouth,89
+February,E07000146,Local Authority,King�s Lynn and West Norfolk,155
+February,E07000147,Local Authority,North Norfolk,119
+February,E07000148,Local Authority,Norwich,90
+February,E07000149,Local Authority,South Norfolk,112
+February,E10000029,County,Suffolk,712
+February,E07000200,Local Authority,Babergh,108
+February,E07000244,Local Authority,East Suffolk,252
+February,E07000202,Local Authority,Ipswich,109
+February,E07000203,Local Authority,Mid Suffolk,87
+February,E07000245,Local Authority,West Suffolk,156
+February,E12000007,Region,LONDON,"4,367"
+February,E13000001,Inner London,Inner London,"1,387"
+February,E09000007,Local Authority,Camden,106
+February,E09000001,Local Authority,City of London,2
+February,E09000012,Local Authority,Hackney,99
+February,E09000013,Local Authority,Hammersmith and Fulham,94
+February,E09000014,Local Authority,Haringey,113
+February,E09000019,Local Authority,Islington,98
+February,E09000020,Local Authority,Kensington and Chelsea,63
+February,E09000022,Local Authority,Lambeth,109
+February,E09000023,Local Authority,Lewisham,151
+February,E09000025,Local Authority,Newham,119
+February,E09000028,Local Authority,Southwark,131
+February,E09000030,Local Authority,Tower Hamlets,98
+February,E09000032,Local Authority,Wandsworth,126
+February,E09000033,Local Authority,Westminster,78
+February,E13000002,Outer London,Outer London,"2,980"
+February,E09000002,Local Authority,Barking and Dagenham,104
+February,E09000003,Local Authority,Barnet,213
+February,E09000004,Local Authority,Bexley,162
+February,E09000005,Local Authority,Brent,151
+February,E09000006,Local Authority,Bromley,216
+February,E09000008,Local Authority,Croydon,246
+February,E09000009,Local Authority,Ealing,200
+February,E09000010,Local Authority,Enfield,197
+February,E09000011,Local Authority,Greenwich,135
+February,E09000015,Local Authority,Harrow,135
+February,E09000016,Local Authority,Havering,167
+February,E09000017,Local Authority,Hillingdon,155
+February,E09000018,Local Authority,Hounslow,136
+February,E09000021,Local Authority,Kingston upon Thames,99
+February,E09000024,Local Authority,Merton,110
+February,E09000026,Local Authority,Redbridge,158
+February,E09000027,Local Authority,Richmond upon Thames,107
+February,E09000029,Local Authority,Sutton,152
+February,E09000031,Local Authority,Waltham Forest,137
+February,E12000008,Region,SOUTH EAST,"7,776"
+February,E06000036,Local Authority,Bracknell Forest,92
+February,E06000043,Local Authority,Brighton and Hove,184
+February,E06000046,Local Authority,Isle of Wight,167
+February,E06000035,Local Authority,Medway,214
+February,E06000042,Local Authority,Milton Keynes,151
+February,E06000044,Local Authority,Portsmouth,151
+February,E06000038,Local Authority,Reading,105
+February,E06000039,Local Authority,Slough,69
+February,E06000045,Local Authority,Southampton,159
+February,E06000037,Local Authority,West Berkshire,110
+February,E06000040,Local Authority,Windsor and Maidenhead,112
+February,E06000041,Local Authority,Wokingham,120
+February,E06000060,Local Authority,Buckinghamshire,410
+February,E10000011,County,East Sussex,640
+February,E07000061,Local Authority,Eastbourne,126
+February,E07000062,Local Authority,Hastings,104
+February,E07000063,Local Authority,Lewes,124
+February,E07000064,Local Authority,Rother,103
+February,E07000065,Local Authority,Wealden,183
+February,E10000014,County,Hampshire,"1,254"
+February,E07000084,Local Authority,Basingstoke and Deane,125
+February,E07000085,Local Authority,East Hampshire,124
+February,E07000086,Local Authority,Eastleigh,116
+February,E07000087,Local Authority,Fareham,114
+February,E07000088,Local Authority,Gosport,72
+February,E07000089,Local Authority,Hart,75
+February,E07000090,Local Authority,Havant,139
+February,E07000091,Local Authority,New Forest,193
+February,E07000092,Local Authority,Rushmoor,64
+February,E07000093,Local Authority,Test Valley,127
+February,E07000094,Local Authority,Winchester,105
+February,E10000016,County,Kent,"1,432"
+February,E07000105,Local Authority,Ashford,106
+February,E07000106,Local Authority,Canterbury,129
+February,E07000107,Local Authority,Dartford,88
+February,E07000108,Local Authority,Dover,107
+February,E07000109,Local Authority,Gravesham,91
+February,E07000110,Local Authority,Maidstone,173
+February,E07000111,Local Authority,Sevenoaks,127
+February,E07000112,Local Authority,Folkestone and Hythe,108
+February,E07000113,Local Authority,Swale,148
+February,E07000114,Local Authority,Thanet,174
+February,E07000115,Local Authority,Tonbridge and Malling,80
+February,E07000116,Local Authority,Tunbridge Wells,101
+February,E10000025,County,Oxfordshire,526
+February,E07000177,Local Authority,Cherwell,100
+February,E07000178,Local Authority,Oxford,95
+February,E07000179,Local Authority,South Oxfordshire,126
+February,E07000180,Local Authority,Vale of White Horse,107
+February,E07000181,Local Authority,West Oxfordshire,98
+February,E10000030,County,Surrey,933
+February,E07000207,Local Authority,Elmbridge,92
+February,E07000208,Local Authority,Epsom and Ewell,57
+February,E07000209,Local Authority,Guildford,80
+February,E07000210,Local Authority,Mole Valley,84
+February,E07000211,Local Authority,Reigate and Banstead,115
+February,E07000212,Local Authority,Runnymede,74
+February,E07000213,Local Authority,Spelthorne,89
+February,E07000214,Local Authority,Surrey Heath,81
+February,E07000215,Local Authority,Tandridge,86
+February,E07000216,Local Authority,Waverley,111
+February,E07000217,Local Authority,Woking,64
+February,E10000032,County,West Sussex,947
+February,E07000223,Local Authority,Adur,53
+February,E07000224,Local Authority,Arun,219
+February,E07000225,Local Authority,Chichester,142
+February,E07000226,Local Authority,Crawley,87
+February,E07000227,Local Authority,Horsham,148
+February,E07000228,Local Authority,Mid Sussex,164
+February,E07000229,Local Authority,Worthing,134
+February,E12000009,Region,SOUTH WEST,"5,232"
+February,E06000022,Local Authority,Bath and North East Somerset,144
+February,E06000058,Local Authority,"Bournemouth, Christchurch and Poole",399
+February,E06000023,Local Authority,"Bristol, City of",301
+February,E06000052,Local Authority,Cornwall,631
+February,E06000053,Local Authority,Isles of Scilly,2
+February,E06000059,Local Authority,Dorset,417
+February,E06000024,Local Authority,North Somerset,194
+February,E06000026,Local Authority,Plymouth,245
+February,E06000025,Local Authority,South Gloucestershire,217
+February,E06000030,Local Authority,Swindon,160
+February,E06000027,Local Authority,Torbay,176
+February,E06000054,Local Authority,Wiltshire,438
+February,E10000008,County,Devon,834
+February,E07000040,Local Authority,East Devon,157
+February,E07000041,Local Authority,Exeter,93
+February,E07000042,Local Authority,Mid Devon,83
+February,E07000043,Local Authority,North Devon,121
+February,E07000044,Local Authority,South Hams,82
+February,E07000045,Local Authority,Teignbridge,162
+February,E07000046,Local Authority,Torridge,76
+February,E07000047,Local Authority,West Devon,60
+February,E10000013,County,Gloucestershire,500
+February,E07000078,Local Authority,Cheltenham,98
+February,E07000079,Local Authority,Cotswold,83
+February,E07000080,Local Authority,Forest of Dean,86
+February,E07000081,Local Authority,Gloucester,67
+February,E07000082,Local Authority,Stroud,95
+February,E07000083,Local Authority,Tewkesbury,71
+February,E06000066,Local Authority,Somerset,574
+February,E54000040,Integrated Care Board (ICB),"NHS Bath and North East Somerset, Swindon and Wiltshire Integrated Care Board",744
+February,E54000024,Integrated Care Board (ICB),"NHS Bedfordshire, Luton and Milton Keynes Integrated Care Board",697
+February,E54000055,Integrated Care Board (ICB),NHS Birmingham and Solihull Integrated Care Board,963
+February,E54000062,Integrated Care Board (ICB),NHS Black Country Integrated Care Board,"1,029"
+February,E54000039,Integrated Care Board (ICB),"NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board",712
+February,E54000044,Integrated Care Board (ICB),"NHS Buckinghamshire, Oxfordshire and Berkshire West Integrated Care Board","1,261"
+February,E54000056,Integrated Care Board (ICB),NHS Cambridgeshire and Peterborough Integrated Care Board,718
+February,E54000008,Integrated Care Board (ICB),NHS Cheshire and Merseyside Integrated Care Board,"2,346"
+February,E54000036,Integrated Care Board (ICB),NHS Cornwall and the Isles of Scilly Integrated Care Board,633
+February,E54000018,Integrated Care Board (ICB),NHS Coventry and Warwickshire Integrated Care Board,811
+February,E54000058,Integrated Care Board (ICB),NHS Derby and Derbyshire Integrated Care Board,966
+February,E54000037,Integrated Care Board (ICB),NHS Devon Integrated Care Board,"1,255"
+February,E54000041,Integrated Care Board (ICB),NHS Dorset Integrated Care Board,816
+February,E54000034,Integrated Care Board (ICB),NHS Frimley Integrated Care Board,524
+February,E54000043,Integrated Care Board (ICB),NHS Gloucestershire Integrated Care Board,500
+February,E54000057,Integrated Care Board (ICB),NHS Greater Manchester Integrated Care Board,"2,151"
+February,E54000042,Integrated Care Board (ICB),NHS Hampshire and Isle of Wight Integrated Care Board,"1,606"
+February,E54000019,Integrated Care Board (ICB),NHS Herefordshire and Worcestershire Integrated Care Board,757
+February,E54000025,Integrated Care Board (ICB),NHS Hertfordshire and West Essex Integrated Care Board,"1,122"
+February,E54000051,Integrated Care Board (ICB),NHS Humber and North Yorkshire Integrated Care Board,"1,614"
+February,E54000032,Integrated Care Board (ICB),NHS Kent and Medway Integrated Care Board,"1,646"
+February,E54000048,Integrated Care Board (ICB),NHS Lancashire and South Cumbria Integrated Care Board,"1,688"
+February,E54000015,Integrated Care Board (ICB),"NHS Leicester, Leicestershire and Rutland Integrated Care Board",882
+February,E54000013,Integrated Care Board (ICB),NHS Lincolnshire Integrated Care Board,783
+February,E54000026,Integrated Care Board (ICB),NHS Mid and South Essex Integrated Care Board,985
+February,E54000022,Integrated Care Board (ICB),NHS Norfolk and Waveney Integrated Care Board,934
+February,E54000028,Integrated Care Board (ICB),NHS North Central London Integrated Care Board,727
+February,E54000029,Integrated Care Board (ICB),NHS North East London Integrated Care Board,884
+February,E54000050,Integrated Care Board (ICB),NHS North East and North Cumbria Integrated Care Board,"2,928"
+February,E54000027,Integrated Care Board (ICB),NHS North West London Integrated Care Board,"1,012"
+February,E54000059,Integrated Care Board (ICB),NHS Northamptonshire Integrated Care Board,575
+February,E54000060,Integrated Care Board (ICB),NHS Nottingham and Nottinghamshire Integrated Care Board,963
+February,E54000011,Integrated Care Board (ICB),"NHS Shropshire, Telford and Wrekin Integrated Care Board",492
+February,E54000038,Integrated Care Board (ICB),NHS Somerset Integrated Care Board,574
+February,E54000030,Integrated Care Board (ICB),NHS South East London Integrated Care Board,904
+February,E54000031,Integrated Care Board (ICB),NHS South West London Integrated Care Board,840
+February,E54000061,Integrated Care Board (ICB),NHS South Yorkshire Integrated Care Board,"1,157"
+February,E54000010,Integrated Care Board (ICB),NHS Staffordshire and Stoke-on-Trent Integrated Care Board,967
+February,E54000023,Integrated Care Board (ICB),NHS Suffolk and North East Essex Integrated Care Board,960
+February,E54000063,Integrated Care Board (ICB),NHS Surrey Heartlands Integrated Care Board,807
+February,E54000064,Integrated Care Board (ICB),NHS Sussex Integrated Care Board,"1,771"
+February,E54000054,Integrated Care Board (ICB),NHS West Yorkshire Integrated Care Board,"1,962"
+February,W92000004,Country,WALES,"3,159"
+February,W06000001,Local Authority,Isle of Anglesey,81
+February,W06000002,Local Authority,Gwynedd,117
+February,W06000003,Local Authority,Conwy,110
+February,W06000004,Local Authority,Denbighshire,111
+February,W06000005,Local Authority,Flintshire,121
+February,W06000006,Local Authority,Wrexham,154
+February,W06000023,Local Authority,Powys,145
+February,W06000008,Local Authority,Ceredigion,66
+February,W06000009,Local Authority,Pembrokeshire,126
+February,W06000010,Local Authority,Carmarthenshire,222
+February,W06000011,Local Authority,Swansea,272
+February,W06000012,Local Authority,Neath Port Talbot,164
+February,W06000013,Local Authority,Bridgend,157
+February,W06000014,Local Authority,Vale of Glamorgan,122
+February,W06000015,Local Authority,Cardiff,286
+February,W06000016,Local Authority,Rhondda Cynon Taf,262
+February,W06000024,Local Authority,Merthyr Tydfil,68
+February,W06000018,Local Authority,Caerphilly,169
+February,W06000019,Local Authority,Blaenau Gwent,76
+February,W06000020,Local Authority,Torfaen,94
+February,W06000021,Local Authority,Monmouthshire,102
+February,W06000022,Local Authority,Newport,134
+February,W11000028,Local Health Board (LHB),Aneurin Bevan University Health Board,575
+February,W11000023,Local Health Board (LHB),Betsi Cadwaladr University Health Board,694
+February,W11000029,Local Health Board (LHB),Cardiff and Vale University Health Board,408
+February,W11000030,Local Health Board (LHB),Cwm Taf Morgannwg University Health Board,487
+February,W11000025,Local Health Board (LHB),Hywel Dda University Health Board,414
+February,W11000024,Local Health Board (LHB),Powys Teaching Health Board,145
+February,W11000031,Local Health Board (LHB),Swansea Bay University Health Board,436
+March,K04000001,Country,"ENGLAND, WALES AND NON-RESIDENTS","48,816"
+March,E92000001,Country,ENGLAND,"45,555"
+March,E12000001,Region,NORTH EAST,"2,552"
+March,E06000047,Local Authority,County Durham,512
+March,E06000005,Local Authority,Darlington,110
+March,E06000001,Local Authority,Hartlepool,101
+March,E06000002,Local Authority,Middlesbrough,115
+March,E06000057,Local Authority,Northumberland,373
+March,E06000003,Local Authority,Redcar and Cleveland,154
+March,E06000004,Local Authority,Stockton-on-Tees,178
+March,E11000007,Metropolitan County,Tyne and Wear (Met County),"1,009"
+March,E08000037,Local Authority,Gateshead,214
+March,E08000021,Local Authority,Newcastle upon Tyne,214
+March,E08000022,Local Authority,North Tyneside,184
+March,E08000023,Local Authority,South Tyneside,147
+March,E08000024,Local Authority,Sunderland,250
+March,E12000002,Region,NORTH WEST,"6,342"
+March,E06000008,Local Authority,Blackburn with Darwen,102
+March,E06000009,Local Authority,Blackpool,172
+March,E06000049,Local Authority,Cheshire East,312
+March,E06000050,Local Authority,Cheshire West and Chester,341
+March,E06000006,Local Authority,Halton,105
+March,E06000007,Local Authority,Warrington,191
+March,E06000063,Local Authority,Cumberland,271
+March,E06000064,Local Authority,Westmorland and Furness,223
+March,E11000001,Metropolitan County,Greater Manchester (Met County),"2,204"
+March,E08000001,Local Authority,Bolton,234
+March,E08000002,Local Authority,Bury,159
+March,E08000003,Local Authority,Manchester,302
+March,E08000004,Local Authority,Oldham,164
+March,E08000005,Local Authority,Rochdale,181
+March,E08000006,Local Authority,Salford,197
+March,E08000007,Local Authority,Stockport,270
+March,E08000008,Local Authority,Tameside,194
+March,E08000009,Local Authority,Trafford,188
+March,E08000010,Local Authority,Wigan,315
+March,E10000017,County,Lancashire,"1,146"
+March,E07000117,Local Authority,Burnley,98
+March,E07000118,Local Authority,Chorley,115
+March,E07000119,Local Authority,Fylde,100
+March,E07000120,Local Authority,Hyndburn,58
+March,E07000121,Local Authority,Lancaster,128
+March,E07000122,Local Authority,Pendle,74
+March,E07000123,Local Authority,Preston,120
+March,E07000124,Local Authority,Ribble Valley,52
+March,E07000125,Local Authority,Rossendale,57
+March,E07000126,Local Authority,South Ribble,103
+March,E07000127,Local Authority,West Lancashire,100
+March,E07000128,Local Authority,Wyre,141
+March,E11000002,Metropolitan County,Merseyside (Met County),"1,275"
+March,E08000011,Local Authority,Knowsley,145
+March,E08000012,Local Authority,Liverpool,350
+March,E08000014,Local Authority,Sefton,276
+March,E08000013,Local Authority,St. Helens,187
+March,E08000015,Local Authority,Wirral,317
+March,E12000003,Region,YORKSHIRE AND THE HUMBER,"4,754"
+March,E06000011,Local Authority,East Riding of Yorkshire,353
+March,E06000010,Local Authority,"Kingston upon Hull, City of",243
+March,E06000012,Local Authority,North East Lincolnshire,146
+March,E06000013,Local Authority,North Lincolnshire,195
+March,E06000014,Local Authority,York,163
+March,E06000065,Local Authority,North Yorkshire,576
+March,E11000003,Metropolitan County,South Yorkshire (Met County),"1,182"
+March,E08000016,Local Authority,Barnsley,225
+March,E08000017,Local Authority,Doncaster,265
+March,E08000018,Local Authority,Rotherham,248
+March,E08000019,Local Authority,Sheffield,444
+March,E11000006,Metropolitan County,West Yorkshire (Met County),"1,896"
+March,E08000032,Local Authority,Bradford,391
+March,E08000033,Local Authority,Calderdale,170
+March,E08000034,Local Authority,Kirklees,335
+March,E08000035,Local Authority,Leeds,679
+March,E08000036,Local Authority,Wakefield,321
+March,E12000004,Region,EAST MIDLANDS,"4,242"
+March,E06000015,Local Authority,Derby,202
+March,E06000016,Local Authority,Leicester,231
+March,E06000061,Local Authority,North Northamptonshire,292
+March,E06000018,Local Authority,Nottingham,198
+March,E06000017,Local Authority,Rutland,40
+March,E06000062,Local Authority,West Northamptonshire,327
+March,E10000007,County,Derbyshire,767
+March,E07000032,Local Authority,Amber Valley,134
+March,E07000033,Local Authority,Bolsover,75
+March,E07000034,Local Authority,Chesterfield,111
+March,E07000035,Local Authority,Derbyshire Dales,82
+March,E07000036,Local Authority,Erewash,102
+March,E07000037,Local Authority,High Peak,79
+March,E07000038,Local Authority,North East Derbyshire,107
+March,E07000039,Local Authority,South Derbyshire,77
+March,E10000018,County,Leicestershire,573
+March,E07000129,Local Authority,Blaby,84
+March,E07000130,Local Authority,Charnwood,155
+March,E07000131,Local Authority,Harborough,68
+March,E07000132,Local Authority,Hinckley and Bosworth,104
+March,E07000133,Local Authority,Melton,48
+March,E07000134,Local Authority,North West Leicestershire,76
+March,E07000135,Local Authority,Oadby and Wigston,38
+March,E10000019,County,Lincolnshire,814
+March,E07000136,Local Authority,Boston,80
+March,E07000137,Local Authority,East Lindsey,199
+March,E07000138,Local Authority,Lincoln,85
+March,E07000139,Local Authority,North Kesteven,118
+March,E07000140,Local Authority,South Holland,115
+March,E07000141,Local Authority,South Kesteven,141
+March,E07000142,Local Authority,West Lindsey,76
+March,E10000024,County,Nottinghamshire,798
+March,E07000170,Local Authority,Ashfield,133
+March,E07000171,Local Authority,Bassetlaw,132
+March,E07000172,Local Authority,Broxtowe,112
+March,E07000173,Local Authority,Gedling,110
+March,E07000174,Local Authority,Mansfield,103
+March,E07000175,Local Authority,Newark and Sherwood,104
+March,E07000176,Local Authority,Rushcliffe,104
+March,E12000005,Region,WEST MIDLANDS,"5,119"
+March,E06000019,Local Authority,"Herefordshire, County of",191
+March,E06000051,Local Authority,Shropshire,337
+March,E06000021,Local Authority,Stoke-on-Trent,249
+March,E06000020,Local Authority,Telford and Wrekin,166
+March,E10000028,County,Staffordshire,804
+March,E07000192,Local Authority,Cannock Chase,86
+March,E07000193,Local Authority,East Staffordshire,106
+March,E07000194,Local Authority,Lichfield,107
+March,E07000195,Local Authority,Newcastle-under-Lyme,123
+March,E07000196,Local Authority,South Staffordshire,115
+March,E07000197,Local Authority,Stafford,104
+March,E07000198,Local Authority,Staffordshire Moorlands,101
+March,E07000199,Local Authority,Tamworth,62
+March,E10000031,County,Warwickshire,482
+March,E07000218,Local Authority,North Warwickshire,62
+March,E07000219,Local Authority,Nuneaton and Bedworth,110
+March,E07000220,Local Authority,Rugby,94
+March,E07000221,Local Authority,Stratford-on-Avon,116
+March,E07000222,Local Authority,Warwick,100
+March,E11000005,Metropolitan County,West Midlands (Met County),"2,286"
+March,E08000025,Local Authority,Birmingham,804
+March,E08000026,Local Authority,Coventry,244
+March,E08000027,Local Authority,Dudley,312
+March,E08000028,Local Authority,Sandwell,243
+March,E08000029,Local Authority,Solihull,207
+March,E08000030,Local Authority,Walsall,248
+March,E08000031,Local Authority,Wolverhampton,228
+March,E10000034,County,Worcestershire,604
+March,E07000234,Local Authority,Bromsgrove,88
+March,E07000235,Local Authority,Malvern Hills,88
+March,E07000236,Local Authority,Redditch,62
+March,E07000237,Local Authority,Worcester,88
+March,E07000238,Local Authority,Wychavon,147
+March,E07000239,Local Authority,Wyre Forest,131
+March,E12000006,Region,EAST,"5,329"
+March,E06000055,Local Authority,Bedford,137
+March,E06000056,Local Authority,Central Bedfordshire,223
+March,E06000032,Local Authority,Luton,121
+March,E06000031,Local Authority,Peterborough,159
+March,E06000033,Local Authority,Southend-on-Sea,153
+March,E06000034,Local Authority,Thurrock,90
+March,E10000003,County,Cambridgeshire,520
+March,E07000008,Local Authority,Cambridge,59
+March,E07000009,Local Authority,East Cambridgeshire,73
+March,E07000010,Local Authority,Fenland,117
+March,E07000011,Local Authority,Huntingdonshire,149
+March,E07000012,Local Authority,South Cambridgeshire,122
+March,E10000012,County,Essex,"1,356"
+March,E07000066,Local Authority,Basildon,162
+March,E07000067,Local Authority,Braintree,159
+March,E07000068,Local Authority,Brentwood,61
+March,E07000069,Local Authority,Castle Point,79
+March,E07000070,Local Authority,Chelmsford,143
+March,E07000071,Local Authority,Colchester,125
+March,E07000072,Local Authority,Epping Forest,102
+March,E07000073,Local Authority,Harlow,74
+March,E07000074,Local Authority,Maldon,74
+March,E07000075,Local Authority,Rochford,79
+March,E07000076,Local Authority,Tendring,223
+March,E07000077,Local Authority,Uttlesford,75
+March,E10000015,County,Hertfordshire,853
+March,E07000095,Local Authority,Broxbourne,63
+March,E07000096,Local Authority,Dacorum,101
+March,E07000242,Local Authority,East Hertfordshire,99
+March,E07000098,Local Authority,Hertsmere,74
+March,E07000099,Local Authority,North Hertfordshire,138
+March,E07000240,Local Authority,St Albans,109
+March,E07000243,Local Authority,Stevenage,56
+March,E07000102,Local Authority,Three Rivers,79
+March,E07000103,Local Authority,Watford,57
+March,E07000241,Local Authority,Welwyn Hatfield,77
+March,E10000020,County,Norfolk,994
+March,E07000143,Local Authority,Breckland,162
+March,E07000144,Local Authority,Broadland,146
+March,E07000145,Local Authority,Great Yarmouth,110
+March,E07000146,Local Authority,King�s Lynn and West Norfolk,154
+March,E07000147,Local Authority,North Norfolk,141
+March,E07000148,Local Authority,Norwich,119
+March,E07000149,Local Authority,South Norfolk,162
+March,E10000029,County,Suffolk,723
+March,E07000200,Local Authority,Babergh,97
+March,E07000244,Local Authority,East Suffolk,255
+March,E07000202,Local Authority,Ipswich,97
+March,E07000203,Local Authority,Mid Suffolk,111
+March,E07000245,Local Authority,West Suffolk,163
+March,E12000007,Region,LONDON,"4,344"
+March,E13000001,Inner London,Inner London,"1,355"
+March,E09000007,Local Authority,Camden,83
+March,E09000001,Local Authority,City of London,0
+March,E09000012,Local Authority,Hackney,116
+March,E09000013,Local Authority,Hammersmith and Fulham,68
+March,E09000014,Local Authority,Haringey,100
+March,E09000019,Local Authority,Islington,85
+March,E09000020,Local Authority,Kensington and Chelsea,63
+March,E09000022,Local Authority,Lambeth,118
+March,E09000023,Local Authority,Lewisham,138
+March,E09000025,Local Authority,Newham,113
+March,E09000028,Local Authority,Southwark,130
+March,E09000030,Local Authority,Tower Hamlets,91
+March,E09000032,Local Authority,Wandsworth,146
+March,E09000033,Local Authority,Westminster,104
+March,E13000002,Outer London,Outer London,"2,989"
+March,E09000002,Local Authority,Barking and Dagenham,90
+March,E09000003,Local Authority,Barnet,224
+March,E09000004,Local Authority,Bexley,177
+March,E09000005,Local Authority,Brent,153
+March,E09000006,Local Authority,Bromley,249
+March,E09000008,Local Authority,Croydon,235
+March,E09000009,Local Authority,Ealing,178
+March,E09000010,Local Authority,Enfield,182
+March,E09000011,Local Authority,Greenwich,148
+March,E09000015,Local Authority,Harrow,137
+March,E09000016,Local Authority,Havering,194
+March,E09000017,Local Authority,Hillingdon,176
+March,E09000018,Local Authority,Hounslow,151
+March,E09000021,Local Authority,Kingston upon Thames,95
+March,E09000024,Local Authority,Merton,103
+March,E09000026,Local Authority,Redbridge,155
+March,E09000027,Local Authority,Richmond upon Thames,98
+March,E09000029,Local Authority,Sutton,124
+March,E09000031,Local Authority,Waltham Forest,120
+March,E12000008,Region,SOUTH EAST,"7,499"
+March,E06000036,Local Authority,Bracknell Forest,75
+March,E06000043,Local Authority,Brighton and Hove,174
+March,E06000046,Local Authority,Isle of Wight,153
+March,E06000035,Local Authority,Medway,231
+March,E06000042,Local Authority,Milton Keynes,191
+March,E06000044,Local Authority,Portsmouth,167
+March,E06000038,Local Authority,Reading,97
+March,E06000039,Local Authority,Slough,85
+March,E06000045,Local Authority,Southampton,189
+March,E06000037,Local Authority,West Berkshire,123
+March,E06000040,Local Authority,Windsor and Maidenhead,122
+March,E06000041,Local Authority,Wokingham,105
+March,E06000060,Local Authority,Buckinghamshire,349
+March,E10000011,County,East Sussex,617
+March,E07000061,Local Authority,Eastbourne,118
+March,E07000062,Local Authority,Hastings,105
+March,E07000063,Local Authority,Lewes,99
+March,E07000064,Local Authority,Rother,117
+March,E07000065,Local Authority,Wealden,178
+March,E10000014,County,Hampshire,"1,220"
+March,E07000084,Local Authority,Basingstoke and Deane,140
+March,E07000085,Local Authority,East Hampshire,104
+March,E07000086,Local Authority,Eastleigh,121
+March,E07000087,Local Authority,Fareham,107
+March,E07000088,Local Authority,Gosport,76
+March,E07000089,Local Authority,Hart,67
+March,E07000090,Local Authority,Havant,128
+March,E07000091,Local Authority,New Forest,224
+March,E07000092,Local Authority,Rushmoor,58
+March,E07000093,Local Authority,Test Valley,109
+March,E07000094,Local Authority,Winchester,86
+March,E10000016,County,Kent,"1,395"
+March,E07000105,Local Authority,Ashford,89
+March,E07000106,Local Authority,Canterbury,155
+March,E07000107,Local Authority,Dartford,86
+March,E07000108,Local Authority,Dover,119
+March,E07000109,Local Authority,Gravesham,103
+March,E07000110,Local Authority,Maidstone,131
+March,E07000111,Local Authority,Sevenoaks,107
+March,E07000112,Local Authority,Folkestone and Hythe,108
+March,E07000113,Local Authority,Swale,136
+March,E07000114,Local Authority,Thanet,142
+March,E07000115,Local Authority,Tonbridge and Malling,111
+March,E07000116,Local Authority,Tunbridge Wells,108
+March,E10000025,County,Oxfordshire,518
+March,E07000177,Local Authority,Cherwell,109
+March,E07000178,Local Authority,Oxford,81
+March,E07000179,Local Authority,South Oxfordshire,112
+March,E07000180,Local Authority,Vale of White Horse,116
+March,E07000181,Local Authority,West Oxfordshire,100
+March,E10000030,County,Surrey,829
+March,E07000207,Local Authority,Elmbridge,95
+March,E07000208,Local Authority,Epsom and Ewell,55
+March,E07000209,Local Authority,Guildford,75
+March,E07000210,Local Authority,Mole Valley,74
+March,E07000211,Local Authority,Reigate and Banstead,91
+March,E07000212,Local Authority,Runnymede,55
+March,E07000213,Local Authority,Spelthorne,76
+March,E07000214,Local Authority,Surrey Heath,75
+March,E07000215,Local Authority,Tandridge,60
+March,E07000216,Local Authority,Waverley,111
+March,E07000217,Local Authority,Woking,62
+March,E10000032,County,West Sussex,859
+March,E07000223,Local Authority,Adur,76
+March,E07000224,Local Authority,Arun,196
+March,E07000225,Local Authority,Chichester,118
+March,E07000226,Local Authority,Crawley,61
+March,E07000227,Local Authority,Horsham,141
+March,E07000228,Local Authority,Mid Sussex,125
+March,E07000229,Local Authority,Worthing,142
+March,E12000009,Region,SOUTH WEST,"5,374"
+March,E06000022,Local Authority,Bath and North East Somerset,143
+March,E06000058,Local Authority,"Bournemouth, Christchurch and Poole",364
+March,E06000023,Local Authority,"Bristol, City of",318
+March,E06000052,Local Authority,Cornwall,614
+March,E06000053,Local Authority,Isles of Scilly,5
+March,E06000059,Local Authority,Dorset,432
+March,E06000024,Local Authority,North Somerset,231
+March,E06000026,Local Authority,Plymouth,243
+March,E06000025,Local Authority,South Gloucestershire,246
+March,E06000030,Local Authority,Swindon,163
+March,E06000027,Local Authority,Torbay,176
+March,E06000054,Local Authority,Wiltshire,419
+March,E10000008,County,Devon,779
+March,E07000040,Local Authority,East Devon,166
+March,E07000041,Local Authority,Exeter,108
+March,E07000042,Local Authority,Mid Devon,85
+March,E07000043,Local Authority,North Devon,89
+March,E07000044,Local Authority,South Hams,81
+March,E07000045,Local Authority,Teignbridge,135
+March,E07000046,Local Authority,Torridge,63
+March,E07000047,Local Authority,West Devon,52
+March,E10000013,County,Gloucestershire,619
+March,E07000078,Local Authority,Cheltenham,102
+March,E07000079,Local Authority,Cotswold,93
+March,E07000080,Local Authority,Forest of Dean,98
+March,E07000081,Local Authority,Gloucester,121
+March,E07000082,Local Authority,Stroud,119
+March,E07000083,Local Authority,Tewkesbury,86
+March,E06000066,Local Authority,Somerset,622
+March,E54000040,Integrated Care Board (ICB),"NHS Bath and North East Somerset, Swindon and Wiltshire Integrated Care Board",729
+March,E54000024,Integrated Care Board (ICB),"NHS Bedfordshire, Luton and Milton Keynes Integrated Care Board",678
+March,E54000055,Integrated Care Board (ICB),NHS Birmingham and Solihull Integrated Care Board,"1,011"
+March,E54000062,Integrated Care Board (ICB),NHS Black Country Integrated Care Board,"1,031"
+March,E54000039,Integrated Care Board (ICB),"NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board",795
+March,E54000044,Integrated Care Board (ICB),"NHS Buckinghamshire, Oxfordshire and Berkshire West Integrated Care Board","1,182"
+March,E54000056,Integrated Care Board (ICB),NHS Cambridgeshire and Peterborough Integrated Care Board,694
+March,E54000008,Integrated Care Board (ICB),NHS Cheshire and Merseyside Integrated Care Board,"2,224"
+March,E54000036,Integrated Care Board (ICB),NHS Cornwall and the Isles of Scilly Integrated Care Board,619
+March,E54000018,Integrated Care Board (ICB),NHS Coventry and Warwickshire Integrated Care Board,726
+March,E54000058,Integrated Care Board (ICB),NHS Derby and Derbyshire Integrated Care Board,969
+March,E54000037,Integrated Care Board (ICB),NHS Devon Integrated Care Board,"1,198"
+March,E54000041,Integrated Care Board (ICB),NHS Dorset Integrated Care Board,796
+March,E54000034,Integrated Care Board (ICB),NHS Frimley Integrated Care Board,500
+March,E54000043,Integrated Care Board (ICB),NHS Gloucestershire Integrated Care Board,619
+March,E54000057,Integrated Care Board (ICB),NHS Greater Manchester Integrated Care Board,"2,204"
+March,E54000042,Integrated Care Board (ICB),NHS Hampshire and Isle of Wight Integrated Care Board,"1,616"
+March,E54000019,Integrated Care Board (ICB),NHS Herefordshire and Worcestershire Integrated Care Board,795
+March,E54000025,Integrated Care Board (ICB),NHS Hertfordshire and West Essex Integrated Care Board,"1,089"
+March,E54000051,Integrated Care Board (ICB),NHS Humber and North Yorkshire Integrated Care Board,"1,618"
+March,E54000032,Integrated Care Board (ICB),NHS Kent and Medway Integrated Care Board,"1,626"
+March,E54000048,Integrated Care Board (ICB),NHS Lancashire and South Cumbria Integrated Care Board,"1,605"
+March,E54000015,Integrated Care Board (ICB),"NHS Leicester, Leicestershire and Rutland Integrated Care Board",844
+March,E54000013,Integrated Care Board (ICB),NHS Lincolnshire Integrated Care Board,814
+March,E54000026,Integrated Care Board (ICB),NHS Mid and South Essex Integrated Care Board,"1,000"
+March,E54000022,Integrated Care Board (ICB),NHS Norfolk and Waveney Integrated Care Board,"1,123"
+March,E54000028,Integrated Care Board (ICB),NHS North Central London Integrated Care Board,674
+March,E54000029,Integrated Care Board (ICB),NHS North East London Integrated Care Board,879
+March,E54000050,Integrated Care Board (ICB),NHS North East and North Cumbria Integrated Care Board,"2,869"
+March,E54000027,Integrated Care Board (ICB),NHS North West London Integrated Care Board,"1,030"
+March,E54000059,Integrated Care Board (ICB),NHS Northamptonshire Integrated Care Board,619
+March,E54000060,Integrated Care Board (ICB),NHS Nottingham and Nottinghamshire Integrated Care Board,996
+March,E54000011,Integrated Care Board (ICB),"NHS Shropshire, Telford and Wrekin Integrated Care Board",503
+March,E54000038,Integrated Care Board (ICB),NHS Somerset Integrated Care Board,622
+March,E54000030,Integrated Care Board (ICB),NHS South East London Integrated Care Board,960
+March,E54000031,Integrated Care Board (ICB),NHS South West London Integrated Care Board,801
+March,E54000061,Integrated Care Board (ICB),NHS South Yorkshire Integrated Care Board,"1,182"
+March,E54000010,Integrated Care Board (ICB),NHS Staffordshire and Stoke-on-Trent Integrated Care Board,"1,053"
+March,E54000023,Integrated Care Board (ICB),NHS Suffolk and North East Essex Integrated Care Board,942
+March,E54000063,Integrated Care Board (ICB),NHS Surrey Heartlands Integrated Care Board,724
+March,E54000064,Integrated Care Board (ICB),NHS Sussex Integrated Care Board,"1,650"
+March,E54000054,Integrated Care Board (ICB),NHS West Yorkshire Integrated Care Board,"1,946"
+March,W92000004,Country,WALES,"3,178"
+March,W06000001,Local Authority,Isle of Anglesey,85
+March,W06000002,Local Authority,Gwynedd,131
+March,W06000003,Local Authority,Conwy,135
+March,W06000004,Local Authority,Denbighshire,118
+March,W06000005,Local Authority,Flintshire,141
+March,W06000006,Local Authority,Wrexham,132
+March,W06000023,Local Authority,Powys,143
+March,W06000008,Local Authority,Ceredigion,73
+March,W06000009,Local Authority,Pembrokeshire,141
+March,W06000010,Local Authority,Carmarthenshire,199
+March,W06000011,Local Authority,Swansea,246
+March,W06000012,Local Authority,Neath Port Talbot,130
+March,W06000013,Local Authority,Bridgend,172
+March,W06000014,Local Authority,Vale of Glamorgan,129
+March,W06000015,Local Authority,Cardiff,283
+March,W06000016,Local Authority,Rhondda Cynon Taf,258
+March,W06000024,Local Authority,Merthyr Tydfil,61
+March,W06000018,Local Authority,Caerphilly,164
+March,W06000019,Local Authority,Blaenau Gwent,79
+March,W06000020,Local Authority,Torfaen,106
+March,W06000021,Local Authority,Monmouthshire,99
+March,W06000022,Local Authority,Newport,153
+March,W11000028,Local Health Board (LHB),Aneurin Bevan University Health Board,601
+March,W11000023,Local Health Board (LHB),Betsi Cadwaladr University Health Board,742
+March,W11000029,Local Health Board (LHB),Cardiff and Vale University Health Board,412
+March,W11000030,Local Health Board (LHB),Cwm Taf Morgannwg University Health Board,491
+March,W11000025,Local Health Board (LHB),Hywel Dda University Health Board,413
+March,W11000024,Local Health Board (LHB),Powys Teaching Health Board,143
+March,W11000031,Local Health Board (LHB),Swansea Bay University Health Board,376
+April,K04000001,Country,"ENGLAND, WALES AND NON-RESIDENTS","46,210"
+April,E92000001,Country,ENGLAND,"43,041"
+April,E12000001,Region,NORTH EAST,"2,408"
+April,E06000047,Local Authority,County Durham,482
+April,E06000005,Local Authority,Darlington,93
+April,E06000001,Local Authority,Hartlepool,73
+April,E06000002,Local Authority,Middlesbrough,108
+April,E06000057,Local Authority,Northumberland,326
+April,E06000003,Local Authority,Redcar and Cleveland,132
+April,E06000004,Local Authority,Stockton-on-Tees,155
+April,E11000007,Metropolitan County,Tyne and Wear (Met County),"1,039"
+April,E08000037,Local Authority,Gateshead,211
+April,E08000021,Local Authority,Newcastle upon Tyne,218
+April,E08000022,Local Authority,North Tyneside,191
+April,E08000023,Local Authority,South Tyneside,153
+April,E08000024,Local Authority,Sunderland,266
+April,E12000002,Region,NORTH WEST,"6,140"
+April,E06000008,Local Authority,Blackburn with Darwen,103
+April,E06000009,Local Authority,Blackpool,143
+April,E06000049,Local Authority,Cheshire East,364
+April,E06000050,Local Authority,Cheshire West and Chester,283
+April,E06000006,Local Authority,Halton,107
+April,E06000007,Local Authority,Warrington,178
+April,E06000063,Local Authority,Cumberland,271
+April,E06000064,Local Authority,Westmorland and Furness,230
+April,E11000001,Metropolitan County,Greater Manchester (Met County),"2,110"
+April,E08000001,Local Authority,Bolton,235
+April,E08000002,Local Authority,Bury,146
+April,E08000003,Local Authority,Manchester,321
+April,E08000004,Local Authority,Oldham,162
+April,E08000005,Local Authority,Rochdale,179
+April,E08000006,Local Authority,Salford,190
+April,E08000007,Local Authority,Stockport,240
+April,E08000008,Local Authority,Tameside,170
+April,E08000009,Local Authority,Trafford,180
+April,E08000010,Local Authority,Wigan,287
+April,E10000017,County,Lancashire,"1,045"
+April,E07000117,Local Authority,Burnley,85
+April,E07000118,Local Authority,Chorley,109
+April,E07000119,Local Authority,Fylde,74
+April,E07000120,Local Authority,Hyndburn,54
+April,E07000121,Local Authority,Lancaster,116
+April,E07000122,Local Authority,Pendle,73
+April,E07000123,Local Authority,Preston,124
+April,E07000124,Local Authority,Ribble Valley,59
+April,E07000125,Local Authority,Rossendale,49
+April,E07000126,Local Authority,South Ribble,90
+April,E07000127,Local Authority,West Lancashire,100
+April,E07000128,Local Authority,Wyre,112
+April,E11000002,Metropolitan County,Merseyside (Met County),"1,306"
+April,E08000011,Local Authority,Knowsley,144
+April,E08000012,Local Authority,Liverpool,366
+April,E08000014,Local Authority,Sefton,287
+April,E08000013,Local Authority,St. Helens,186
+April,E08000015,Local Authority,Wirral,323
+April,E12000003,Region,YORKSHIRE AND THE HUMBER,"4,399"
+April,E06000011,Local Authority,East Riding of Yorkshire,296
+April,E06000010,Local Authority,"Kingston upon Hull, City of",169
+April,E06000012,Local Authority,North East Lincolnshire,170
+April,E06000013,Local Authority,North Lincolnshire,166
+April,E06000014,Local Authority,York,174
+April,E06000065,Local Authority,North Yorkshire,580
+April,E11000003,Metropolitan County,South Yorkshire (Met County),"1,162"
+April,E08000016,Local Authority,Barnsley,213
+April,E08000017,Local Authority,Doncaster,294
+April,E08000018,Local Authority,Rotherham,244
+April,E08000019,Local Authority,Sheffield,411
+April,E11000006,Metropolitan County,West Yorkshire (Met County),"1,682"
+April,E08000032,Local Authority,Bradford,379
+April,E08000033,Local Authority,Calderdale,155
+April,E08000034,Local Authority,Kirklees,351
+April,E08000035,Local Authority,Leeds,495
+April,E08000036,Local Authority,Wakefield,302
+April,E12000004,Region,EAST MIDLANDS,"3,879"
+April,E06000015,Local Authority,Derby,199
+April,E06000016,Local Authority,Leicester,179
+April,E06000061,Local Authority,North Northamptonshire,260
+April,E06000018,Local Authority,Nottingham,152
+April,E06000017,Local Authority,Rutland,27
+April,E06000062,Local Authority,West Northamptonshire,299
+April,E10000007,County,Derbyshire,770
+April,E07000032,Local Authority,Amber Valley,136
+April,E07000033,Local Authority,Bolsover,77
+April,E07000034,Local Authority,Chesterfield,110
+April,E07000035,Local Authority,Derbyshire Dales,57
+April,E07000036,Local Authority,Erewash,106
+April,E07000037,Local Authority,High Peak,72
+April,E07000038,Local Authority,North East Derbyshire,108
+April,E07000039,Local Authority,South Derbyshire,104
+April,E10000018,County,Leicestershire,521
+April,E07000129,Local Authority,Blaby,57
+April,E07000130,Local Authority,Charnwood,134
+April,E07000131,Local Authority,Harborough,62
+April,E07000132,Local Authority,Hinckley and Bosworth,93
+April,E07000133,Local Authority,Melton,46
+April,E07000134,Local Authority,North West Leicestershire,70
+April,E07000135,Local Authority,Oadby and Wigston,59
+April,E10000019,County,Lincolnshire,705
+April,E07000136,Local Authority,Boston,56
+April,E07000137,Local Authority,East Lindsey,178
+April,E07000138,Local Authority,Lincoln,79
+April,E07000139,Local Authority,North Kesteven,104
+April,E07000140,Local Authority,South Holland,81
+April,E07000141,Local Authority,South Kesteven,103
+April,E07000142,Local Authority,West Lindsey,104
+April,E10000024,County,Nottinghamshire,767
+April,E07000170,Local Authority,Ashfield,122
+April,E07000171,Local Authority,Bassetlaw,124
+April,E07000172,Local Authority,Broxtowe,95
+April,E07000173,Local Authority,Gedling,98
+April,E07000174,Local Authority,Mansfield,101
+April,E07000175,Local Authority,Newark and Sherwood,129
+April,E07000176,Local Authority,Rushcliffe,98
+April,E12000005,Region,WEST MIDLANDS,"4,710"
+April,E06000019,Local Authority,"Herefordshire, County of",156
+April,E06000051,Local Authority,Shropshire,308
+April,E06000021,Local Authority,Stoke-on-Trent,200
+April,E06000020,Local Authority,Telford and Wrekin,162
+April,E10000028,County,Staffordshire,774
+April,E07000192,Local Authority,Cannock Chase,92
+April,E07000193,Local Authority,East Staffordshire,98
+April,E07000194,Local Authority,Lichfield,83
+April,E07000195,Local Authority,Newcastle-under-Lyme,125
+April,E07000196,Local Authority,South Staffordshire,104
+April,E07000197,Local Authority,Stafford,123
+April,E07000198,Local Authority,Staffordshire Moorlands,87
+April,E07000199,Local Authority,Tamworth,62
+April,E10000031,County,Warwickshire,488
+April,E07000218,Local Authority,North Warwickshire,65
+April,E07000219,Local Authority,Nuneaton and Bedworth,116
+April,E07000220,Local Authority,Rugby,75
+April,E07000221,Local Authority,Stratford-on-Avon,114
+April,E07000222,Local Authority,Warwick,118
+April,E11000005,Metropolitan County,West Midlands (Met County),"2,090"
+April,E08000025,Local Authority,Birmingham,686
+April,E08000026,Local Authority,Coventry,257
+April,E08000027,Local Authority,Dudley,286
+April,E08000028,Local Authority,Sandwell,234
+April,E08000029,Local Authority,Solihull,192
+April,E08000030,Local Authority,Walsall,221
+April,E08000031,Local Authority,Wolverhampton,214
+April,E10000034,County,Worcestershire,532
+April,E07000234,Local Authority,Bromsgrove,87
+April,E07000235,Local Authority,Malvern Hills,79
+April,E07000236,Local Authority,Redditch,68
+April,E07000237,Local Authority,Worcester,72
+April,E07000238,Local Authority,Wychavon,128
+April,E07000239,Local Authority,Wyre Forest,98
+April,E12000006,Region,EAST,"4,934"
+April,E06000055,Local Authority,Bedford,131
+April,E06000056,Local Authority,Central Bedfordshire,188
+April,E06000032,Local Authority,Luton,131
+April,E06000031,Local Authority,Peterborough,168
+April,E06000033,Local Authority,Southend-on-Sea,118
+April,E06000034,Local Authority,Thurrock,100
+April,E10000003,County,Cambridgeshire,418
+April,E07000008,Local Authority,Cambridge,62
+April,E07000009,Local Authority,East Cambridgeshire,61
+April,E07000010,Local Authority,Fenland,78
+April,E07000011,Local Authority,Huntingdonshire,118
+April,E07000012,Local Authority,South Cambridgeshire,99
+April,E10000012,County,Essex,"1,298"
+April,E07000066,Local Authority,Basildon,142
+April,E07000067,Local Authority,Braintree,126
+April,E07000068,Local Authority,Brentwood,57
+April,E07000069,Local Authority,Castle Point,72
+April,E07000070,Local Authority,Chelmsford,143
+April,E07000071,Local Authority,Colchester,173
+April,E07000072,Local Authority,Epping Forest,119
+April,E07000073,Local Authority,Harlow,61
+April,E07000074,Local Authority,Maldon,69
+April,E07000075,Local Authority,Rochford,59
+April,E07000076,Local Authority,Tendring,205
+April,E07000077,Local Authority,Uttlesford,72
+April,E10000015,County,Hertfordshire,806
+April,E07000095,Local Authority,Broxbourne,62
+April,E07000096,Local Authority,Dacorum,97
+April,E07000242,Local Authority,East Hertfordshire,119
+April,E07000098,Local Authority,Hertsmere,67
+April,E07000099,Local Authority,North Hertfordshire,112
+April,E07000240,Local Authority,St Albans,90
+April,E07000243,Local Authority,Stevenage,57
+April,E07000102,Local Authority,Three Rivers,55
+April,E07000103,Local Authority,Watford,54
+April,E07000241,Local Authority,Welwyn Hatfield,93
+April,E10000020,County,Norfolk,893
+April,E07000143,Local Authority,Breckland,156
+April,E07000144,Local Authority,Broadland,141
+April,E07000145,Local Authority,Great Yarmouth,109
+April,E07000146,Local Authority,King�s Lynn and West Norfolk,159
+April,E07000147,Local Authority,North Norfolk,121
+April,E07000148,Local Authority,Norwich,75
+April,E07000149,Local Authority,South Norfolk,132
+April,E10000029,County,Suffolk,683
+April,E07000200,Local Authority,Babergh,89
+April,E07000244,Local Authority,East Suffolk,282
+April,E07000202,Local Authority,Ipswich,94
+April,E07000203,Local Authority,Mid Suffolk,89
+April,E07000245,Local Authority,West Suffolk,129
+April,E12000007,Region,LONDON,"4,255"
+April,E13000001,Inner London,Inner London,"1,356"
+April,E09000007,Local Authority,Camden,81
+April,E09000001,Local Authority,City of London,2
+April,E09000012,Local Authority,Hackney,95
+April,E09000013,Local Authority,Hammersmith and Fulham,78
+April,E09000014,Local Authority,Haringey,120
+April,E09000019,Local Authority,Islington,103
+April,E09000020,Local Authority,Kensington and Chelsea,69
+April,E09000022,Local Authority,Lambeth,119
+April,E09000023,Local Authority,Lewisham,133
+April,E09000025,Local Authority,Newham,121
+April,E09000028,Local Authority,Southwark,108
+April,E09000030,Local Authority,Tower Hamlets,91
+April,E09000032,Local Authority,Wandsworth,138
+April,E09000033,Local Authority,Westminster,98
+April,E13000002,Outer London,Outer London,"2,899"
+April,E09000002,Local Authority,Barking and Dagenham,107
+April,E09000003,Local Authority,Barnet,222
+April,E09000004,Local Authority,Bexley,191
+April,E09000005,Local Authority,Brent,165
+April,E09000006,Local Authority,Bromley,206
+April,E09000008,Local Authority,Croydon,215
+April,E09000009,Local Authority,Ealing,172
+April,E09000010,Local Authority,Enfield,171
+April,E09000011,Local Authority,Greenwich,121
+April,E09000015,Local Authority,Harrow,154
+April,E09000016,Local Authority,Havering,219
+April,E09000017,Local Authority,Hillingdon,147
+April,E09000018,Local Authority,Hounslow,123
+April,E09000021,Local Authority,Kingston upon Thames,69
+April,E09000024,Local Authority,Merton,132
+April,E09000026,Local Authority,Redbridge,146
+April,E09000027,Local Authority,Richmond upon Thames,100
+April,E09000029,Local Authority,Sutton,113
+April,E09000031,Local Authority,Waltham Forest,126
+April,E12000008,Region,SOUTH EAST,"7,302"
+April,E06000036,Local Authority,Bracknell Forest,75
+April,E06000043,Local Authority,Brighton and Hove,171
+April,E06000046,Local Authority,Isle of Wight,138
+April,E06000035,Local Authority,Medway,208
+April,E06000042,Local Authority,Milton Keynes,185
+April,E06000044,Local Authority,Portsmouth,154
+April,E06000038,Local Authority,Reading,108
+April,E06000039,Local Authority,Slough,89
+April,E06000045,Local Authority,Southampton,192
+April,E06000037,Local Authority,West Berkshire,117
+April,E06000040,Local Authority,Windsor and Maidenhead,111
+April,E06000041,Local Authority,Wokingham,104
+April,E06000060,Local Authority,Buckinghamshire,399
+April,E10000011,County,East Sussex,602
+April,E07000061,Local Authority,Eastbourne,130
+April,E07000062,Local Authority,Hastings,103
+April,E07000063,Local Authority,Lewes,85
+April,E07000064,Local Authority,Rother,103
+April,E07000065,Local Authority,Wealden,181
+April,E10000014,County,Hampshire,"1,176"
+April,E07000084,Local Authority,Basingstoke and Deane,117
+April,E07000085,Local Authority,East Hampshire,139
+April,E07000086,Local Authority,Eastleigh,109
+April,E07000087,Local Authority,Fareham,111
+April,E07000088,Local Authority,Gosport,67
+April,E07000089,Local Authority,Hart,67
+April,E07000090,Local Authority,Havant,124
+April,E07000091,Local Authority,New Forest,190
+April,E07000092,Local Authority,Rushmoor,64
+April,E07000093,Local Authority,Test Valley,102
+April,E07000094,Local Authority,Winchester,86
+April,E10000016,County,Kent,"1,343"
+April,E07000105,Local Authority,Ashford,101
+April,E07000106,Local Authority,Canterbury,155
+April,E07000107,Local Authority,Dartford,94
+April,E07000108,Local Authority,Dover,113
+April,E07000109,Local Authority,Gravesham,87
+April,E07000110,Local Authority,Maidstone,141
+April,E07000111,Local Authority,Sevenoaks,122
+April,E07000112,Local Authority,Folkestone and Hythe,122
+April,E07000113,Local Authority,Swale,113
+April,E07000114,Local Authority,Thanet,126
+April,E07000115,Local Authority,Tonbridge and Malling,81
+April,E07000116,Local Authority,Tunbridge Wells,88
+April,E10000025,County,Oxfordshire,503
+April,E07000177,Local Authority,Cherwell,114
+April,E07000178,Local Authority,Oxford,86
+April,E07000179,Local Authority,South Oxfordshire,110
+April,E07000180,Local Authority,Vale of White Horse,94
+April,E07000181,Local Authority,West Oxfordshire,99
+April,E10000030,County,Surrey,825
+April,E07000207,Local Authority,Elmbridge,90
+April,E07000208,Local Authority,Epsom and Ewell,52
+April,E07000209,Local Authority,Guildford,72
+April,E07000210,Local Authority,Mole Valley,71
+April,E07000211,Local Authority,Reigate and Banstead,104
+April,E07000212,Local Authority,Runnymede,63
+April,E07000213,Local Authority,Spelthorne,63
+April,E07000214,Local Authority,Surrey Heath,70
+April,E07000215,Local Authority,Tandridge,71
+April,E07000216,Local Authority,Waverley,102
+April,E07000217,Local Authority,Woking,67
+April,E10000032,County,West Sussex,802
+April,E07000223,Local Authority,Adur,66
+April,E07000224,Local Authority,Arun,180
+April,E07000225,Local Authority,Chichester,122
+April,E07000226,Local Authority,Crawley,58
+April,E07000227,Local Authority,Horsham,136
+April,E07000228,Local Authority,Mid Sussex,124
+April,E07000229,Local Authority,Worthing,116
+April,E12000009,Region,SOUTH WEST,"5,014"
+April,E06000022,Local Authority,Bath and North East Somerset,135
+April,E06000058,Local Authority,"Bournemouth, Christchurch and Poole",334
+April,E06000023,Local Authority,"Bristol, City of",265
+April,E06000052,Local Authority,Cornwall,583
+April,E06000053,Local Authority,Isles of Scilly,3
+April,E06000059,Local Authority,Dorset,421
+April,E06000024,Local Authority,North Somerset,212
+April,E06000026,Local Authority,Plymouth,219
+April,E06000025,Local Authority,South Gloucestershire,178
+April,E06000030,Local Authority,Swindon,165
+April,E06000027,Local Authority,Torbay,165
+April,E06000054,Local Authority,Wiltshire,423
+April,E10000008,County,Devon,819
+April,E07000040,Local Authority,East Devon,161
+April,E07000041,Local Authority,Exeter,97
+April,E07000042,Local Authority,Mid Devon,87
+April,E07000043,Local Authority,North Devon,99
+April,E07000044,Local Authority,South Hams,96
+April,E07000045,Local Authority,Teignbridge,148
+April,E07000046,Local Authority,Torridge,66
+April,E07000047,Local Authority,West Devon,65
+April,E10000013,County,Gloucestershire,553
+April,E07000078,Local Authority,Cheltenham,98
+April,E07000079,Local Authority,Cotswold,86
+April,E07000080,Local Authority,Forest of Dean,75
+April,E07000081,Local Authority,Gloucester,92
+April,E07000082,Local Authority,Stroud,99
+April,E07000083,Local Authority,Tewkesbury,103
+April,E06000066,Local Authority,Somerset,539
+April,E54000040,Integrated Care Board (ICB),"NHS Bath and North East Somerset, Swindon and Wiltshire Integrated Care Board",728
+April,E54000024,Integrated Care Board (ICB),"NHS Bedfordshire, Luton and Milton Keynes Integrated Care Board",639
+April,E54000055,Integrated Care Board (ICB),NHS Birmingham and Solihull Integrated Care Board,878
+April,E54000062,Integrated Care Board (ICB),NHS Black Country Integrated Care Board,955
+April,E54000039,Integrated Care Board (ICB),"NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board",655
+April,E54000044,Integrated Care Board (ICB),"NHS Buckinghamshire, Oxfordshire and Berkshire West Integrated Care Board","1,222"
+April,E54000056,Integrated Care Board (ICB),NHS Cambridgeshire and Peterborough Integrated Care Board,606
+April,E54000008,Integrated Care Board (ICB),NHS Cheshire and Merseyside Integrated Care Board,"2,238"
+April,E54000036,Integrated Care Board (ICB),NHS Cornwall and the Isles of Scilly Integrated Care Board,586
+April,E54000018,Integrated Care Board (ICB),NHS Coventry and Warwickshire Integrated Care Board,745
+April,E54000058,Integrated Care Board (ICB),NHS Derby and Derbyshire Integrated Care Board,969
+April,E54000037,Integrated Care Board (ICB),NHS Devon Integrated Care Board,"1,203"
+April,E54000041,Integrated Care Board (ICB),NHS Dorset Integrated Care Board,755
+April,E54000034,Integrated Care Board (ICB),NHS Frimley Integrated Care Board,492
+April,E54000043,Integrated Care Board (ICB),NHS Gloucestershire Integrated Care Board,553
+April,E54000057,Integrated Care Board (ICB),NHS Greater Manchester Integrated Care Board,"2,110"
+April,E54000042,Integrated Care Board (ICB),NHS Hampshire and Isle of Wight Integrated Care Board,"1,547"
+April,E54000019,Integrated Care Board (ICB),NHS Herefordshire and Worcestershire Integrated Care Board,688
+April,E54000025,Integrated Care Board (ICB),NHS Hertfordshire and West Essex Integrated Care Board,"1,038"
+April,E54000051,Integrated Care Board (ICB),NHS Humber and North Yorkshire Integrated Care Board,"1,490"
+April,E54000032,Integrated Care Board (ICB),NHS Kent and Medway Integrated Care Board,"1,551"
+April,E54000048,Integrated Care Board (ICB),NHS Lancashire and South Cumbria Integrated Care Board,"1,480"
+April,E54000015,Integrated Care Board (ICB),"NHS Leicester, Leicestershire and Rutland Integrated Care Board",727
+April,E54000013,Integrated Care Board (ICB),NHS Lincolnshire Integrated Care Board,705
+April,E54000026,Integrated Care Board (ICB),NHS Mid and South Essex Integrated Care Board,886
+April,E54000022,Integrated Care Board (ICB),NHS Norfolk and Waveney Integrated Care Board,"1,029"
+April,E54000028,Integrated Care Board (ICB),NHS North Central London Integrated Care Board,697
+April,E54000029,Integrated Care Board (ICB),NHS North East London Integrated Care Board,907
+April,E54000050,Integrated Care Board (ICB),NHS North East and North Cumbria Integrated Care Board,"2,724"
+April,E54000027,Integrated Care Board (ICB),NHS North West London Integrated Care Board,"1,006"
+April,E54000059,Integrated Care Board (ICB),NHS Northamptonshire Integrated Care Board,559
+April,E54000060,Integrated Care Board (ICB),NHS Nottingham and Nottinghamshire Integrated Care Board,919
+April,E54000011,Integrated Care Board (ICB),"NHS Shropshire, Telford and Wrekin Integrated Care Board",470
+April,E54000038,Integrated Care Board (ICB),NHS Somerset Integrated Care Board,539
+April,E54000030,Integrated Care Board (ICB),NHS South East London Integrated Care Board,878
+April,E54000031,Integrated Care Board (ICB),NHS South West London Integrated Care Board,767
+April,E54000061,Integrated Care Board (ICB),NHS South Yorkshire Integrated Care Board,"1,162"
+April,E54000010,Integrated Care Board (ICB),NHS Staffordshire and Stoke-on-Trent Integrated Care Board,974
+April,E54000023,Integrated Care Board (ICB),NHS Suffolk and North East Essex Integrated Care Board,925
+April,E54000063,Integrated Care Board (ICB),NHS Surrey Heartlands Integrated Care Board,721
+April,E54000064,Integrated Care Board (ICB),NHS Sussex Integrated Care Board,"1,575"
+April,E54000054,Integrated Care Board (ICB),NHS West Yorkshire Integrated Care Board,"1,743"
+April,W92000004,Country,WALES,"3,081"
+April,W06000001,Local Authority,Isle of Anglesey,82
+April,W06000002,Local Authority,Gwynedd,112
+April,W06000003,Local Authority,Conwy,162
+April,W06000004,Local Authority,Denbighshire,110
+April,W06000005,Local Authority,Flintshire,157
+April,W06000006,Local Authority,Wrexham,139
+April,W06000023,Local Authority,Powys,148
+April,W06000008,Local Authority,Ceredigion,56
+April,W06000009,Local Authority,Pembrokeshire,144
+April,W06000010,Local Authority,Carmarthenshire,187
+April,W06000011,Local Authority,Swansea,247
+April,W06000012,Local Authority,Neath Port Talbot,117
+April,W06000013,Local Authority,Bridgend,150
+April,W06000014,Local Authority,Vale of Glamorgan,148
+April,W06000015,Local Authority,Cardiff,248
+April,W06000016,Local Authority,Rhondda Cynon Taf,226
+April,W06000024,Local Authority,Merthyr Tydfil,58
+April,W06000018,Local Authority,Caerphilly,190
+April,W06000019,Local Authority,Blaenau Gwent,70
+April,W06000020,Local Authority,Torfaen,93
+April,W06000021,Local Authority,Monmouthshire,97
+April,W06000022,Local Authority,Newport,140
+April,W11000028,Local Health Board (LHB),Aneurin Bevan University Health Board,590
+April,W11000023,Local Health Board (LHB),Betsi Cadwaladr University Health Board,762
+April,W11000029,Local Health Board (LHB),Cardiff and Vale University Health Board,396
+April,W11000030,Local Health Board (LHB),Cwm Taf Morgannwg University Health Board,434
+April,W11000025,Local Health Board (LHB),Hywel Dda University Health Board,387
+April,W11000024,Local Health Board (LHB),Powys Teaching Health Board,148
+April,W11000031,Local Health Board (LHB),Swansea Bay University Health Board,364
+May,K04000001,Country,"ENGLAND, WALES AND NON-RESIDENTS","46,516"
+May,E92000001,Country,ENGLAND,"43,544"
+May,E12000001,Region,NORTH EAST,"2,314"
+May,E06000047,Local Authority,County Durham,472
+May,E06000005,Local Authority,Darlington,109
+May,E06000001,Local Authority,Hartlepool,82
+May,E06000002,Local Authority,Middlesbrough,124
+May,E06000057,Local Authority,Northumberland,291
+May,E06000003,Local Authority,Redcar and Cleveland,110
+May,E06000004,Local Authority,Stockton-on-Tees,175
+May,E11000007,Metropolitan County,Tyne and Wear (Met County),951
+May,E08000037,Local Authority,Gateshead,194
+May,E08000021,Local Authority,Newcastle upon Tyne,176
+May,E08000022,Local Authority,North Tyneside,178
+May,E08000023,Local Authority,South Tyneside,132
+May,E08000024,Local Authority,Sunderland,271
+May,E12000002,Region,NORTH WEST,"6,142"
+May,E06000008,Local Authority,Blackburn with Darwen,96
+May,E06000009,Local Authority,Blackpool,186
+May,E06000049,Local Authority,Cheshire East,405
+May,E06000050,Local Authority,Cheshire West and Chester,294
+May,E06000006,Local Authority,Halton,106
+May,E06000007,Local Authority,Warrington,173
+May,E06000063,Local Authority,Cumberland,229
+May,E06000064,Local Authority,Westmorland and Furness,199
+May,E11000001,Metropolitan County,Greater Manchester (Met County),"2,140"
+May,E08000001,Local Authority,Bolton,241
+May,E08000002,Local Authority,Bury,167
+May,E08000003,Local Authority,Manchester,258
+May,E08000004,Local Authority,Oldham,200
+May,E08000005,Local Authority,Rochdale,175
+May,E08000006,Local Authority,Salford,200
+May,E08000007,Local Authority,Stockport,248
+May,E08000008,Local Authority,Tameside,167
+May,E08000009,Local Authority,Trafford,169
+May,E08000010,Local Authority,Wigan,315
+May,E10000017,County,Lancashire,"1,090"
+May,E07000117,Local Authority,Burnley,94
+May,E07000118,Local Authority,Chorley,100
+May,E07000119,Local Authority,Fylde,96
+May,E07000120,Local Authority,Hyndburn,67
+May,E07000121,Local Authority,Lancaster,122
+May,E07000122,Local Authority,Pendle,72
+May,E07000123,Local Authority,Preston,119
+May,E07000124,Local Authority,Ribble Valley,55
+May,E07000125,Local Authority,Rossendale,57
+May,E07000126,Local Authority,South Ribble,77
+May,E07000127,Local Authority,West Lancashire,99
+May,E07000128,Local Authority,Wyre,132
+May,E11000002,Metropolitan County,Merseyside (Met County),"1,224"
+May,E08000011,Local Authority,Knowsley,130
+May,E08000012,Local Authority,Liverpool,340
+May,E08000014,Local Authority,Sefton,280
+May,E08000013,Local Authority,St. Helens,183
+May,E08000015,Local Authority,Wirral,291
+May,E12000003,Region,YORKSHIRE AND THE HUMBER,"4,629"
+May,E06000011,Local Authority,East Riding of Yorkshire,362
+May,E06000010,Local Authority,"Kingston upon Hull, City of",215
+May,E06000012,Local Authority,North East Lincolnshire,161
+May,E06000013,Local Authority,North Lincolnshire,146
+May,E06000014,Local Authority,York,167
+May,E06000065,Local Authority,North Yorkshire,581
+May,E11000003,Metropolitan County,South Yorkshire (Met County),"1,183"
+May,E08000016,Local Authority,Barnsley,224
+May,E08000017,Local Authority,Doncaster,276
+May,E08000018,Local Authority,Rotherham,207
+May,E08000019,Local Authority,Sheffield,476
+May,E11000006,Metropolitan County,West Yorkshire (Met County),"1,814"
+May,E08000032,Local Authority,Bradford,404
+May,E08000033,Local Authority,Calderdale,194
+May,E08000034,Local Authority,Kirklees,354
+May,E08000035,Local Authority,Leeds,552
+May,E08000036,Local Authority,Wakefield,310
+May,E12000004,Region,EAST MIDLANDS,"4,168"
+May,E06000015,Local Authority,Derby,192
+May,E06000016,Local Authority,Leicester,218
+May,E06000061,Local Authority,North Northamptonshire,307
+May,E06000018,Local Authority,Nottingham,194
+May,E06000017,Local Authority,Rutland,43
+May,E06000062,Local Authority,West Northamptonshire,289
+May,E10000007,County,Derbyshire,745
+May,E07000032,Local Authority,Amber Valley,112
+May,E07000033,Local Authority,Bolsover,90
+May,E07000034,Local Authority,Chesterfield,103
+May,E07000035,Local Authority,Derbyshire Dales,50
+May,E07000036,Local Authority,Erewash,115
+May,E07000037,Local Authority,High Peak,82
+May,E07000038,Local Authority,North East Derbyshire,89
+May,E07000039,Local Authority,South Derbyshire,104
+May,E10000018,County,Leicestershire,611
+May,E07000129,Local Authority,Blaby,92
+May,E07000130,Local Authority,Charnwood,154
+May,E07000131,Local Authority,Harborough,88
+May,E07000132,Local Authority,Hinckley and Bosworth,91
+May,E07000133,Local Authority,Melton,46
+May,E07000134,Local Authority,North West Leicestershire,91
+May,E07000135,Local Authority,Oadby and Wigston,49
+May,E10000019,County,Lincolnshire,818
+May,E07000136,Local Authority,Boston,56
+May,E07000137,Local Authority,East Lindsey,187
+May,E07000138,Local Authority,Lincoln,85
+May,E07000139,Local Authority,North Kesteven,146
+May,E07000140,Local Authority,South Holland,112
+May,E07000141,Local Authority,South Kesteven,129
+May,E07000142,Local Authority,West Lindsey,103
+May,E10000024,County,Nottinghamshire,751
+May,E07000170,Local Authority,Ashfield,108
+May,E07000171,Local Authority,Bassetlaw,109
+May,E07000172,Local Authority,Broxtowe,111
+May,E07000173,Local Authority,Gedling,102
+May,E07000174,Local Authority,Mansfield,107
+May,E07000175,Local Authority,Newark and Sherwood,104
+May,E07000176,Local Authority,Rushcliffe,110
+May,E12000005,Region,WEST MIDLANDS,"4,861"
+May,E06000019,Local Authority,"Herefordshire, County of",210
+May,E06000051,Local Authority,Shropshire,350
+May,E06000021,Local Authority,Stoke-on-Trent,228
+May,E06000020,Local Authority,Telford and Wrekin,143
+May,E10000028,County,Staffordshire,795
+May,E07000192,Local Authority,Cannock Chase,89
+May,E07000193,Local Authority,East Staffordshire,108
+May,E07000194,Local Authority,Lichfield,110
+May,E07000195,Local Authority,Newcastle-under-Lyme,114
+May,E07000196,Local Authority,South Staffordshire,104
+May,E07000197,Local Authority,Stafford,117
+May,E07000198,Local Authority,Staffordshire Moorlands,97
+May,E07000199,Local Authority,Tamworth,56
+May,E10000031,County,Warwickshire,485
+May,E07000218,Local Authority,North Warwickshire,52
+May,E07000219,Local Authority,Nuneaton and Bedworth,118
+May,E07000220,Local Authority,Rugby,85
+May,E07000221,Local Authority,Stratford-on-Avon,127
+May,E07000222,Local Authority,Warwick,103
+May,E11000005,Metropolitan County,West Midlands (Met County),"2,068"
+May,E08000025,Local Authority,Birmingham,725
+May,E08000026,Local Authority,Coventry,240
+May,E08000027,Local Authority,Dudley,258
+May,E08000028,Local Authority,Sandwell,250
+May,E08000029,Local Authority,Solihull,151
+May,E08000030,Local Authority,Walsall,229
+May,E08000031,Local Authority,Wolverhampton,215
+May,E10000034,County,Worcestershire,582
+May,E07000234,Local Authority,Bromsgrove,101
+May,E07000235,Local Authority,Malvern Hills,98
+May,E07000236,Local Authority,Redditch,62
+May,E07000237,Local Authority,Worcester,77
+May,E07000238,Local Authority,Wychavon,128
+May,E07000239,Local Authority,Wyre Forest,116
+May,E12000006,Region,EAST,"5,045"
+May,E06000055,Local Authority,Bedford,120
+May,E06000056,Local Authority,Central Bedfordshire,192
+May,E06000032,Local Authority,Luton,118
+May,E06000031,Local Authority,Peterborough,150
+May,E06000033,Local Authority,Southend-on-Sea,168
+May,E06000034,Local Authority,Thurrock,105
+May,E10000003,County,Cambridgeshire,461
+May,E07000008,Local Authority,Cambridge,54
+May,E07000009,Local Authority,East Cambridgeshire,63
+May,E07000010,Local Authority,Fenland,99
+May,E07000011,Local Authority,Huntingdonshire,138
+May,E07000012,Local Authority,South Cambridgeshire,107
+May,E10000012,County,Essex,"1,290"
+May,E07000066,Local Authority,Basildon,119
+May,E07000067,Local Authority,Braintree,125
+May,E07000068,Local Authority,Brentwood,69
+May,E07000069,Local Authority,Castle Point,104
+May,E07000070,Local Authority,Chelmsford,119
+May,E07000071,Local Authority,Colchester,155
+May,E07000072,Local Authority,Epping Forest,102
+May,E07000073,Local Authority,Harlow,57
+May,E07000074,Local Authority,Maldon,66
+May,E07000075,Local Authority,Rochford,84
+May,E07000076,Local Authority,Tendring,214
+May,E07000077,Local Authority,Uttlesford,76
+May,E10000015,County,Hertfordshire,825
+May,E07000095,Local Authority,Broxbourne,63
+May,E07000096,Local Authority,Dacorum,111
+May,E07000242,Local Authority,East Hertfordshire,101
+May,E07000098,Local Authority,Hertsmere,71
+May,E07000099,Local Authority,North Hertfordshire,101
+May,E07000240,Local Authority,St Albans,98
+May,E07000243,Local Authority,Stevenage,69
+May,E07000102,Local Authority,Three Rivers,61
+May,E07000103,Local Authority,Watford,66
+May,E07000241,Local Authority,Welwyn Hatfield,84
+May,E10000020,County,Norfolk,901
+May,E07000143,Local Authority,Breckland,159
+May,E07000144,Local Authority,Broadland,118
+May,E07000145,Local Authority,Great Yarmouth,104
+May,E07000146,Local Authority,King�s Lynn and West Norfolk,155
+May,E07000147,Local Authority,North Norfolk,135
+May,E07000148,Local Authority,Norwich,102
+May,E07000149,Local Authority,South Norfolk,128
+May,E10000029,County,Suffolk,715
+May,E07000200,Local Authority,Babergh,84
+May,E07000244,Local Authority,East Suffolk,263
+May,E07000202,Local Authority,Ipswich,121
+May,E07000203,Local Authority,Mid Suffolk,83
+May,E07000245,Local Authority,West Suffolk,164
+May,E12000007,Region,LONDON,"4,176"
+May,E13000001,Inner London,Inner London,"1,305"
+May,E09000007,Local Authority,Camden,85
+May,E09000001,Local Authority,City of London,3
+May,E09000012,Local Authority,Hackney,86
+May,E09000013,Local Authority,Hammersmith and Fulham,90
+May,E09000014,Local Authority,Haringey,108
+May,E09000019,Local Authority,Islington,90
+May,E09000020,Local Authority,Kensington and Chelsea,66
+May,E09000022,Local Authority,Lambeth,126
+May,E09000023,Local Authority,Lewisham,128
+May,E09000025,Local Authority,Newham,103
+May,E09000028,Local Authority,Southwark,115
+May,E09000030,Local Authority,Tower Hamlets,90
+May,E09000032,Local Authority,Wandsworth,133
+May,E09000033,Local Authority,Westminster,82
+May,E13000002,Outer London,Outer London,"2,871"
+May,E09000002,Local Authority,Barking and Dagenham,112
+May,E09000003,Local Authority,Barnet,202
+May,E09000004,Local Authority,Bexley,177
+May,E09000005,Local Authority,Brent,155
+May,E09000006,Local Authority,Bromley,188
+May,E09000008,Local Authority,Croydon,244
+May,E09000009,Local Authority,Ealing,176
+May,E09000010,Local Authority,Enfield,187
+May,E09000011,Local Authority,Greenwich,148
+May,E09000015,Local Authority,Harrow,126
+May,E09000016,Local Authority,Havering,175
+May,E09000017,Local Authority,Hillingdon,184
+May,E09000018,Local Authority,Hounslow,123
+May,E09000021,Local Authority,Kingston upon Thames,91
+May,E09000024,Local Authority,Merton,105
+May,E09000026,Local Authority,Redbridge,129
+May,E09000027,Local Authority,Richmond upon Thames,105
+May,E09000029,Local Authority,Sutton,116
+May,E09000031,Local Authority,Waltham Forest,128
+May,E12000008,Region,SOUTH EAST,"7,278"
+May,E06000036,Local Authority,Bracknell Forest,84
+May,E06000043,Local Authority,Brighton and Hove,162
+May,E06000046,Local Authority,Isle of Wight,130
+May,E06000035,Local Authority,Medway,216
+May,E06000042,Local Authority,Milton Keynes,164
+May,E06000044,Local Authority,Portsmouth,183
+May,E06000038,Local Authority,Reading,108
+May,E06000039,Local Authority,Slough,58
+May,E06000045,Local Authority,Southampton,153
+May,E06000037,Local Authority,West Berkshire,98
+May,E06000040,Local Authority,Windsor and Maidenhead,104
+May,E06000041,Local Authority,Wokingham,100
+May,E06000060,Local Authority,Buckinghamshire,412
+May,E10000011,County,East Sussex,543
+May,E07000061,Local Authority,Eastbourne,87
+May,E07000062,Local Authority,Hastings,83
+May,E07000063,Local Authority,Lewes,88
+May,E07000064,Local Authority,Rother,134
+May,E07000065,Local Authority,Wealden,151
+May,E10000014,County,Hampshire,"1,186"
+May,E07000084,Local Authority,Basingstoke and Deane,124
+May,E07000085,Local Authority,East Hampshire,126
+May,E07000086,Local Authority,Eastleigh,113
+May,E07000087,Local Authority,Fareham,118
+May,E07000088,Local Authority,Gosport,86
+May,E07000089,Local Authority,Hart,68
+May,E07000090,Local Authority,Havant,123
+May,E07000091,Local Authority,New Forest,178
+May,E07000092,Local Authority,Rushmoor,61
+May,E07000093,Local Authority,Test Valley,100
+May,E07000094,Local Authority,Winchester,89
+May,E10000016,County,Kent,"1,387"
+May,E07000105,Local Authority,Ashford,111
+May,E07000106,Local Authority,Canterbury,158
+May,E07000107,Local Authority,Dartford,80
+May,E07000108,Local Authority,Dover,122
+May,E07000109,Local Authority,Gravesham,73
+May,E07000110,Local Authority,Maidstone,163
+May,E07000111,Local Authority,Sevenoaks,103
+May,E07000112,Local Authority,Folkestone and Hythe,105
+May,E07000113,Local Authority,Swale,102
+May,E07000114,Local Authority,Thanet,170
+May,E07000115,Local Authority,Tonbridge and Malling,90
+May,E07000116,Local Authority,Tunbridge Wells,110
+May,E10000025,County,Oxfordshire,474
+May,E07000177,Local Authority,Cherwell,115
+May,E07000178,Local Authority,Oxford,72
+May,E07000179,Local Authority,South Oxfordshire,99
+May,E07000180,Local Authority,Vale of White Horse,90
+May,E07000181,Local Authority,West Oxfordshire,98
+May,E10000030,County,Surrey,899
+May,E07000207,Local Authority,Elmbridge,102
+May,E07000208,Local Authority,Epsom and Ewell,51
+May,E07000209,Local Authority,Guildford,92
+May,E07000210,Local Authority,Mole Valley,77
+May,E07000211,Local Authority,Reigate and Banstead,110
+May,E07000212,Local Authority,Runnymede,59
+May,E07000213,Local Authority,Spelthorne,69
+May,E07000214,Local Authority,Surrey Heath,84
+May,E07000215,Local Authority,Tandridge,82
+May,E07000216,Local Authority,Waverley,102
+May,E07000217,Local Authority,Woking,71
+May,E10000032,County,West Sussex,817
+May,E07000223,Local Authority,Adur,54
+May,E07000224,Local Authority,Arun,191
+May,E07000225,Local Authority,Chichester,134
+May,E07000226,Local Authority,Crawley,76
+May,E07000227,Local Authority,Horsham,137
+May,E07000228,Local Authority,Mid Sussex,112
+May,E07000229,Local Authority,Worthing,113
+May,E12000009,Region,SOUTH WEST,"4,931"
+May,E06000022,Local Authority,Bath and North East Somerset,141
+May,E06000058,Local Authority,"Bournemouth, Christchurch and Poole",339
+May,E06000023,Local Authority,"Bristol, City of",266
+May,E06000052,Local Authority,Cornwall,623
+May,E06000053,Local Authority,Isles of Scilly,3
+May,E06000059,Local Authority,Dorset,411
+May,E06000024,Local Authority,North Somerset,195
+May,E06000026,Local Authority,Plymouth,211
+May,E06000025,Local Authority,South Gloucestershire,181
+May,E06000030,Local Authority,Swindon,178
+May,E06000027,Local Authority,Torbay,150
+May,E06000054,Local Authority,Wiltshire,435
+May,E10000008,County,Devon,741
+May,E07000040,Local Authority,East Devon,142
+May,E07000041,Local Authority,Exeter,96
+May,E07000042,Local Authority,Mid Devon,62
+May,E07000043,Local Authority,North Devon,102
+May,E07000044,Local Authority,South Hams,87
+May,E07000045,Local Authority,Teignbridge,120
+May,E07000046,Local Authority,Torridge,67
+May,E07000047,Local Authority,West Devon,65
+May,E10000013,County,Gloucestershire,540
+May,E07000078,Local Authority,Cheltenham,98
+May,E07000079,Local Authority,Cotswold,90
+May,E07000080,Local Authority,Forest of Dean,79
+May,E07000081,Local Authority,Gloucester,86
+May,E07000082,Local Authority,Stroud,110
+May,E07000083,Local Authority,Tewkesbury,77
+May,E06000066,Local Authority,Somerset,517
+May,E54000040,Integrated Care Board (ICB),"NHS Bath and North East Somerset, Swindon and Wiltshire Integrated Care Board",756
+May,E54000024,Integrated Care Board (ICB),"NHS Bedfordshire, Luton and Milton Keynes Integrated Care Board",596
+May,E54000055,Integrated Care Board (ICB),NHS Birmingham and Solihull Integrated Care Board,876
+May,E54000062,Integrated Care Board (ICB),NHS Black Country Integrated Care Board,952
+May,E54000039,Integrated Care Board (ICB),"NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board",642
+May,E54000044,Integrated Care Board (ICB),"NHS Buckinghamshire, Oxfordshire and Berkshire West Integrated Care Board","1,188"
+May,E54000056,Integrated Care Board (ICB),NHS Cambridgeshire and Peterborough Integrated Care Board,630
+May,E54000008,Integrated Care Board (ICB),NHS Cheshire and Merseyside Integrated Care Board,"2,202"
+May,E54000036,Integrated Care Board (ICB),NHS Cornwall and the Isles of Scilly Integrated Care Board,626
+May,E54000018,Integrated Care Board (ICB),NHS Coventry and Warwickshire Integrated Care Board,725
+May,E54000058,Integrated Care Board (ICB),NHS Derby and Derbyshire Integrated Care Board,937
+May,E54000037,Integrated Care Board (ICB),NHS Devon Integrated Care Board,"1,102"
+May,E54000041,Integrated Care Board (ICB),NHS Dorset Integrated Care Board,750
+May,E54000034,Integrated Care Board (ICB),NHS Frimley Integrated Care Board,495
+May,E54000043,Integrated Care Board (ICB),NHS Gloucestershire Integrated Care Board,540
+May,E54000057,Integrated Care Board (ICB),NHS Greater Manchester Integrated Care Board,"2,140"
+May,E54000042,Integrated Care Board (ICB),NHS Hampshire and Isle of Wight Integrated Care Board,"1,535"
+May,E54000019,Integrated Care Board (ICB),NHS Herefordshire and Worcestershire Integrated Care Board,792
+May,E54000025,Integrated Care Board (ICB),NHS Hertfordshire and West Essex Integrated Care Board,"1,041"
+May,E54000051,Integrated Care Board (ICB),NHS Humber and North Yorkshire Integrated Care Board,"1,579"
+May,E54000032,Integrated Care Board (ICB),NHS Kent and Medway Integrated Care Board,"1,603"
+May,E54000048,Integrated Care Board (ICB),NHS Lancashire and South Cumbria Integrated Care Board,"1,527"
+May,E54000015,Integrated Care Board (ICB),"NHS Leicester, Leicestershire and Rutland Integrated Care Board",872
+May,E54000013,Integrated Care Board (ICB),NHS Lincolnshire Integrated Care Board,818
+May,E54000026,Integrated Care Board (ICB),NHS Mid and South Essex Integrated Care Board,959
+May,E54000022,Integrated Care Board (ICB),NHS Norfolk and Waveney Integrated Care Board,"1,026"
+May,E54000028,Integrated Care Board (ICB),NHS North Central London Integrated Care Board,672
+May,E54000029,Integrated Care Board (ICB),NHS North East London Integrated Care Board,826
+May,E54000050,Integrated Care Board (ICB),NHS North East and North Cumbria Integrated Care Board,"2,594"
+May,E54000027,Integrated Care Board (ICB),NHS North West London Integrated Care Board,"1,002"
+May,E54000059,Integrated Care Board (ICB),NHS Northamptonshire Integrated Care Board,596
+May,E54000060,Integrated Care Board (ICB),NHS Nottingham and Nottinghamshire Integrated Care Board,945
+May,E54000011,Integrated Care Board (ICB),"NHS Shropshire, Telford and Wrekin Integrated Care Board",493
+May,E54000038,Integrated Care Board (ICB),NHS Somerset Integrated Care Board,517
+May,E54000030,Integrated Care Board (ICB),NHS South East London Integrated Care Board,882
+May,E54000031,Integrated Care Board (ICB),NHS South West London Integrated Care Board,794
+May,E54000061,Integrated Care Board (ICB),NHS South Yorkshire Integrated Care Board,"1,183"
+May,E54000010,Integrated Care Board (ICB),NHS Staffordshire and Stoke-on-Trent Integrated Care Board,"1,023"
+May,E54000023,Integrated Care Board (ICB),NHS Suffolk and North East Essex Integrated Care Board,959
+May,E54000063,Integrated Care Board (ICB),NHS Surrey Heartlands Integrated Care Board,767
+May,E54000064,Integrated Care Board (ICB),NHS Sussex Integrated Care Board,"1,522"
+May,E54000054,Integrated Care Board (ICB),NHS West Yorkshire Integrated Care Board,"1,860"
+May,W92000004,Country,WALES,"2,900"
+May,W06000001,Local Authority,Isle of Anglesey,61
+May,W06000002,Local Authority,Gwynedd,130
+May,W06000003,Local Authority,Conwy,144
+May,W06000004,Local Authority,Denbighshire,116
+May,W06000005,Local Authority,Flintshire,123
+May,W06000006,Local Authority,Wrexham,129
+May,W06000023,Local Authority,Powys,152
+May,W06000008,Local Authority,Ceredigion,69
+May,W06000009,Local Authority,Pembrokeshire,121
+May,W06000010,Local Authority,Carmarthenshire,180
+May,W06000011,Local Authority,Swansea,216
+May,W06000012,Local Authority,Neath Port Talbot,134
+May,W06000013,Local Authority,Bridgend,140
+May,W06000014,Local Authority,Vale of Glamorgan,137
+May,W06000015,Local Authority,Cardiff,246
+May,W06000016,Local Authority,Rhondda Cynon Taf,207
+May,W06000024,Local Authority,Merthyr Tydfil,65
+May,W06000018,Local Authority,Caerphilly,158
+May,W06000019,Local Authority,Blaenau Gwent,62
+May,W06000020,Local Authority,Torfaen,97
+May,W06000021,Local Authority,Monmouthshire,91
+May,W06000022,Local Authority,Newport,122
+May,W11000028,Local Health Board (LHB),Aneurin Bevan University Health Board,530
+May,W11000023,Local Health Board (LHB),Betsi Cadwaladr University Health Board,703
+May,W11000029,Local Health Board (LHB),Cardiff and Vale University Health Board,383
+May,W11000030,Local Health Board (LHB),Cwm Taf Morgannwg University Health Board,412
+May,W11000025,Local Health Board (LHB),Hywel Dda University Health Board,370
+May,W11000024,Local Health Board (LHB),Powys Teaching Health Board,152
+May,W11000031,Local Health Board (LHB),Swansea Bay University Health Board,350
+June,K04000001,Country,"ENGLAND, WALES AND NON-RESIDENTS","44,399"
+June,E92000001,Country,ENGLAND,"41,586"
+June,E12000001,Region,NORTH EAST,"2,348"
+June,E06000047,Local Authority,County Durham,482
+June,E06000005,Local Authority,Darlington,90
+June,E06000001,Local Authority,Hartlepool,70
+June,E06000002,Local Authority,Middlesbrough,115
+June,E06000057,Local Authority,Northumberland,270
+June,E06000003,Local Authority,Redcar and Cleveland,137
+June,E06000004,Local Authority,Stockton-on-Tees,153
+June,E11000007,Metropolitan County,Tyne and Wear (Met County),"1,031"
+June,E08000037,Local Authority,Gateshead,168
+June,E08000021,Local Authority,Newcastle upon Tyne,194
+June,E08000022,Local Authority,North Tyneside,220
+June,E08000023,Local Authority,South Tyneside,152
+June,E08000024,Local Authority,Sunderland,297
+June,E12000002,Region,NORTH WEST,"5,877"
+June,E06000008,Local Authority,Blackburn with Darwen,118
+June,E06000009,Local Authority,Blackpool,133
+June,E06000049,Local Authority,Cheshire East,365
+June,E06000050,Local Authority,Cheshire West and Chester,302
+June,E06000006,Local Authority,Halton,90
+June,E06000007,Local Authority,Warrington,171
+June,E06000063,Local Authority,Cumberland,267
+June,E06000064,Local Authority,Westmorland and Furness,199
+June,E11000001,Metropolitan County,Greater Manchester (Met County),"1,984"
+June,E08000001,Local Authority,Bolton,224
+June,E08000002,Local Authority,Bury,131
+June,E08000003,Local Authority,Manchester,267
+June,E08000004,Local Authority,Oldham,181
+June,E08000005,Local Authority,Rochdale,169
+June,E08000006,Local Authority,Salford,192
+June,E08000007,Local Authority,Stockport,232
+June,E08000008,Local Authority,Tameside,196
+June,E08000009,Local Authority,Trafford,151
+June,E08000010,Local Authority,Wigan,241
+June,E10000017,County,Lancashire,"1,061"
+June,E07000117,Local Authority,Burnley,86
+June,E07000118,Local Authority,Chorley,102
+June,E07000119,Local Authority,Fylde,96
+June,E07000120,Local Authority,Hyndburn,69
+June,E07000121,Local Authority,Lancaster,118
+June,E07000122,Local Authority,Pendle,70
+June,E07000123,Local Authority,Preston,103
+June,E07000124,Local Authority,Ribble Valley,47
+June,E07000125,Local Authority,Rossendale,50
+June,E07000126,Local Authority,South Ribble,99
+June,E07000127,Local Authority,West Lancashire,106
+June,E07000128,Local Authority,Wyre,115
+June,E11000002,Metropolitan County,Merseyside (Met County),"1,187"
+June,E08000011,Local Authority,Knowsley,130
+June,E08000012,Local Authority,Liverpool,326
+June,E08000014,Local Authority,Sefton,275
+June,E08000013,Local Authority,St. Helens,152
+June,E08000015,Local Authority,Wirral,304
+June,E12000003,Region,YORKSHIRE AND THE HUMBER,"4,416"
+June,E06000011,Local Authority,East Riding of Yorkshire,354
+June,E06000010,Local Authority,"Kingston upon Hull, City of",211
+June,E06000012,Local Authority,North East Lincolnshire,163
+June,E06000013,Local Authority,North Lincolnshire,177
+June,E06000014,Local Authority,York,150
+June,E06000065,Local Authority,North Yorkshire,512
+June,E11000003,Metropolitan County,South Yorkshire (Met County),"1,193"
+June,E08000016,Local Authority,Barnsley,211
+June,E08000017,Local Authority,Doncaster,291
+June,E08000018,Local Authority,Rotherham,266
+June,E08000019,Local Authority,Sheffield,425
+June,E11000006,Metropolitan County,West Yorkshire (Met County),"1,656"
+June,E08000032,Local Authority,Bradford,338
+June,E08000033,Local Authority,Calderdale,160
+June,E08000034,Local Authority,Kirklees,328
+June,E08000035,Local Authority,Leeds,530
+June,E08000036,Local Authority,Wakefield,300
+June,E12000004,Region,EAST MIDLANDS,"3,770"
+June,E06000015,Local Authority,Derby,161
+June,E06000016,Local Authority,Leicester,211
+June,E06000061,Local Authority,North Northamptonshire,268
+June,E06000018,Local Authority,Nottingham,207
+June,E06000017,Local Authority,Rutland,28
+June,E06000062,Local Authority,West Northamptonshire,271
+June,E10000007,County,Derbyshire,674
+June,E07000032,Local Authority,Amber Valley,99
+June,E07000033,Local Authority,Bolsover,62
+June,E07000034,Local Authority,Chesterfield,112
+June,E07000035,Local Authority,Derbyshire Dales,61
+June,E07000036,Local Authority,Erewash,103
+June,E07000037,Local Authority,High Peak,70
+June,E07000038,Local Authority,North East Derbyshire,99
+June,E07000039,Local Authority,South Derbyshire,68
+June,E10000018,County,Leicestershire,555
+June,E07000129,Local Authority,Blaby,71
+June,E07000130,Local Authority,Charnwood,151
+June,E07000131,Local Authority,Harborough,75
+June,E07000132,Local Authority,Hinckley and Bosworth,90
+June,E07000133,Local Authority,Melton,39
+June,E07000134,Local Authority,North West Leicestershire,80
+June,E07000135,Local Authority,Oadby and Wigston,49
+June,E10000019,County,Lincolnshire,665
+June,E07000136,Local Authority,Boston,66
+June,E07000137,Local Authority,East Lindsey,153
+June,E07000138,Local Authority,Lincoln,65
+June,E07000139,Local Authority,North Kesteven,84
+June,E07000140,Local Authority,South Holland,94
+June,E07000141,Local Authority,South Kesteven,115
+June,E07000142,Local Authority,West Lindsey,88
+June,E10000024,County,Nottinghamshire,730
+June,E07000170,Local Authority,Ashfield,129
+June,E07000171,Local Authority,Bassetlaw,108
+June,E07000172,Local Authority,Broxtowe,88
+June,E07000173,Local Authority,Gedling,92
+June,E07000174,Local Authority,Mansfield,103
+June,E07000175,Local Authority,Newark and Sherwood,113
+June,E07000176,Local Authority,Rushcliffe,97
+June,E12000005,Region,WEST MIDLANDS,"4,778"
+June,E06000019,Local Authority,"Herefordshire, County of",174
+June,E06000051,Local Authority,Shropshire,290
+June,E06000021,Local Authority,Stoke-on-Trent,202
+June,E06000020,Local Authority,Telford and Wrekin,149
+June,E10000028,County,Staffordshire,775
+June,E07000192,Local Authority,Cannock Chase,88
+June,E07000193,Local Authority,East Staffordshire,75
+June,E07000194,Local Authority,Lichfield,107
+June,E07000195,Local Authority,Newcastle-under-Lyme,119
+June,E07000196,Local Authority,South Staffordshire,111
+June,E07000197,Local Authority,Stafford,112
+June,E07000198,Local Authority,Staffordshire Moorlands,92
+June,E07000199,Local Authority,Tamworth,71
+June,E10000031,County,Warwickshire,523
+June,E07000218,Local Authority,North Warwickshire,65
+June,E07000219,Local Authority,Nuneaton and Bedworth,116
+June,E07000220,Local Authority,Rugby,94
+June,E07000221,Local Authority,Stratford-on-Avon,127
+June,E07000222,Local Authority,Warwick,121
+June,E11000005,Metropolitan County,West Midlands (Met County),"2,103"
+June,E08000025,Local Authority,Birmingham,762
+June,E08000026,Local Authority,Coventry,235
+June,E08000027,Local Authority,Dudley,251
+June,E08000028,Local Authority,Sandwell,231
+June,E08000029,Local Authority,Solihull,183
+June,E08000030,Local Authority,Walsall,225
+June,E08000031,Local Authority,Wolverhampton,216
+June,E10000034,County,Worcestershire,562
+June,E07000234,Local Authority,Bromsgrove,100
+June,E07000235,Local Authority,Malvern Hills,88
+June,E07000236,Local Authority,Redditch,64
+June,E07000237,Local Authority,Worcester,82
+June,E07000238,Local Authority,Wychavon,122
+June,E07000239,Local Authority,Wyre Forest,106
+June,E12000006,Region,EAST,"4,801"
+June,E06000055,Local Authority,Bedford,92
+June,E06000056,Local Authority,Central Bedfordshire,184
+June,E06000032,Local Authority,Luton,128
+June,E06000031,Local Authority,Peterborough,149
+June,E06000033,Local Authority,Southend-on-Sea,131
+June,E06000034,Local Authority,Thurrock,109
+June,E10000003,County,Cambridgeshire,526
+June,E07000008,Local Authority,Cambridge,78
+June,E07000009,Local Authority,East Cambridgeshire,67
+June,E07000010,Local Authority,Fenland,112
+June,E07000011,Local Authority,Huntingdonshire,143
+June,E07000012,Local Authority,South Cambridgeshire,126
+June,E10000012,County,Essex,"1,235"
+June,E07000066,Local Authority,Basildon,137
+June,E07000067,Local Authority,Braintree,133
+June,E07000068,Local Authority,Brentwood,53
+June,E07000069,Local Authority,Castle Point,97
+June,E07000070,Local Authority,Chelmsford,140
+June,E07000071,Local Authority,Colchester,133
+June,E07000072,Local Authority,Epping Forest,112
+June,E07000073,Local Authority,Harlow,56
+June,E07000074,Local Authority,Maldon,56
+June,E07000075,Local Authority,Rochford,81
+June,E07000076,Local Authority,Tendring,182
+June,E07000077,Local Authority,Uttlesford,55
+June,E10000015,County,Hertfordshire,819
+June,E07000095,Local Authority,Broxbourne,70
+June,E07000096,Local Authority,Dacorum,101
+June,E07000242,Local Authority,East Hertfordshire,107
+June,E07000098,Local Authority,Hertsmere,75
+June,E07000099,Local Authority,North Hertfordshire,98
+June,E07000240,Local Authority,St Albans,103
+June,E07000243,Local Authority,Stevenage,69
+June,E07000102,Local Authority,Three Rivers,54
+June,E07000103,Local Authority,Watford,63
+June,E07000241,Local Authority,Welwyn Hatfield,79
+June,E10000020,County,Norfolk,833
+June,E07000143,Local Authority,Breckland,146
+June,E07000144,Local Authority,Broadland,133
+June,E07000145,Local Authority,Great Yarmouth,105
+June,E07000146,Local Authority,King�s Lynn and West Norfolk,114
+June,E07000147,Local Authority,North Norfolk,107
+June,E07000148,Local Authority,Norwich,90
+June,E07000149,Local Authority,South Norfolk,138
+June,E10000029,County,Suffolk,595
+June,E07000200,Local Authority,Babergh,91
+June,E07000244,Local Authority,East Suffolk,228
+June,E07000202,Local Authority,Ipswich,85
+June,E07000203,Local Authority,Mid Suffolk,72
+June,E07000245,Local Authority,West Suffolk,119
+June,E12000007,Region,LONDON,"3,944"
+June,E13000001,Inner London,Inner London,"1,262"
+June,E09000007,Local Authority,Camden,90
+June,E09000001,Local Authority,City of London,5
+June,E09000012,Local Authority,Hackney,82
+June,E09000013,Local Authority,Hammersmith and Fulham,56
+June,E09000014,Local Authority,Haringey,101
+June,E09000019,Local Authority,Islington,86
+June,E09000020,Local Authority,Kensington and Chelsea,66
+June,E09000022,Local Authority,Lambeth,111
+June,E09000023,Local Authority,Lewisham,132
+June,E09000025,Local Authority,Newham,101
+June,E09000028,Local Authority,Southwark,112
+June,E09000030,Local Authority,Tower Hamlets,95
+June,E09000032,Local Authority,Wandsworth,148
+June,E09000033,Local Authority,Westminster,77
+June,E13000002,Outer London,Outer London,"2,682"
+June,E09000002,Local Authority,Barking and Dagenham,93
+June,E09000003,Local Authority,Barnet,199
+June,E09000004,Local Authority,Bexley,161
+June,E09000005,Local Authority,Brent,129
+June,E09000006,Local Authority,Bromley,202
+June,E09000008,Local Authority,Croydon,197
+June,E09000009,Local Authority,Ealing,156
+June,E09000010,Local Authority,Enfield,192
+June,E09000011,Local Authority,Greenwich,125
+June,E09000015,Local Authority,Harrow,134
+June,E09000016,Local Authority,Havering,177
+June,E09000017,Local Authority,Hillingdon,148
+June,E09000018,Local Authority,Hounslow,119
+June,E09000021,Local Authority,Kingston upon Thames,92
+June,E09000024,Local Authority,Merton,112
+June,E09000026,Local Authority,Redbridge,132
+June,E09000027,Local Authority,Richmond upon Thames,86
+June,E09000029,Local Authority,Sutton,117
+June,E09000031,Local Authority,Waltham Forest,111
+June,E12000008,Region,SOUTH EAST,"6,890"
+June,E06000036,Local Authority,Bracknell Forest,79
+June,E06000043,Local Authority,Brighton and Hove,158
+June,E06000046,Local Authority,Isle of Wight,151
+June,E06000035,Local Authority,Medway,171
+June,E06000042,Local Authority,Milton Keynes,165
+June,E06000044,Local Authority,Portsmouth,146
+June,E06000038,Local Authority,Reading,92
+June,E06000039,Local Authority,Slough,63
+June,E06000045,Local Authority,Southampton,144
+June,E06000037,Local Authority,West Berkshire,118
+June,E06000040,Local Authority,Windsor and Maidenhead,99
+June,E06000041,Local Authority,Wokingham,106
+June,E06000060,Local Authority,Buckinghamshire,367
+June,E10000011,County,East Sussex,519
+June,E07000061,Local Authority,Eastbourne,97
+June,E07000062,Local Authority,Hastings,89
+June,E07000063,Local Authority,Lewes,87
+June,E07000064,Local Authority,Rother,114
+June,E07000065,Local Authority,Wealden,132
+June,E10000014,County,Hampshire,"1,186"
+June,E07000084,Local Authority,Basingstoke and Deane,118
+June,E07000085,Local Authority,East Hampshire,99
+June,E07000086,Local Authority,Eastleigh,107
+June,E07000087,Local Authority,Fareham,101
+June,E07000088,Local Authority,Gosport,67
+June,E07000089,Local Authority,Hart,57
+June,E07000090,Local Authority,Havant,125
+June,E07000091,Local Authority,New Forest,245
+June,E07000092,Local Authority,Rushmoor,53
+June,E07000093,Local Authority,Test Valley,125
+June,E07000094,Local Authority,Winchester,89
+June,E10000016,County,Kent,"1,249"
+June,E07000105,Local Authority,Ashford,98
+June,E07000106,Local Authority,Canterbury,125
+June,E07000107,Local Authority,Dartford,54
+June,E07000108,Local Authority,Dover,116
+June,E07000109,Local Authority,Gravesham,76
+June,E07000110,Local Authority,Maidstone,152
+June,E07000111,Local Authority,Sevenoaks,103
+June,E07000112,Local Authority,Folkestone and Hythe,109
+June,E07000113,Local Authority,Swale,108
+June,E07000114,Local Authority,Thanet,142
+June,E07000115,Local Authority,Tonbridge and Malling,97
+June,E07000116,Local Authority,Tunbridge Wells,69
+June,E10000025,County,Oxfordshire,508
+June,E07000177,Local Authority,Cherwell,109
+June,E07000178,Local Authority,Oxford,71
+June,E07000179,Local Authority,South Oxfordshire,128
+June,E07000180,Local Authority,Vale of White Horse,102
+June,E07000181,Local Authority,West Oxfordshire,98
+June,E10000030,County,Surrey,796
+June,E07000207,Local Authority,Elmbridge,93
+June,E07000208,Local Authority,Epsom and Ewell,51
+June,E07000209,Local Authority,Guildford,67
+June,E07000210,Local Authority,Mole Valley,70
+June,E07000211,Local Authority,Reigate and Banstead,106
+June,E07000212,Local Authority,Runnymede,58
+June,E07000213,Local Authority,Spelthorne,63
+June,E07000214,Local Authority,Surrey Heath,75
+June,E07000215,Local Authority,Tandridge,66
+June,E07000216,Local Authority,Waverley,89
+June,E07000217,Local Authority,Woking,58
+June,E10000032,County,West Sussex,773
+June,E07000223,Local Authority,Adur,48
+June,E07000224,Local Authority,Arun,204
+June,E07000225,Local Authority,Chichester,135
+June,E07000226,Local Authority,Crawley,59
+June,E07000227,Local Authority,Horsham,120
+June,E07000228,Local Authority,Mid Sussex,91
+June,E07000229,Local Authority,Worthing,116
+June,E12000009,Region,SOUTH WEST,"4,762"
+June,E06000022,Local Authority,Bath and North East Somerset,115
+June,E06000058,Local Authority,"Bournemouth, Christchurch and Poole",322
+June,E06000023,Local Authority,"Bristol, City of",245
+June,E06000052,Local Authority,Cornwall,548
+June,E06000053,Local Authority,Isles of Scilly,2
+June,E06000059,Local Authority,Dorset,380
+June,E06000024,Local Authority,North Somerset,197
+June,E06000026,Local Authority,Plymouth,226
+June,E06000025,Local Authority,South Gloucestershire,195
+June,E06000030,Local Authority,Swindon,148
+June,E06000027,Local Authority,Torbay,160
+June,E06000054,Local Authority,Wiltshire,407
+June,E10000008,County,Devon,734
+June,E07000040,Local Authority,East Devon,161
+June,E07000041,Local Authority,Exeter,90
+June,E07000042,Local Authority,Mid Devon,75
+June,E07000043,Local Authority,North Devon,105
+June,E07000044,Local Authority,South Hams,65
+June,E07000045,Local Authority,Teignbridge,120
+June,E07000046,Local Authority,Torridge,67
+June,E07000047,Local Authority,West Devon,51
+June,E10000013,County,Gloucestershire,540
+June,E07000078,Local Authority,Cheltenham,107
+June,E07000079,Local Authority,Cotswold,92
+June,E07000080,Local Authority,Forest of Dean,59
+June,E07000081,Local Authority,Gloucester,99
+June,E07000082,Local Authority,Stroud,100
+June,E07000083,Local Authority,Tewkesbury,83
+June,E06000066,Local Authority,Somerset,543
+June,E54000040,Integrated Care Board (ICB),"NHS Bath and North East Somerset, Swindon and Wiltshire Integrated Care Board",672
+June,E54000024,Integrated Care Board (ICB),"NHS Bedfordshire, Luton and Milton Keynes Integrated Care Board",574
+June,E54000055,Integrated Care Board (ICB),NHS Birmingham and Solihull Integrated Care Board,945
+June,E54000062,Integrated Care Board (ICB),NHS Black Country Integrated Care Board,923
+June,E54000039,Integrated Care Board (ICB),"NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board",637
+June,E54000044,Integrated Care Board (ICB),"NHS Buckinghamshire, Oxfordshire and Berkshire West Integrated Care Board","1,184"
+June,E54000056,Integrated Care Board (ICB),NHS Cambridgeshire and Peterborough Integrated Care Board,687
+June,E54000008,Integrated Care Board (ICB),NHS Cheshire and Merseyside Integrated Care Board,"2,115"
+June,E54000036,Integrated Care Board (ICB),NHS Cornwall and the Isles of Scilly Integrated Care Board,550
+June,E54000018,Integrated Care Board (ICB),NHS Coventry and Warwickshire Integrated Care Board,758
+June,E54000058,Integrated Care Board (ICB),NHS Derby and Derbyshire Integrated Care Board,835
+June,E54000037,Integrated Care Board (ICB),NHS Devon Integrated Care Board,"1,120"
+June,E54000041,Integrated Care Board (ICB),NHS Dorset Integrated Care Board,702
+June,E54000034,Integrated Care Board (ICB),NHS Frimley Integrated Care Board,432
+June,E54000043,Integrated Care Board (ICB),NHS Gloucestershire Integrated Care Board,540
+June,E54000057,Integrated Care Board (ICB),NHS Greater Manchester Integrated Care Board,"1,984"
+June,E54000042,Integrated Care Board (ICB),NHS Hampshire and Isle of Wight Integrated Care Board,"1,540"
+June,E54000019,Integrated Care Board (ICB),NHS Herefordshire and Worcestershire Integrated Care Board,736
+June,E54000025,Integrated Care Board (ICB),NHS Hertfordshire and West Essex Integrated Care Board,"1,030"
+June,E54000051,Integrated Care Board (ICB),NHS Humber and North Yorkshire Integrated Care Board,"1,526"
+June,E54000032,Integrated Care Board (ICB),NHS Kent and Medway Integrated Care Board,"1,420"
+June,E54000048,Integrated Care Board (ICB),NHS Lancashire and South Cumbria Integrated Care Board,"1,479"
+June,E54000015,Integrated Care Board (ICB),"NHS Leicester, Leicestershire and Rutland Integrated Care Board",794
+June,E54000013,Integrated Care Board (ICB),NHS Lincolnshire Integrated Care Board,665
+June,E54000026,Integrated Care Board (ICB),NHS Mid and South Essex Integrated Care Board,937
+June,E54000022,Integrated Care Board (ICB),NHS Norfolk and Waveney Integrated Care Board,959
+June,E54000028,Integrated Care Board (ICB),NHS North Central London Integrated Care Board,668
+June,E54000029,Integrated Care Board (ICB),NHS North East London Integrated Care Board,796
+June,E54000050,Integrated Care Board (ICB),NHS North East and North Cumbria Integrated Care Board,"2,649"
+June,E54000027,Integrated Care Board (ICB),NHS North West London Integrated Care Board,885
+June,E54000059,Integrated Care Board (ICB),NHS Northamptonshire Integrated Care Board,539
+June,E54000060,Integrated Care Board (ICB),NHS Nottingham and Nottinghamshire Integrated Care Board,937
+June,E54000011,Integrated Care Board (ICB),"NHS Shropshire, Telford and Wrekin Integrated Care Board",439
+June,E54000038,Integrated Care Board (ICB),NHS Somerset Integrated Care Board,543
+June,E54000030,Integrated Care Board (ICB),NHS South East London Integrated Care Board,843
+June,E54000031,Integrated Care Board (ICB),NHS South West London Integrated Care Board,752
+June,E54000061,Integrated Care Board (ICB),NHS South Yorkshire Integrated Care Board,"1,193"
+June,E54000010,Integrated Care Board (ICB),NHS Staffordshire and Stoke-on-Trent Integrated Care Board,977
+June,E54000023,Integrated Care Board (ICB),NHS Suffolk and North East Essex Integrated Care Board,784
+June,E54000063,Integrated Care Board (ICB),NHS Surrey Heartlands Integrated Care Board,692
+June,E54000064,Integrated Care Board (ICB),NHS Sussex Integrated Care Board,"1,450"
+June,E54000054,Integrated Care Board (ICB),NHS West Yorkshire Integrated Care Board,"1,695"
+June,W92000004,Country,WALES,"2,716"
+June,W06000001,Local Authority,Isle of Anglesey,76
+June,W06000002,Local Authority,Gwynedd,131
+June,W06000003,Local Authority,Conwy,121
+June,W06000004,Local Authority,Denbighshire,68
+June,W06000005,Local Authority,Flintshire,107
+June,W06000006,Local Authority,Wrexham,135
+June,W06000023,Local Authority,Powys,122
+June,W06000008,Local Authority,Ceredigion,65
+June,W06000009,Local Authority,Pembrokeshire,107
+June,W06000010,Local Authority,Carmarthenshire,201
+June,W06000011,Local Authority,Swansea,200
+June,W06000012,Local Authority,Neath Port Talbot,112
+June,W06000013,Local Authority,Bridgend,120
+June,W06000014,Local Authority,Vale of Glamorgan,94
+June,W06000015,Local Authority,Cardiff,259
+June,W06000016,Local Authority,Rhondda Cynon Taf,233
+June,W06000024,Local Authority,Merthyr Tydfil,69
+June,W06000018,Local Authority,Caerphilly,140
+June,W06000019,Local Authority,Blaenau Gwent,63
+June,W06000020,Local Authority,Torfaen,81
+June,W06000021,Local Authority,Monmouthshire,76
+June,W06000022,Local Authority,Newport,136
+June,W11000028,Local Health Board (LHB),Aneurin Bevan University Health Board,496
+June,W11000023,Local Health Board (LHB),Betsi Cadwaladr University Health Board,638
+June,W11000029,Local Health Board (LHB),Cardiff and Vale University Health Board,353
+June,W11000030,Local Health Board (LHB),Cwm Taf Morgannwg University Health Board,422
+June,W11000025,Local Health Board (LHB),Hywel Dda University Health Board,373
+June,W11000024,Local Health Board (LHB),Powys Teaching Health Board,122
+June,W11000031,Local Health Board (LHB),Swansea Bay University Health Board,312
