@@ -131,7 +131,7 @@ all_spend <- read.csv("~/Library/CloudStorage/OneDrive-Nexus365/Documents/GitHub
 lifeexpectancy <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/lifeexpectancylocalareas_23.csv"), skip=5)%>%
   dplyr::filter(Area.type == "County"|
                   Area.type == "Local Areas",
-                Age.band == 19)%>%
+                Age.band == 16|Age.band == 17|Age.band == 18|Age.band == 19|Age.band == 20)%>%
   dplyr::mutate(year = str_extract_all(Period, "\\d{4}") %>%
                   lapply(as.numeric) %>%
                   sapply(function(x) floor(mean(x) )),
@@ -152,7 +152,9 @@ lifeexpectancy <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/ca
                   gsub("NE SOM", "NORTH EAST SOM", .)%>%
                   gsub("N E SOM", "NORTH EAST SOM", .)%>%
                   str_trim())%>%
-  dplyr::select(DH_GEOGRAPHY_NAME, year,Life.expectancy, Sex)
+  dplyr::select(DH_GEOGRAPHY_NAME, year,Life.expectancy, Sex, Age.group)%>%
+  dplyr::mutate(Age.group = gsub(" ", "_", Age.group))%>%
+  tidyr::pivot_wider(names_from = c("Age.group", "Sex"), values_from = "Life.expectancy", names_prefix = "life_expectancy")
 
 deaths <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/lanonladeaths20141021.csv"), skip=4)%>%
   dplyr::rename(year = Year,
@@ -482,15 +484,22 @@ grant <- read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_m
 
 
 data = dplyr::full_join(outsourced , lifeexpectancy, by=c("DH_GEOGRAPHY_NAME", "year"))%>%
-  tidyr::drop_na(Life.expectancy, percent_inhouse_activity)%>%
-  tidyr::pivot_wider(names_from = "Sex", values_from = c("Life.expectancy"), names_prefix = "life_expectancy_")%>%
+  tidyr::drop_na(life_expectancy70_to_74_Female, percent_inhouse_activity)%>%
   # dplyr::full_join(., deaths)%>%
   dplyr::group_by(DH_GEOGRAPHY_NAME)%>%
   arrange(year) %>%
   dplyr::mutate(lagged_sector_1 = dplyr::lag(percent_inhouse_activity, 1),
                 lagged_sector_2 = dplyr::lag(percent_inhouse_activity, 2),
-                lagged_le_1_Male = dplyr::lag(life_expectancy_Male, 1),
-                lagged_le_1_Female = dplyr::lag(life_expectancy_Female, 1))
+                lagged_le_1_female_70 = dplyr::lag(life_expectancy70_to_74_Female, 1),
+                lagged_le_1_female_75 = dplyr::lag(life_expectancy75_to_79_Female, 1),
+                lagged_le_1_female_80 = dplyr::lag(life_expectancy80_to_84_Female, 1),
+                lagged_le_1_female_85 = dplyr::lag(life_expectancy85_to_89_Female, 1),
+                lagged_le_1_female_90 = dplyr::lag(`life_expectancy90+_Female`, 1),
+                lagged_le_1_male_70 = dplyr::lag(life_expectancy70_to_74_Male, 1),
+                lagged_le_1_male_75 = dplyr::lag(life_expectancy75_to_79_Male, 1),
+                lagged_le_1_male_80 = dplyr::lag(life_expectancy80_to_84_Male, 1),
+                lagged_le_1_male_85 = dplyr::lag(life_expectancy85_to_89_Male, 1),
+                lagged_le_1_male_90 = dplyr::lag(`life_expectancy90+_Male`, 1))
 
 
 
@@ -578,7 +587,7 @@ summary(plm(log(life_expectancy_Male)~lagged_activity_insourced+lagged_activity_
 
 
 
-pdata <- pdata.frame(data%>%dplyr::filter( year<2020, lagged_activity_insourced!=0), index = c("DH_GEOGRAPHY_NAME","year"))
+pdata <- pdata.frame(data%>%dplyr::filter( year<2020), index = c("DH_GEOGRAPHY_NAME","year"))
 
 summary(plm(log(Emergency.hospital.admissions.due.to.falls.in.people.aged.80.plus)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
 summary(plm(log(Hip.fractures.in.people.aged.80.and.over)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways"))
@@ -772,10 +781,502 @@ cowplot::plot_grid(viz1_ridgeline,
 
 
 
+#regression tables#
+
+
+
+pdata <- pdata.frame(data%>%dplyr::filter(year<2020), index = c("DH_GEOGRAPHY_NAME","year"))
+head(pdata)
+
+one <- plm(log(life_expectancy70_to_74_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+two <- plm(log(life_expectancy75_to_79_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+three <- plm(log(life_expectancy80_to_84_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+four <- plm(log(life_expectancy85_to_89_Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+five <- plm(log(life_expectancy90._Female)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+
+
+onesum <- as.list(modelsummary(one, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+twosum <- as.list(modelsummary(two, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+threesum <- as.list(modelsummary(three, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+foursum <- as.list(modelsummary(four, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+fivesum <- as.list(modelsummary(five, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+
+
+
+onesum$tidy$p.value <- coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+onesum$tidy$std.error <- coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+onesum$tidy$conf.low <- onesum$tidy$estimate-(1.96*coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+onesum$tidy$conf.high <- onesum$tidy$estimate+(1.96*coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+onesum$tidy$estimate <- onesum$tidy$estimate
+
+twosum$tidy$p.value <- coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+twosum$tidy$std.error <- coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+twosum$tidy$conf.low <- twosum$tidy$estimate-(1.96*coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+twosum$tidy$conf.high <- twosum$tidy$estimate+(1.96*coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+twosum$tidy$estimate <- twosum$tidy$estimate
+
+threesum$tidy$p.value <- coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+threesum$tidy$std.error <- coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+threesum$tidy$conf.low <- threesum$tidy$estimate-(1.96*coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+threesum$tidy$conf.high <- threesum$tidy$estimate+(1.96*coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+threesum$tidy$estimate <- threesum$tidy$estimate
+
+foursum$tidy$p.value <- coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+foursum$tidy$std.error <- coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+foursum$tidy$conf.low <- foursum$tidy$estimate-(1.96*coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+foursum$tidy$conf.high <- foursum$tidy$estimate+(1.96*coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+foursum$tidy$estimate <- foursum$tidy$estimate
+
+fivesum$tidy$p.value <- coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+fivesum$tidy$std.error <- coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+fivesum$tidy$conf.low <- fivesum$tidy$estimate-(1.96*coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+fivesum$tidy$conf.high <- fivesum$tidy$estimate+(1.96*coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+fivesum$tidy$estimate <- fivesum$tidy$estimate
+
+cm <- c("lagged_activity_insourced" = "In house residential care (%)",
+        "lagged_activity_total" = "Total residential care (hrs)",
+        "lagged_old_spend" = "Spend on 65+ social care (£000s)",
+        "lagged_pension_credits" = "Pension credit spend (£000s)",
+        "lagged_total_pop" = "Total population (n)", 
+        "lagged_per_80" = "Population over 80 (%)",
+        "lagged_unemp" = "Unemployment rate (%))")
+
+rows <- tribble(~term,          ~`Placements outside LA (%) [.95 ci]`,  ~`p-value`,~`Placements outside LA (%) [.95 ci]`,  ~`p-value`,  ~`Placements outside LA (%) [.95 ci]`,  ~`p-value`, ~`Placements unstable (%) [.95 ci]`,  ~`p-value`, ~`Placements unstable (%) [.95 ci]`,  ~`p-value`,  
+                'CCG Fixed Effects', 'Yes',  'Yes', 'Yes',  'Yes','Yes',  'Yes','Yes',  'Yes',  'Yes','Yes',
+                'Time Fixed Effects','Yes','Yes','Yes',  'Yes','Yes','Yes','Yes',  'Yes',  'Yes','Yes',
+                'Clustered Standard Errors', 'Yes','Yes', 'Yes',  'Yes','Yes','Yes','Yes',  'Yes','Yes','Yes')
+
+
+table <- modelsummary(list("Aged 70-74 [.95 ci]"=onesum,"p-value"=onesum,"Aged 75-79 [.95 ci]"=twosum,"p-value"=twosum,"Aged 80-85 [.95 ci]"=threesum,"p-value"=threesum, "Aged 85-90 (%) [.95 ci]" = foursum, "p-value" = foursum,"Aged 90+ [.95 ci]" = fivesum, "p-value" = fivesum),
+                      coef_omit = "Intercept|dept|year", add_rows = rows, coef_map = cm, title = "Female life expectancy",
+                      fmt = 4, estimate = c("{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value"), statistic = NULL,
+                      notes = list('Table reports results from multivariate longitudinal regression models.',
+                                   'Robust SEs are clustered at CCG level and use a bias-reduced linearization estimator (CR2)'),
+                      output = "gt") 
+
+table
 
 
 
 
+
+
+
+pdata <- pdata.frame(data%>%dplyr::filter(year<2020), index = c("DH_GEOGRAPHY_NAME","year"))
+head(pdata)
+
+one <- plm(log(life_expectancy70_to_74_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+two <- plm(log(life_expectancy75_to_79_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+three <- plm(log(life_expectancy80_to_84_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+four <- plm(log(life_expectancy85_to_89_Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+five <- plm(log(life_expectancy90._Male)~lagged_activity_insourced+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+
+
+onesum <- as.list(modelsummary(one, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+twosum <- as.list(modelsummary(two, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+threesum <- as.list(modelsummary(three, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+foursum <- as.list(modelsummary(four, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+fivesum <- as.list(modelsummary(five, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+
+
+
+onesum$tidy$p.value <- coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+onesum$tidy$std.error <- coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+onesum$tidy$conf.low <- onesum$tidy$estimate-(1.96*coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+onesum$tidy$conf.high <- onesum$tidy$estimate+(1.96*coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+onesum$tidy$estimate <- onesum$tidy$estimate
+
+twosum$tidy$p.value <- coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+twosum$tidy$std.error <- coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+twosum$tidy$conf.low <- twosum$tidy$estimate-(1.96*coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+twosum$tidy$conf.high <- twosum$tidy$estimate+(1.96*coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+twosum$tidy$estimate <- twosum$tidy$estimate
+
+threesum$tidy$p.value <- coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+threesum$tidy$std.error <- coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+threesum$tidy$conf.low <- threesum$tidy$estimate-(1.96*coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+threesum$tidy$conf.high <- threesum$tidy$estimate+(1.96*coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+threesum$tidy$estimate <- threesum$tidy$estimate
+
+foursum$tidy$p.value <- coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+foursum$tidy$std.error <- coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+foursum$tidy$conf.low <- foursum$tidy$estimate-(1.96*coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+foursum$tidy$conf.high <- foursum$tidy$estimate+(1.96*coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+foursum$tidy$estimate <- foursum$tidy$estimate
+
+fivesum$tidy$p.value <- coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+fivesum$tidy$std.error <- coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+fivesum$tidy$conf.low <- fivesum$tidy$estimate-(1.96*coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+fivesum$tidy$conf.high <- fivesum$tidy$estimate+(1.96*coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+fivesum$tidy$estimate <- fivesum$tidy$estimate
+
+cm <- c("lagged_activity_insourced" = "In house residential care (%)",
+        "lagged_activity_total" = "Total residential care (hrs)",
+        "lagged_old_spend" = "Spend on 65+ social care (£000s)",
+        "lagged_pension_credits" = "Pension credit spend (£000s)",
+        "lagged_total_pop" = "Total population (n)", 
+        "lagged_per_80" = "Population over 80 (%)",
+        "lagged_unemp" = "Unemployment rate (%))")
+
+rows <- tribble(~term,          ~`Placements outside LA (%) [.95 ci]`,  ~`p-value`,~`Placements outside LA (%) [.95 ci]`,  ~`p-value`,  ~`Placements outside LA (%) [.95 ci]`,  ~`p-value`, ~`Placements unstable (%) [.95 ci]`,  ~`p-value`, ~`Placements unstable (%) [.95 ci]`,  ~`p-value`,  
+                'CCG Fixed Effects', 'Yes',  'Yes', 'Yes',  'Yes','Yes',  'Yes','Yes',  'Yes',  'Yes','Yes',
+                'Time Fixed Effects','Yes','Yes','Yes',  'Yes','Yes','Yes','Yes',  'Yes',  'Yes','Yes',
+                'Clustered Standard Errors', 'Yes','Yes', 'Yes',  'Yes','Yes','Yes','Yes',  'Yes','Yes','Yes')
+
+
+table <- modelsummary(list("Aged 70-74 [.95 ci]"=onesum,"p-value"=onesum,"Aged 75-79 [.95 ci]"=twosum,"p-value"=twosum,"Aged 80-85 [.95 ci]"=threesum,"p-value"=threesum, "Aged 85-90 (%) [.95 ci]" = foursum, "p-value" = foursum,"Aged 90+ [.95 ci]" = fivesum, "p-value" = fivesum),
+                      coef_omit = "Intercept|dept|year", add_rows = rows, coef_map = cm, title = "Male life expectancy",
+                      fmt = 4, estimate = c("{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value"), statistic = NULL,
+                      notes = list('Table reports results from multivariate longitudinal regression models.',
+                                   'Robust SEs are clustered at CCG level and use a bias-reduced linearization estimator (CR2)'),
+                      output = "gt") 
+
+
+one <- plm(log(life_expectancy70_to_74_Female)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+two <- plm(log(life_expectancy75_to_79_Female)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+three <- plm(log(life_expectancy80_to_84_Female)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+four <- plm(log(life_expectancy85_to_89_Female)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+five <- plm(log(life_expectancy90._Female)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+
+
+onesum <- as.list(modelsummary(one, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+twosum <- as.list(modelsummary(two, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+threesum <- as.list(modelsummary(three, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+foursum <- as.list(modelsummary(four, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+fivesum <- as.list(modelsummary(five, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+
+
+
+onesum$tidy$p.value <- coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+onesum$tidy$std.error <- coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+onesum$tidy$conf.low <- onesum$tidy$estimate-(1.96*coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+onesum$tidy$conf.high <- onesum$tidy$estimate+(1.96*coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+onesum$tidy$estimate <- onesum$tidy$estimate
+
+twosum$tidy$p.value <- coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+twosum$tidy$std.error <- coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+twosum$tidy$conf.low <- twosum$tidy$estimate-(1.96*coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+twosum$tidy$conf.high <- twosum$tidy$estimate+(1.96*coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+twosum$tidy$estimate <- twosum$tidy$estimate
+
+threesum$tidy$p.value <- coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+threesum$tidy$std.error <- coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+threesum$tidy$conf.low <- threesum$tidy$estimate-(1.96*coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+threesum$tidy$conf.high <- threesum$tidy$estimate+(1.96*coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+threesum$tidy$estimate <- threesum$tidy$estimate
+
+foursum$tidy$p.value <- coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+foursum$tidy$std.error <- coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+foursum$tidy$conf.low <- foursum$tidy$estimate-(1.96*coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+foursum$tidy$conf.high <- foursum$tidy$estimate+(1.96*coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+foursum$tidy$estimate <- foursum$tidy$estimate
+
+fivesum$tidy$p.value <- coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+fivesum$tidy$std.error <- coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+fivesum$tidy$conf.low <- fivesum$tidy$estimate-(1.96*coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+fivesum$tidy$conf.high <- fivesum$tidy$estimate+(1.96*coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+fivesum$tidy$estimate <- fivesum$tidy$estimate
+
+cm <- c("lagged_old_out" = "Outsourced 65+ social care (%)",
+        "lagged_activity_total" = "Total residential care (hrs)",
+        "lagged_old_spend" = "Spend on 65+ social care (£000s)",
+        "lagged_pension_credits" = "Pension credit spend (£000s)",
+        "lagged_total_pop" = "Total population (n)", 
+        "lagged_per_80" = "Population over 80 (%)",
+        "lagged_unemp" = "Unemployment rate (%))")
+
+rows <- tribble(~term,          ~`Placements outside LA (%) [.95 ci]`,  ~`p-value`,~`Placements outside LA (%) [.95 ci]`,  ~`p-value`,  ~`Placements outside LA (%) [.95 ci]`,  ~`p-value`, ~`Placements unstable (%) [.95 ci]`,  ~`p-value`, ~`Placements unstable (%) [.95 ci]`,  ~`p-value`,  
+                'CCG Fixed Effects', 'Yes',  'Yes', 'Yes',  'Yes','Yes',  'Yes','Yes',  'Yes',  'Yes','Yes',
+                'Time Fixed Effects','Yes','Yes','Yes',  'Yes','Yes','Yes','Yes',  'Yes',  'Yes','Yes',
+                'Clustered Standard Errors', 'Yes','Yes', 'Yes',  'Yes','Yes','Yes','Yes',  'Yes','Yes','Yes')
+
+
+table <- modelsummary(list("Aged 70-74 [.95 ci]"=onesum,"p-value"=onesum,"Aged 75-79 [.95 ci]"=twosum,"p-value"=twosum,"Aged 80-85 [.95 ci]"=threesum,"p-value"=threesum, "Aged 85-90 (%) [.95 ci]" = foursum, "p-value" = foursum,"Aged 90+ [.95 ci]" = fivesum, "p-value" = fivesum),
+                      coef_omit = "Intercept|dept|year", add_rows = rows, coef_map = cm, title = "Female life expectancy",
+                      fmt = 4, estimate = c("{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value"), statistic = NULL,
+                      notes = list('Table reports results from multivariate longitudinal regression models.',
+                                   'Robust SEs are clustered at CCG level and use a bias-reduced linearization estimator (CR2)'),
+                      output = "gt") 
+
+table
+
+
+one <- plm(log(life_expectancy70_to_74_Male)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+two <- plm(log(life_expectancy75_to_79_Male)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+three <- plm(log(life_expectancy80_to_84_Male)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+four <- plm(log(life_expectancy85_to_89_Male)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+five <- plm(log(life_expectancy90._Male)~lagged_old_out+lagged_activity_total+lagged_old_spend+lagged_pension_credits+lagged_total_pop+lagged_per_80+lagged_unemp, data=pdata, method = "within", effect = "twoways")
+
+
+onesum <- as.list(modelsummary(one, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+twosum <- as.list(modelsummary(two, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+threesum <- as.list(modelsummary(three, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+foursum <- as.list(modelsummary(four, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+fivesum <- as.list(modelsummary(five, output = "modelsummary_list", statistic = c("conf.int","p={p.value}")))
+
+
+
+onesum$tidy$p.value <- coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+onesum$tidy$std.error <- coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+onesum$tidy$conf.low <- onesum$tidy$estimate-(1.96*coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+onesum$tidy$conf.high <- onesum$tidy$estimate+(1.96*coef_test(one, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+onesum$tidy$estimate <- onesum$tidy$estimate
+
+twosum$tidy$p.value <- coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+twosum$tidy$std.error <- coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+twosum$tidy$conf.low <- twosum$tidy$estimate-(1.96*coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+twosum$tidy$conf.high <- twosum$tidy$estimate+(1.96*coef_test(two, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+twosum$tidy$estimate <- twosum$tidy$estimate
+
+threesum$tidy$p.value <- coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+threesum$tidy$std.error <- coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+threesum$tidy$conf.low <- threesum$tidy$estimate-(1.96*coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+threesum$tidy$conf.high <- threesum$tidy$estimate+(1.96*coef_test(three, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+threesum$tidy$estimate <- threesum$tidy$estimate
+
+foursum$tidy$p.value <- coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+foursum$tidy$std.error <- coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+foursum$tidy$conf.low <- foursum$tidy$estimate-(1.96*coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+foursum$tidy$conf.high <- foursum$tidy$estimate+(1.96*coef_test(four, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+foursum$tidy$estimate <- foursum$tidy$estimate
+
+fivesum$tidy$p.value <- coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$p
+fivesum$tidy$std.error <- coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE
+fivesum$tidy$conf.low <- fivesum$tidy$estimate-(1.96*coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+fivesum$tidy$conf.high <- fivesum$tidy$estimate+(1.96*coef_test(five, vcov = "CR2", cluster = pdata$DH_GEOGRAPHY_NAME, test = "Satterthwaite")$SE)
+fivesum$tidy$estimate <- fivesum$tidy$estimate
+
+cm <- c("lagged_old_out" = "Outsourced 65+ social care (%)",
+        "lagged_activity_total" = "Total residential care (hrs)",
+        "lagged_old_spend" = "Spend on 65+ social care (£000s)",
+        "lagged_pension_credits" = "Pension credit spend (£000s)",
+        "lagged_total_pop" = "Total population (n)", 
+        "lagged_per_80" = "Population over 80 (%)",
+        "lagged_unemp" = "Unemployment rate (%))")
+
+rows <- tribble(~term,          ~`Placements outside LA (%) [.95 ci]`,  ~`p-value`,~`Placements outside LA (%) [.95 ci]`,  ~`p-value`,  ~`Placements outside LA (%) [.95 ci]`,  ~`p-value`, ~`Placements unstable (%) [.95 ci]`,  ~`p-value`, ~`Placements unstable (%) [.95 ci]`,  ~`p-value`,  
+                'CCG Fixed Effects', 'Yes',  'Yes', 'Yes',  'Yes','Yes',  'Yes','Yes',  'Yes',  'Yes','Yes',
+                'Time Fixed Effects','Yes','Yes','Yes',  'Yes','Yes','Yes','Yes',  'Yes',  'Yes','Yes',
+                'Clustered Standard Errors', 'Yes','Yes', 'Yes',  'Yes','Yes','Yes','Yes',  'Yes','Yes','Yes')
+
+
+table <- modelsummary(list("Aged 70-74 [.95 ci]"=onesum,"p-value"=onesum,"Aged 75-79 [.95 ci]"=twosum,"p-value"=twosum,"Aged 80-85 [.95 ci]"=threesum,"p-value"=threesum, "Aged 85-90 (%) [.95 ci]" = foursum, "p-value" = foursum,"Aged 90+ [.95 ci]" = fivesum, "p-value" = fivesum),
+                      coef_omit = "Intercept|dept|year", add_rows = rows, coef_map = cm, title = "Male life expectancy",
+                      fmt = 4, estimate = c("{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value","{estimate} [{conf.low}, {conf.high}]", "p.value"), statistic = NULL,
+                      notes = list('Table reports results from multivariate longitudinal regression models.',
+                                   'Robust SEs are clustered at CCG level and use a bias-reduced linearization estimator (CR2)'),
+                      output = "gt") 
+
+
+
+
+
+
+
+
+
+# Required packages
+library(tidyverse)
+library(rlang)
+library(cowplot)
+library(ggplot2)
+
+# --- Helper to make one ribbon+median plot for a single variable ----
+make_le_plot <- function(df, var_name, title_text, y_limits = NULL) {
+  var_sym <- sym(var_name)
+  monthly_stats <- df %>%
+    group_by(year) %>%
+    summarise(
+      p10    = quantile( !!var_sym, 0.10, na.rm = TRUE),
+      median = median(  !!var_sym, na.rm = TRUE),
+      p90    = quantile( !!var_sym, 0.90, na.rm = TRUE),
+      .groups = "drop"
+    )
+  
+  p <- ggplot(monthly_stats, aes(x = year)) +
+    geom_ribbon(aes(ymin = p10, ymax = p90), fill = "grey80", alpha = 0.6) +
+    geom_line(aes(y = median), linewidth = 1.1, color = "grey20") +
+    labs(
+      title = title_text,
+      x = NULL,
+      y = "Life expectancy",
+      caption = "Source: ONS. Band = cross-LA distribution per month (10–90%)."
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(
+      plot.title = element_text(face = "bold", hjust = 0),
+      plot.caption = element_text(size = 8),
+      axis.title.x = element_blank()
+    )
+  
+  if (!is.null(y_limits)) {
+    p <- p + scale_y_continuous(limits = y_limits)
+  }
+  
+  p
+}
+
+# --- Age groups and corresponding column names in your data ---
+age_groups <- list(
+  list(short = "70-74", female = "life_expectancy70_to_74_Female", male = "life_expectancy70_to_74_Male"),
+  list(short = "75-79", female = "life_expectancy75_to_79_Female", male = "life_expectancy75_to_79_Male"),
+  list(short = "80-84", female = "life_expectancy80_to_84_Female", male = "life_expectancy80_to_84_Male"),
+  list(short = "85-89", female = "life_expectancy85_to_89_Female", male = "life_expectancy85_to_89_Male"),
+  list(short = "90+",   female = "life_expectancy90+_Female",    male = "life_expectancy90+_Male")
+)
+
+# --- Build plots in pairs (female left, male right) with matched y-limits per row ---
+plots <- list()
+for (age in age_groups) {
+  # compute combined monthly range across female+male for consistent y axis
+  f_sym <- sym(age$female)
+  m_sym <- sym(age$male)
+  
+  combined_stats <- data %>%
+    group_by(year) %>%
+    summarise(
+      f_p10 = quantile( !!f_sym, 0.10, na.rm = TRUE),
+      f_p90 = quantile( !!f_sym, 0.90, na.rm = TRUE),
+      m_p10 = quantile( !!m_sym, 0.10, na.rm = TRUE),
+      m_p90 = quantile( !!m_sym, 0.90, na.rm = TRUE),
+      .groups = "drop"
+    )
+  
+  # Derive sensible y-limits from the combined quantiles (ignore NA rows)
+  ymin <- min(c(combined_stats$f_p10, combined_stats$m_p10), na.rm = TRUE)
+  ymax <- max(c(combined_stats$f_p90, combined_stats$m_p90), na.rm = TRUE)
+  # small padding so ribbon doesn't clip
+  pad <- (ymax - ymin) * 0.03
+  y_limits <- if (is.finite(ymin) && is.finite(ymax)) c(ymin - pad, ymax + pad) else NULL
+  
+  # create the two plots
+  p_f <- make_le_plot(data, age$female, paste0(age$short, " — Female"), y_limits)
+  p_m <- make_le_plot(data, age$male,   paste0(age$short, " — Male"),   y_limits)
+  
+  # optional: strip x-axis text from upper rows for neatness (you can customize)
+  plots <- c(plots, list(p_f, p_m))
+}
+
+# --- Combine into 2-column grid: rows = age groups, left=Female, right=Male ---
+final_plot <- cowplot::plot_grid(plotlist = plots, ncol = 2, align = "v", axis = "lr")
+
+# Show the final plot
+print(final_plot)
+
+# --- Optional: save to file ---
+ggsave("life_expectancy_by_age_sex_grid.png", final_plot, width = 10, height = 12, dpi = 300)
+
+
+
+data$total_activity
+
+data$inhouse_activity
+
+# packages
+library(tidyverse)
+library(scales)    # for nice axis formatting
+
+# --- Defensive detection of inhouse format: fraction / percent / count ---
+# (adjust 'year' grouping if you want monthly or date-based aggregation)
+# Assumes: data$total_activity and data$inhouse_activity exist
+
+# 1) basic checks
+if (!("total_activity" %in% names(data)) || !("inhouse_activity" %in% names(data))) {
+  stop("data must contain columns: total_activity and inhouse_activity")
+}
+
+# 2) detect numeric range of inhouse_activity
+inh_max <- max(data$inhouse_activity, na.rm = TRUE)
+inh_min <- min(data$inhouse_activity, na.rm = TRUE)
+
+# 3) create canonical columns: total (count), inhouse_count, inhouse_pct (0-100)
+data2 <- data %>%
+  mutate(
+    total = as.numeric(total_activity),
+    # Decide what inhouse_activity likely represents:
+    # - if max <= 1  => fraction (0..1)
+    # - else if max <= 100 => percent (0..100)
+    # - else => assume it's already a count (absolute)
+    inhouse_count = case_when(
+      is.na(inhouse_activity) ~ NA_real_,
+      inh_max <= 1 ~ as.numeric(inhouse_activity) * total,             # fraction -> count
+      inh_max <= 100 ~ (as.numeric(inhouse_activity) / 100) * total,  # percent -> count
+      TRUE ~ as.numeric(inhouse_activity)                              # already count
+    )
+  ) %>%
+  mutate(
+    inhouse_pct = if_else(total > 0, inhouse_count / total * 100, NA_real_)
+  )
+
+# --- Aggregate by period (year used here; change to date/month if you prefer) ---
+monthly_totals <- data2 %>%
+  group_by(year) %>%                          # <-- change to group_by(date) if needed
+  summarise(
+    total = sum(total, na.rm = TRUE),
+    inhouse = sum(inhouse_count, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    outsourced = total - inhouse,
+    inhouse_pct = if_else(total > 0, inhouse / total * 100, NA_real_)
+  )
+
+# --- Long form for stacked area (in-house + outsourced) ---
+plot_long <- monthly_totals %>%
+  select(year, inhouse, outsourced) %>%
+  pivot_longer(cols = -year, names_to = "component", values_to = "value")
+
+# --- Secondary axis scaling: map 0-100% to 0-max_total so percent line sits correctly ---
+max_total <- max(monthly_totals$total, na.rm = TRUE)
+if (!is.finite(max_total) || max_total == 0) {
+  stop("No finite total activity values found for plotting.")
+}
+scale_factor <- max_total / 100   # multiply percent (0-100) by this to put on primary scale
+
+# --- Plot ---
+p_activity <- ggplot() +
+  geom_area(
+    data = plot_long,
+    aes(x = year, y = value, fill = component),
+    position = "stack",
+    alpha = 0.9
+  ) +
+  # overlay % in-house as a line (mapped to primary scale via scale_factor)
+  geom_line(
+    data = monthly_totals,
+    aes(x = year, y = inhouse_pct * scale_factor),
+    size = 1,
+    colour = "black",
+    linetype = "dashed"
+  ) +
+  # primary and secondary axis: primary = counts, secondary = percent (0-100)
+  scale_y_continuous(
+    name = "Activity (count)",
+    sec.axis = sec_axis(~ . / scale_factor, name = "In-house (%)", labels = function(x) paste0(round(x, 1), "%"))
+  ) +
+  scale_x_continuous(expand = expansion(mult = c(0.01, 0.01))) +
+  scale_fill_manual(
+    values = c(inhouse = "#2b8cbe", outsourced = "#bdbdbd"),
+    labels = c(inhouse = "In-house", outsourced = "Outsourced")
+  ) +
+  labs(
+    title = "Total residential care activity",
+    subtitle = "Stacked area = In-house + outsourced; dashed line = % delivered in-house",
+    x = NULL  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.title = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0),
+    plot.caption = element_text(size = 8),
+    axis.title.x = element_blank()
+  )+
+  coord_cartesian(xlim=c(2003,2022))
+
+# show
+print(p_activity)
+
+# optional: save
+ggsave("total_activity_inhouse_stack.png", p_activity, width = 10, height = 6, dpi = 300)
 
 
 
@@ -833,6 +1334,786 @@ closures_full <- all_combos %>%
                   str_trim())%>%
   dplyr::select(-ladnm)
 
+
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(curl)
+
+one <- rbind( read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2006.csv"), skip = 2) %>%
+  mutate(DH_GEOGRAPHY_NAME = trimws(paste(X, X.1, X.2))) %>%
+  select(-X, -X.1, -X.2) %>%
+  pivot_longer(
+    cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+    names_to = "month_year",
+    values_to = "deaths"
+  ) %>%
+  mutate(
+    date = my(month_year),                   # parse month-year like "Jan.06"
+    year = year(date),
+    month = month(date),
+    .keep = "unused"                         # drop month_year after parsing
+  ) %>%
+  select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+  dplyr::filter(DH_GEOGRAPHY_NAME!=""),
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2007.csv"), skip = 2) %>%
+    mutate(DH_GEOGRAPHY_NAME = trimws(paste(X, X.1, X.2))) %>%
+    select(-X, -X.1, -X.2) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!=""),
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2008.csv"), skip = 2) %>%
+    mutate(DH_GEOGRAPHY_NAME = trimws(paste(X, X.1, X.2))) %>%
+    select(-X, -X.1, -X.2) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!=""),
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2009.csv"), skip = 2) %>%
+    mutate(DH_GEOGRAPHY_NAME = trimws(paste(X, X.1, X.2))) %>%
+    select(-X, -X.1, -X.2) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!=""),
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2010.csv"), skip = 2) %>%
+    mutate(DH_GEOGRAPHY_NAME = trimws(paste(X, X.1, X.2))) %>%
+    select(-X, -X.1, -X.2) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!=""),
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2011.csv"), skip = 2) %>%
+    mutate(DH_GEOGRAPHY_NAME = trimws(paste(X, X.1, X.2))) %>%
+    select(-X, -X.1, -X.2) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="")
+  ,
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2012.csv"), skip = 3) %>%
+    mutate(DH_GEOGRAPHY_NAME = trimws(paste(Area.of.usual.residence, X, X.1))) %>%
+    select(-X, -X.1,-Area.of.usual.residence ) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="")
+  ,
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2013.csv"), skip = 3) %>%
+    mutate(DH_GEOGRAPHY_NAME = trimws(paste(Area.of.usual.residence, X, X.1))) %>%
+    select(-X, -X.1,-Area.of.usual.residence ) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="")  ,
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2014.csv"), skip = 3) %>%
+    mutate(DH_GEOGRAPHY_NAME = trimws(paste(Area.of.usual.residence, X, X.1))) %>%
+    select(-X, -X.1,-Area.of.usual.residence ) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="") ,
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2015.csv"), skip = 3) %>%
+    mutate(DH_GEOGRAPHY_NAME = X) %>%
+    select(-X, -Area.of.usual.residence ) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="")
+  ,
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2016.csv"), skip = 3) %>%
+    mutate(DH_GEOGRAPHY_NAME = X) %>%
+    select(-X, -Area.of.usual.residence ) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="")  ,
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2017.csv"), skip = 3) %>%
+    mutate(DH_GEOGRAPHY_NAME = X) %>%
+    select(-X, -Area.of.usual.residence ) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="")  ,
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2018.csv"), skip = 3) %>%
+    mutate(DH_GEOGRAPHY_NAME = X) %>%
+    select(-X, -Area.of.usual.residence ) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="")  ,
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2019.csv"), skip = 3) %>%
+    mutate(DH_GEOGRAPHY_NAME = X) %>%
+    select(-X, -Area.of.usual.residence ) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="")  ,
+  
+  
+  read.csv(curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2020.csv"), skip = 3) %>%
+    mutate(DH_GEOGRAPHY_NAME = X) %>%
+    select(-X, -Area.of.usual.residence ) %>%
+    pivot_longer(
+      cols = matches("^[A-Za-z]{3}\\.\\d{2}$"), # matches e.g. Jan.06, Feb.06
+      names_to = "month_year",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      date = my(month_year),                   # parse month-year like "Jan.06"
+      year = year(date),
+      month = month(date),
+      .keep = "unused"                         # drop month_year after parsing
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME)%>%
+    dplyr::filter(DH_GEOGRAPHY_NAME!="")  ,
+  
+  
+  read.csv( curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2021.csv"),skip = 4 ) %>%
+    mutate(DH_GEOGRAPHY_NAME = Geography) %>%
+    select(-Geography, -Code) %>%   # drop original geography and code
+    pivot_longer(
+      cols = January:December,      # select all month columns
+      names_to = "month_name",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      month = match(month_name, month.name),  # convert month name to number
+      year = 2021                             # assign the year manually
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME) ,
+  
+  read.csv( curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2022.csv"),skip = 4 ) %>%
+    mutate(DH_GEOGRAPHY_NAME = Geography) %>%
+    select(-Geography, -Code) %>%   # drop original geography and code
+    pivot_longer(
+      cols = January:December,      # select all month columns
+      names_to = "month_name",
+      values_to = "deaths"
+    ) %>%
+    mutate(
+      month = match(month_name, month.name),  # convert month name to number
+      year = 2022                             # assign the year manually
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME) ,
+  
+  read.csv( curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2023.csv"),skip = 4 ) %>%
+    mutate(
+      year = 2023,
+      month = match(Month, month.name),         # convert month name to number
+      deaths = Number.of.deaths, # remove commas and convert
+      DH_GEOGRAPHY_NAME = Geography
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME) ,
+  
+  read.csv( curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2024.csv"),skip = 4 ) %>%
+    mutate(
+      year = 2024,
+      month = match(Month, month.name),         # convert month name to number
+      deaths = Number.of.deaths, # remove commas and convert
+      DH_GEOGRAPHY_NAME = Geography
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME) ,
+  
+  read.csv( curl("https://raw.githubusercontent.com/BenGoodair/care_home_mortality/refs/heads/main/Data/monthly_deaths_ltla/la2025.csv"),skip = 4 ) %>%
+    mutate(
+      year = 2025,
+      month = match(Month, month.name),         # convert month name to number
+      deaths = Number.of.deaths, # remove commas and convert
+      DH_GEOGRAPHY_NAME = Geography
+    ) %>%
+    select(year, month, deaths, DH_GEOGRAPHY_NAME) 
+  
+ 
+  
+  
+
+)%>%
+  dplyr::mutate(deaths = as.numeric(gsub(",", "", deaths)),
+                DH_GEOGRAPHY_NAME  = DH_GEOGRAPHY_NAME %>%
+                  gsub('&', 'and', .) %>%
+                  gsub('[[:punct:] ]+', ' ', .) %>%
+                  gsub('[0-9]', '', .)%>%
+                  toupper() %>%
+                  gsub("CITY OF", "",.)%>%
+                  gsub("UA", "",.)%>%
+                  gsub("COUNTY OF", "",.)%>%
+                  gsub("ROYAL BOROUGH OF", "",.)%>%
+                  gsub("LEICESTER CITY", "LEICESTER",.)%>%
+                  gsub("UA", "",.)%>%
+                  gsub("DARWIN", "DARWEN", .)%>%
+                  gsub("COUNTY DURHAM", "DURHAM", .)%>%
+                  gsub("AND DARWEN", "WITH DARWEN", .)%>%
+                  gsub("NE SOM", "NORTH EAST SOM", .)%>%
+                  gsub("N E SOM", "NORTH EAST SOM", .)%>%
+                  str_trim()) 
+
+
+remove_names <- c(
+  "", "TOTAL REGISTRATIONS", "ENGLAND", "ENGLAND AND WALES",
+  "NORTH EAST", "NORTH WEST", "YORKSHIRE AND THE HUMBER",
+  "EAST MIDLANDS", "WEST MIDLANDS", "EAST", "LONDON",
+  "SOUTH EAST", "SOUTH WEST", "WALES",
+  "ENGLAND WALES AND ELSEWHERE NOTE",
+  "ENGLAND WALES AND NON RESIDENTS",
+  # NHS ICBs
+  "NHS BATH AND NORTH EAST SOMERSET SWINDON AND WILTSHIRE INTEGRATED CARE BOARD",
+  "NHS BEDFORDSHIRE LUTON AND MILTON KEYNES INTEGRATED CARE BOARD",
+  "NHS BIRMINGHAM AND SOLIHULL INTEGRATED CARE BOARD",
+  "NHS BLACK COUNTRY INTEGRATED CARE BOARD",
+  "NHS BRISTOL NORTH SOMERSET AND SOUTH GLOUCESTERSHIRE INTEGRATED CARE BOARD",
+  "NHS BUCKINGHAMSHIRE OXFORDSHIRE AND BERKSHIRE WEST INTEGRATED CARE BOARD",
+  "NHS CAMBRIDGESHIRE AND PETERBOROUGH INTEGRATED CARE BOARD",
+  "NHS CHESHIRE AND MERSEYSIDE INTEGRATED CARE BOARD",
+  "NHS CORNWALL AND THE ISLES OF SCILLY INTEGRATED CARE BOARD",
+  "NHS COVENTRY AND WARWICKSHIRE INTEGRATED CARE BOARD",
+  "NHS DERBY AND DERBYSHIRE INTEGRATED CARE BOARD",
+  "NHS DEVON INTEGRATED CARE BOARD",
+  "NHS DORSET INTEGRATED CARE BOARD",
+  "NHS FRIMLEY INTEGRATED CARE BOARD",
+  "NHS GLOUCESTERSHIRE INTEGRATED CARE BOARD",
+  "NHS GREATER MANCHESTER INTEGRATED CARE BOARD",
+  "NHS HAMPSHIRE AND ISLE OF WIGHT INTEGRATED CARE BOARD",
+  "NHS HEREFORDSHIRE AND WORCESTERSHIRE INTEGRATED CARE BOARD",
+  "NHS HERTFORDSHIRE AND WEST ESSEX INTEGRATED CARE BOARD",
+  "NHS HUMBER AND NORTH YORKSHIRE INTEGRATED CARE BOARD",
+  "NHS KENT AND MEDWAY INTEGRATED CARE BOARD",
+  "NHS LANCASHIRE AND SOUTH CUMBRIA INTEGRATED CARE BOARD",
+  "NHS LEICESTER LEICESTERSHIRE AND RUTLAND INTEGRATED CARE BOARD",
+  "NHS LINCOLNSHIRE INTEGRATED CARE BOARD",
+  "NHS MID AND SOUTH ESSEX INTEGRATED CARE BOARD",
+  "NHS NORFOLK AND WAVENEY INTEGRATED CARE BOARD",
+  "NHS NORTH CENTRAL LONDON INTEGRATED CARE BOARD",
+  "NHS NORTH EAST LONDON INTEGRATED CARE BOARD",
+  "NHS NORTH EAST AND NORTH CUMBRIA INTEGRATED CARE BOARD",
+  "NHS NORTH WEST LONDON INTEGRATED CARE BOARD",
+  "NHS NORTHAMPTONSHIRE INTEGRATED CARE BOARD",
+  "NHS NOTTINGHAM AND NOTTINGHAMSHIRE INTEGRATED CARE BOARD",
+  "NHS SHROPSHIRE TELFORD AND WREKIN INTEGRATED CARE BOARD",
+  "NHS SOMERSET INTEGRATED CARE BOARD",
+  "NHS SOUTH EAST LONDON INTEGRATED CARE BOARD",
+  "NHS SOUTH WEST LONDON INTEGRATED CARE BOARD",
+  "NHS SOUTH YORKSHIRE INTEGRATED CARE BOARD",
+  "NHS STAFFORDSHIRE AND STOKE ON TRENT INTEGRATED CARE BOARD",
+  "NHS SUFFOLK AND NORTH EAST ESSEX INTEGRATED CARE BOARD",
+  "NHS SURREY HEARTLANDS INTEGRATED CARE BOARD",
+  "NHS SUSSEX INTEGRATED CARE BOARD",
+  "NHS WEST YORKSHIRE INTEGRATED CARE BOARD",
+  # Wales health boards
+  "ANEURIN BEVAN UNIVERSITY HEALTH BOARD",
+  "BETSI CADWALADR UNIVERSITY HEALTH BOARD",
+  "CARDIFF AND VALE UNIVERSITY HEALTH BOARD",
+  "CWM TAF MORGANNWG UNIVERSITY HEALTH BOARD",
+  "HYWEL DDA UNIVERSITY HEALTH BOARD",
+  "POWYS TEACHING HEALTH BOARD",
+  "SWANSEA BAY UNIVERSITY HEALTH BOARD",
+  "ENGLAND WALES AND ELSEWHERE",
+  "OUTER LONDON",
+  "INNER LONDON",
+  "WEST MIDLANDS MET COUNTY",
+  "GREATER MANCHESTER MET COUNTY",
+  "WEST YORKSHIRE MET COUNTY",
+  "MERSEYSIDE MET COUNTY",
+  "TYNE AND WEAR MET COUNTY",
+  "SOUTH YORKSHIRE MET COUNTY"
+)
+
+one <- one %>%
+  filter(!DH_GEOGRAPHY_NAME %in% remove_names)%>%
+  dplyr::distinct(.keep_all = T)
+
+
+
+one <- one %>%
+  mutate(
+    year  = as.integer(year),
+    month = as.integer(month),
+    deaths = as.numeric(deaths),
+    date  = make_date(year, month, 1)
+  ) %>%
+  filter(date >= as.Date("2006-01-01"), date <= as.Date("2025-12-01"))
+
+
+analysis <- full_join(closures_full, one)
+
+head(analysis)
+
+df <- analysis %>%
+  rename(ltla = DH_GEOGRAPHY_NAME) %>%
+  arrange(ltla, year, month) %>%
+  mutate(
+    ym = year * 12 + month,
+    month_factor = factor(month),      # month FE (seasonality)
+    ltla = factor(ltla),
+    n_closures = as.numeric(n_closures)
+  )
+
+# optional: restrict to pre-COVID for the main specification
+df_pre2020 <- df %>% filter(ym <= (2019*12 + 12))
+
+df_lag <- df %>%
+  group_by(ltla) %>%
+  arrange(ym) %>%
+  mutate(n_closures_lag1 = dplyr::lag(n_closures, 1),
+         n_closures_lag2 = dplyr::lag(n_closures, 2),
+         n_closures_lag3 = dplyr::lag(n_closures, 3),
+         n_closures_lag4 = dplyr::lag(n_closures, 4),
+         n_closures_lag5 = dplyr::lag(n_closures, 5),
+         n_closures_lead1 = dplyr::lead(n_closures, 1),
+         n_closures_lead2 = dplyr::lead(n_closures, 2),
+         n_closures_lead3 = dplyr::lead(n_closures, 3),
+         n_closures_lead4 = dplyr::lead(n_closures, 4),
+         n_closures_lead5 = dplyr::lead(n_closures, 5)) %>%
+  ungroup()
+
+df_lag_pre2020 <- df_lag %>% filter(ym <= (2019*12 + 12))
+
+ols_fe_lag <- feols(log(deaths) ~ n_closures_lag1 | ltla + month_factor,
+                    data = df_lag_pre2020, cluster = "ltla")
+summary(ols_fe_lag)
+
+
+ols_fe_lag <- feols((deaths) ~ n_closures_lag1 | ltla + month_factor,
+                    data = df_lag_pre2020, cluster = "ltla")
+summary(ols_fe_lag)
+
+
+# Linear LTLA-specific time trends
+df_lag_pre2020 <- df_lag_pre2020 %>%
+  group_by(ltla) %>%
+  mutate(time_trend = row_number()) %>%  # or use ym - min(ym) + 1
+  ungroup()
+
+ols_fe_lag_trend <- feols(deaths ~ n_closures_lag1 + time_trend | ltla + month_factor,
+                          data = df_lag_pre2020, cluster = "ltla")
+
+summary(ols_fe_lag_trend)
+
+ols_year_fe <- feols(deaths ~ n_closures_lag1 | ltla + month_factor + year,
+                     data = df_lag_pre2020, cluster = "ltla")
+
+summary(ols_year_fe)
+
+
+
+# Check number of actual closure events
+table(df_lag_pre2020$n_closures_lag1)
+
+# Try longer lags
+feols(deaths ~ n_closures_lag1 + n_closures_lag2 + n_closures_lag3 + n_closures_lag4 + n_closures_lag5| ltla + month_factor + year, data = df_lag_pre2020, cluster = "ltla")
+
+# Check if effect varies by closure intensity
+# The error suggests a data type issue with the logical indicator
+df_lag_pre2020 <- df_lag_pre2020 %>%
+  mutate(multiple_closures = as.numeric(n_closures_lag1 >= 2))
+
+feols(deaths ~ multiple_closures | ltla + month_factor + year, 
+      data = df_lag_pre2020, cluster = "ltla")
+
+# Also check the actual distribution
+table(df_lag_pre2020$n_closures_lag1, useNA = "ifany")
+
+
+
+# Event study around closure events
+# Focus on LTLAs that actually experience closures
+closure_ltlas <- df_lag_pre2020 %>% 
+  group_by(ltla) %>% 
+  summarise(ever_closure = any(n_closures_lag1 > 0, na.rm = TRUE)) %>%
+  filter(ever_closure) %>% 
+  pull(ltla)
+
+# Restrict to areas with closure variation
+df_closure_sample <- df_lag_pre2020 %>% 
+  filter(ltla %in% closure_ltlas)
+
+# Try Poisson regression for count data
+library(fixest)
+poisson_model <- fepois(deaths ~ n_closures | ltla + month_factor + year,
+                        data = df_lag_pre2020, cluster = "ltla")
+
+
+summary(poisson_model)
+
+
+
+
+
+
+# 1. Simple scatter plot: deaths vs closures
+ggplot(df_lag_pre2020, aes(x = n_closures_lag1, y = deaths)) +
+  geom_point(alpha = 0.3, size = 0.8) +
+  geom_smooth(method = "lm", se = TRUE, color = "red") +
+  labs(
+    title = "Deaths vs Lagged Care Home Closures",
+    subtitle = "Raw correlation across all LTLA-months",
+    x = "Number of closures (t-1)", 
+    y = "Number of deaths (t)"
+  ) +
+  theme_minimal()
+
+
+
+
+
+
+# 2. Box plot by closure categories
+df_lag_pre2020 %>%
+  mutate(closure_cat = case_when(
+    n_closures_lag1 == 0 ~ "0 closures",
+    n_closures_lag1 == 1 ~ "1 closure", 
+    n_closures_lag1 >= 2 ~ "2+ closures"
+  )) %>%
+  filter(!is.na(closure_cat)) %>%
+  ggplot(aes(x = closure_cat, y = deaths)) +
+  geom_boxplot(alpha = 0.7, fill = "lightblue") +
+  stat_summary(fun = mean, geom = "point", color = "red", size = 3) +
+  labs(
+    title = "Distribution of Deaths by Closure Categories",
+    subtitle = "Red dots show means",
+    x = "Closure category (t-1)",
+    y = "Number of deaths (t)"
+  ) +
+  theme_minimal()
+
+
+
+# 4. Time series plot for a few example LTLAs with closures
+# First identify LTLAs with some closure variation
+example_ltlas <- df_lag_pre2020 %>%
+  group_by(ltla) %>%
+  summarise(
+    total_closures = sum(n_closures_lag1, na.rm = TRUE),
+    max_closures = max(n_closures_lag1, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  filter(total_closures >= 5, max_closures >= 2) %>%
+  slice_head(n = 30) %>%  # Take first 6 examples
+  pull(ltla)
+
+df_lag_pre2020 %>%
+  filter(ltla %in% example_ltlas) %>%
+  mutate(date = as.Date(paste(year, month, 1, sep = "-"))) %>%
+  ggplot(aes(x = date)) +
+  geom_line(aes(y = deaths), color = "black", alpha = 0.7) +
+  geom_point(aes(y = deaths, size = n_closures_lag1), 
+             color = "red", alpha = 0.8) +
+  facet_wrap(~ltla, scales = "free_y", ncol = 2) +
+  scale_size_continuous(name = "Closures\n(t-1)", range = c(0, 4)) +
+  labs(
+    title = "Deaths Over Time with Closure Events Highlighted",
+    subtitle = "Red dots sized by number of closures in previous month",
+    x = "Date", 
+    y = "Deaths"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ---- Compute LA-variation per month (national spread across LAs) ----
+monthly_stats <- one %>%
+  group_by(date) %>%
+  summarise(
+    p10    = quantile(deaths, 0.10, na.rm = TRUE),
+    median = median(deaths, na.rm = TRUE),
+    p90    = quantile(deaths, 0.90, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# ---- Pick a small set of LAs to lightly overlay (optional) ----
+# Here: the 5 LAs with highest total deaths across the period.
+highlight_LAs <- one %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  summarise(total = sum(deaths, na.rm = TRUE), .groups = "drop") %>%
+  slice_max(total, n = 5, with_ties = FALSE) %>%
+  pull(DH_GEOGRAPHY_NAME)
+
+overlay <- one %>%
+  filter(DH_GEOGRAPHY_NAME %in% highlight_LAs)
+
+# ---- Lancet-style plot ----
+# Notes:
+# - greys for the national band/line (focus)
+# - thin, semi-transparent lines for selected LAs to show variation without clutter
+# - no chartjunk, generous margins, readable ticks
+
+p <- ggplot() +
+  # LA variation band
+  geom_ribbon(
+    data = monthly_stats,
+    aes(x = date, ymin = p10, ymax = p90),
+    fill = "grey80", alpha = 0.6
+  ) +
+  # National median
+  geom_line(
+    data = monthly_stats,
+    aes(x = date, y = median),
+    linewidth = 1.1, color = "grey20"
+  ) +
+  
+  # Labels
+  labs(
+    title = "Monthly deaths by local authority, England & Wales (2006–2025)",
+    subtitle = "National median with 10th–90th percentile band across local authorities",
+    x = NULL,
+    y = "Deaths per month",
+    caption = "Source: ONS. Band = cross-LA distribution per month (10–90%)."
+  ) +
+  # Axes, scales
+  scale_x_date(
+    breaks = pretty_breaks(n = 10),
+    labels = \(d) format(d, "%Y")
+  ) +
+  # Theme tuned for print (Lancet-esque)
+  theme_minimal(base_size = 12) 
+
+
+
+closures_full <- closures_full %>%
+  mutate(
+    year  = as.integer(year),
+    month = as.integer(month),
+    n_closures = as.numeric(n_closures),
+    date  = make_date(year, month, 1)
+  ) %>%
+  filter(date >= as.Date("2006-01-01"), date <= as.Date("2025-12-01"))
+
+
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+# ---- Compute LA-variation per month (mean ± SE across LAs) ----
+monthly_stats <- closures_full %>%
+  group_by(date) %>%
+  summarise(
+    mean = mean(n_closures, na.rm = TRUE),
+    se   = sd(n_closures, na.rm = TRUE) / sqrt(sum(!is.na(n_closures))),
+    .groups = "drop"
+  )
+
+# ---- Pick a small set of LAs to lightly overlay (optional) ----
+highlight_LAs <- closures_full %>%
+  group_by(DH_GEOGRAPHY_NAME) %>%
+  summarise(total = sum(deaths, na.rm = TRUE), .groups = "drop") %>%
+  slice_max(total, n = 5, with_ties = FALSE) %>%
+  pull(DH_GEOGRAPHY_NAME)
+
+overlay <- closures_full %>%
+  filter(DH_GEOGRAPHY_NAME %in% highlight_LAs)
+
+# ---- Lancet-style plot ----
+p <- ggplot() +
+  # Mean ± SE ribbon
+  geom_ribbon(
+    data = monthly_stats,
+    aes(x = date, ymin = mean - se, ymax = mean + se),
+    fill = "grey80", alpha = 0.6
+  ) +
+  # Mean line
+  geom_line(
+    data = monthly_stats,
+    aes(x = date, y = mean),
+    linewidth = 1.1, color = "grey20"
+  ) +
+  labs(
+    title = "Monthly care home closures by local authority",
+    subtitle = "National mean with ±1 SE band across local authorities",
+    x = NULL,
+    y = "closures per month",
+    caption = "Source: CQC Band = mean ± standard error per month across LAs."
+  ) +
+  scale_x_date(
+    breaks = pretty_breaks(n = 10),
+    labels = \(d) format(d, "%Y")
+  ) +
+  theme_minimal(base_size = 12)
+
+
+p
+
+
+
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+monthly_totals <- closures_full %>%
+  group_by(date) %>%
+  summarise(total_closures = sum(n_closures, na.rm = TRUE), .groups = "drop")
+
+ggplot(monthly_totals, aes(x = date, y = total_closures)) +
+  geom_line(linewidth = 1.1, color = "grey20") +
+  labs(
+    title = "Total monthly closures, England (2011–2025)",
+    x = NULL,
+    y = "Total closures",
+    caption = "Source: ONS."
+  ) +
+  scale_x_date(
+    breaks = pretty_breaks(n = 10),
+    labels = \(d) format(d, "%Y")
+  ) +
+  theme_minimal(base_size = 12)
 
 
 
